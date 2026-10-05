@@ -243,8 +243,8 @@ import timber.log.Timber
 val EmphasizedEasing = CubicBezierEasing(0.2f, 0.0f, 0.0f, 1.0f)
 
 @Suppress("DEPRECATION", "ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
-/** Where the "Buy me a coffee" link under the app title goes. Swap in your own page if you like. */
-private const val SupportCoffeeUrl = "https://buymeacoffee.com/iad1tya"
+/** Where the "Buy me a Ko-fi" link under the app title goes. */
+private const val SupportCoffeeUrl = "https://ko-fi.com/128bit"
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -1291,7 +1291,7 @@ class MainActivity : ComponentActivity() {
                               modifier = Modifier.size(14.dp)
                             )
                             Text(
-                              text = "Buy me a coffee",
+                              text = "Buy me a Ko-fi",
                               style = MaterialTheme.typography.labelSmall,
                               color = MaterialTheme.colorScheme.secondary
                             )

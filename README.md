@@ -1,6 +1,6 @@
 # 128bit Music
 
-<img src="assets/logo-discman.png" alt="128bit Music logo: a pixel-art Discman" width="96">
+<img src="assets/logo.png" alt="128bit Music logo: a pixel-art cassette player" width="240">
 
 Your listening, gamified. Spotify + Apple Music stats, streaks, playlist
 quests, and discovery — with XP flowing into 128bitlife.
