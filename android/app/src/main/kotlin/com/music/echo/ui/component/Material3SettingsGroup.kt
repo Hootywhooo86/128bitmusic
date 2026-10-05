@@ -1,5 +1,7 @@
 package echo.music.iad1tya.ui.component
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.ScrollState
@@ -62,22 +64,22 @@ fun Material3SettingsGroup(
       items.forEachIndexed { index, item ->
         val shape =
           when {
-            items.size == 1 -> RoundedCornerShape(24.dp)
+            items.size == 1 -> PixelCornerShape(24.dp)
             index == 0 ->
-              RoundedCornerShape(
+              PixelCornerShape(
                 topStart = 24.dp,
                 topEnd = 24.dp,
                 bottomStart = 4.dp,
                 bottomEnd = 4.dp
               )
             index == items.size - 1 ->
-              RoundedCornerShape(
+              PixelCornerShape(
                 topStart = 4.dp,
                 topEnd = 4.dp,
                 bottomStart = 24.dp,
                 bottomEnd = 24.dp
               )
-            else -> RoundedCornerShape(4.dp)
+            else -> PixelCornerShape(4.dp)
           }
 
         Card(
@@ -125,7 +127,7 @@ private fun Material3SettingsItemRow(
       Box(
         modifier =
           Modifier.size(if (compact) 34.dp else 40.dp)
-            .clip(item.iconShape ?: RoundedCornerShape(12.dp)),
+            .clip(item.iconShape ?: PixelCornerShape(12.dp)),
         contentAlignment = Alignment.Center
       ) {
         item.customIcon.invoke()
@@ -136,7 +138,7 @@ private fun Material3SettingsItemRow(
         Box(
           modifier =
             Modifier.size(if (compact) 34.dp else 40.dp)
-              .clip(item.iconShape ?: RoundedCornerShape(12.dp)),
+              .clip(item.iconShape ?: PixelCornerShape(12.dp)),
           contentAlignment = Alignment.Center
         ) {
           if (item.showBadge) {

@@ -1,5 +1,8 @@
 package echo.music.iad1tya.ui.component
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+import echo.music.iad1tya.ui.theme.PixelCircleShape
+
 import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animate
@@ -173,7 +176,7 @@ inline fun ListItem(
               .align(Alignment.Center)
               .background(
                 Color.Black.copy(alpha = 0.25f),
-                RoundedCornerShape(ThumbnailCornerRadius)
+                PixelCornerShape(ThumbnailCornerRadius)
               )
         ) {
           Icon(
@@ -431,7 +434,7 @@ fun SongListItem(
           isSelected = isSelected,
           isActive = isActive,
           isPlaying = isPlaying,
-          shape = RoundedCornerShape(ThumbnailCornerRadius),
+          shape = PixelCornerShape(ThumbnailCornerRadius),
           modifier = Modifier.size(ListThumbnailSize)
         )
       },
@@ -508,7 +511,7 @@ fun SongGridItem(
         thumbnailUrl = song.thumbnailUrl,
         isActive = isActive,
         isPlaying = isPlaying,
-        shape = RoundedCornerShape(ThumbnailCornerRadius),
+        shape = PixelCornerShape(ThumbnailCornerRadius),
         modifier = Modifier.size(gridHeight)
       )
       if (!isActive) {
@@ -551,7 +554,7 @@ fun ArtistListItem(
             .networkCachePolicy(coil3.request.CachePolicy.ENABLED)
             .build(),
         contentDescription = null,
-        modifier = Modifier.size(ListThumbnailSize).clip(RoundedCornerShape(ThumbnailCornerRadius)),
+        modifier = Modifier.size(ListThumbnailSize).clip(PixelCornerShape(ThumbnailCornerRadius)),
       )
     },
     trailingContent = trailingContent,
@@ -587,7 +590,7 @@ fun ArtistGridItem(
             .build(),
         contentDescription = null,
         contentScale = ContentScale.Crop,
-        modifier = Modifier.fillMaxSize().clip(RoundedCornerShape(ThumbnailCornerRadius))
+        modifier = Modifier.fillMaxSize().clip(PixelCornerShape(ThumbnailCornerRadius))
       )
     },
     fillMaxWidth = fillMaxWidth,
@@ -654,7 +657,7 @@ fun AlbumListItem(
         thumbnailUrl = album.album.thumbnailUrl,
         isActive = isActive,
         isPlaying = isPlaying,
-        shape = RoundedCornerShape(ThumbnailCornerRadius),
+        shape = PixelCornerShape(ThumbnailCornerRadius),
         modifier = Modifier.size(ListThumbnailSize)
       )
     },
@@ -739,7 +742,7 @@ fun AlbumGridItem(
         thumbnailUrl = album.album.thumbnailUrl,
         isActive = isActive,
         isPlaying = isPlaying,
-        shape = RoundedCornerShape(ThumbnailCornerRadius),
+        shape = PixelCornerShape(ThumbnailCornerRadius),
       )
 
       AlbumPlayButton(
@@ -839,7 +842,7 @@ fun PlaylistListItem(
             modifier = Modifier.size(ListThumbnailSize / 2)
           )
         },
-        shape = RoundedCornerShape(ThumbnailCornerRadius)
+        shape = PixelCornerShape(ThumbnailCornerRadius)
       )
     },
     trailingContent = trailingContent,
@@ -950,7 +953,7 @@ fun PlaylistGridItem(
             )
           }
         },
-        shape = RoundedCornerShape(ThumbnailCornerRadius)
+        shape = PixelCornerShape(ThumbnailCornerRadius)
       )
     },
     fillMaxWidth = fillMaxWidth,
@@ -996,7 +999,7 @@ fun MediaMetadataListItem(
         isSelected = isSelected,
         isActive = isActive,
         isPlaying = isPlaying,
-        shape = RoundedCornerShape(ThumbnailCornerRadius),
+        shape = PixelCornerShape(ThumbnailCornerRadius),
         modifier = Modifier.size(ListThumbnailSize)
       )
     },
@@ -1073,7 +1076,7 @@ fun YouTubeListItem(
           isSelected = isSelected,
           isActive = isActive,
           isPlaying = isPlaying,
-          shape = RoundedCornerShape(ThumbnailCornerRadius),
+          shape = PixelCornerShape(ThumbnailCornerRadius),
           modifier = Modifier.size(ListThumbnailSize)
         )
       },
@@ -1178,7 +1181,7 @@ fun YouTubeGridItem(
         thumbnailUrl = item.thumbnail,
         isActive = isActive,
         isPlaying = isPlaying,
-        shape = RoundedCornerShape(ThumbnailCornerRadius),
+        shape = PixelCornerShape(ThumbnailCornerRadius),
         forceCrop = forceCrop
       )
 
@@ -1232,7 +1235,7 @@ fun LocalSongsGrid(
         thumbnailUrl = thumbnailUrl,
         isActive = isActive,
         isPlaying = isPlaying,
-        shape = RoundedCornerShape(ThumbnailCornerRadius),
+        shape = PixelCornerShape(ThumbnailCornerRadius),
         modifier = if (fillMaxWidth) Modifier.fillMaxWidth() else Modifier,
         showCenterPlay = true,
         playButtonVisible = false,
@@ -1264,7 +1267,7 @@ fun LocalArtistsGrid(
         thumbnailUrl = thumbnailUrl,
         isActive = false,
         isPlaying = false,
-        shape = RoundedCornerShape(ThumbnailCornerRadius),
+        shape = PixelCornerShape(ThumbnailCornerRadius),
         modifier = if (fillMaxWidth) Modifier.fillMaxWidth() else Modifier,
         showCenterPlay = false,
         playButtonVisible = false,
@@ -1296,7 +1299,7 @@ fun LocalAlbumsGrid(
         thumbnailUrl = thumbnailUrl,
         isActive = isActive,
         isPlaying = isPlaying,
-        shape = RoundedCornerShape(ThumbnailCornerRadius),
+        shape = PixelCornerShape(ThumbnailCornerRadius),
         modifier = if (fillMaxWidth) Modifier.fillMaxWidth() else Modifier,
         showCenterPlay = false,
         playButtonVisible = true,
@@ -1434,7 +1437,7 @@ fun LocalThumbnail(
         Box(
           contentAlignment = Alignment.Center,
           modifier =
-            Modifier.size(36.dp).clip(CircleShape).background(Color.Black.copy(alpha = 0.6f))
+            Modifier.size(36.dp).clip(PixelCircleShape).background(Color.Black.copy(alpha = 0.6f))
         ) {
           Icon(
             painter = painterResource(R.drawable.play),
@@ -1456,7 +1459,7 @@ fun LocalThumbnail(
           contentAlignment = Alignment.Center,
           modifier =
             Modifier.size(36.dp)
-              .clip(CircleShape)
+              .clip(PixelCircleShape)
               .background(Color.Black.copy(alpha = ActiveBoxAlpha))
         ) {
           Icon(
@@ -1540,7 +1543,7 @@ fun BoxScope.OverlayPlayButton(visible: Boolean) {
     Box(
       contentAlignment = Alignment.Center,
       modifier =
-        Modifier.size(36.dp).clip(CircleShape).background(Color.Black.copy(alpha = ActiveBoxAlpha))
+        Modifier.size(36.dp).clip(PixelCircleShape).background(Color.Black.copy(alpha = ActiveBoxAlpha))
     ) {
       Icon(
         painter = painterResource(R.drawable.play),
@@ -1570,7 +1573,7 @@ fun BoxScope.OverlayEditButton(
       contentAlignment = Alignment.Center,
       modifier =
         Modifier.size(36.dp)
-          .clip(CircleShape)
+          .clip(PixelCircleShape)
           .background(Color.Black.copy(alpha = ActiveBoxAlpha))
           .padding(0.dp)
           .clickable(onClick = onClick)
@@ -1600,7 +1603,7 @@ fun BoxScope.AlbumPlayButton(
       contentAlignment = Alignment.Center,
       modifier =
         Modifier.size(36.dp)
-          .clip(CircleShape)
+          .clip(PixelCircleShape)
           .background(Color.Black.copy(alpha = ActiveBoxAlpha))
           .clickable(onClick = onClick)
     ) {

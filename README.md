@@ -6,13 +6,19 @@ Part of the 128bit family.
 
 > Product direction is Daniel's call — this README is a starter brief so
 > Carlos (Claude Code) has something concrete to react to. The landing page
-> is live; the app itself is unstarted.
+> is live. The Android app (below) started as a pixel-art fork of Echo Music.
 
-## Echo Music × 128bit
+## The Android app (`android/`)
 
-Plan for giving our friends' Echo Music app (Android, YouTube Music based) a
-pixel skin and an XP/streak game layer: [`PIXELFY.md`](PIXELFY.md). Clickable
-mockup: [`mockups/echo-128bit.html`](mockups/echo-128bit.html).
+`android/` is **128bit Music for Android**, a pixel-art version of our friends' app
+[Echo Music](https://github.com/EchoMusicApp/Echo-Music). It keeps YouTube Music sign-in,
+streaming, downloads, playlists and lyrics, and real cover art, and adds 128bit palettes,
+pixel corners, pixel fonts, a block seek bar and a pixelated player background. Echo's code
+is GPL-3.0, so `android/` is GPL-3.0 too.
+
+- What changed and how to build: [`android/128BIT.md`](android/128BIT.md)
+- Get the APK: **Actions** tab → latest "Build 128bit Music APK" run → download the artifact
+- Original plan and mockup: [`PIXELFY.md`](PIXELFY.md), [`mockups/echo-128bit.html`](mockups/echo-128bit.html)
 
 ## Provider API status (researched 2026-10-04)
 

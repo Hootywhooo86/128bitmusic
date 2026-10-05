@@ -1,5 +1,8 @@
 package echo.music.iad1tya.ui.screens.artist
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+import echo.music.iad1tya.ui.theme.PixelCircleShape
+
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
@@ -250,7 +253,7 @@ fun ArtistScreen(
                     modifier =
                       Modifier.size(52.dp)
                         .shimmer()
-                        .background(MaterialTheme.colorScheme.onSurface, RoundedCornerShape(26.dp))
+                        .background(MaterialTheme.colorScheme.onSurface, PixelCornerShape(26.dp))
                   )
                 }
               }
@@ -394,7 +397,7 @@ fun ArtistScreen(
                         Row(
                           verticalAlignment = Alignment.CenterVertically,
                           modifier =
-                            Modifier.clip(RoundedCornerShape(12.dp))
+                            Modifier.clip(PixelCornerShape(12.dp))
                               .background(MaterialTheme.colorScheme.secondaryContainer)
                               .padding(horizontal = 12.dp, vertical = 6.dp)
                         ) {
@@ -425,7 +428,7 @@ fun ArtistScreen(
                         Row(
                           verticalAlignment = Alignment.CenterVertically,
                           modifier =
-                            Modifier.clip(RoundedCornerShape(12.dp))
+                            Modifier.clip(PixelCornerShape(12.dp))
                               .background(MaterialTheme.colorScheme.tertiaryContainer)
                               .padding(horizontal = 12.dp, vertical = 6.dp)
                         ) {
@@ -1093,7 +1096,7 @@ fun ArtistScreen(
         modifier =
           Modifier.background(
             androidx.compose.material3.MaterialTheme.colorScheme.surface.copy(alpha = 0.6f),
-            CircleShape
+            PixelCircleShape
           )
       ) {
         Icon(
@@ -1107,7 +1110,7 @@ fun ArtistScreen(
         modifier =
           Modifier.background(
             androidx.compose.material3.MaterialTheme.colorScheme.surface.copy(alpha = 0.6f),
-            CircleShape
+            PixelCircleShape
           ),
         onClick = {
           viewModel.artistPage?.artist?.shareLink?.let { link ->

@@ -1,5 +1,7 @@
 package echo.music.iad1tya.ui.screens.settings
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -64,22 +66,22 @@ fun BlockedArtistsScreen(navController: NavController) {
 
           val shape =
             when {
-              blockedArtists.size == 1 -> RoundedCornerShape(24.dp)
+              blockedArtists.size == 1 -> PixelCornerShape(24.dp)
               index == 0 ->
-                RoundedCornerShape(
+                PixelCornerShape(
                   topStart = 24.dp,
                   topEnd = 24.dp,
                   bottomStart = 4.dp,
                   bottomEnd = 4.dp
                 )
               index == blockedArtists.size - 1 ->
-                RoundedCornerShape(
+                PixelCornerShape(
                   topStart = 4.dp,
                   topEnd = 4.dp,
                   bottomStart = 24.dp,
                   bottomEnd = 24.dp
                 )
-              else -> RoundedCornerShape(4.dp)
+              else -> PixelCornerShape(4.dp)
             }
 
           Card(

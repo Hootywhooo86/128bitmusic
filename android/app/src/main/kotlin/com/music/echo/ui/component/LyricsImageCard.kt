@@ -1,5 +1,7 @@
 package echo.music.iad1tya.ui.component
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -238,7 +240,7 @@ fun LyricsImageCard(
       }
     }
 
-    Box(modifier = Modifier.fillMaxSize().clip(RoundedCornerShape(cardCornerRadius))) {
+    Box(modifier = Modifier.fillMaxSize().clip(PixelCornerShape(cardCornerRadius))) {
       when (backgroundStyle) {
         LyricsBackgroundStyle.SOLID -> {
           Box(modifier = Modifier.fillMaxSize().background(backgroundSolidColor))
@@ -269,7 +271,7 @@ fun LyricsImageCard(
       Box(
         modifier =
           Modifier.fillMaxSize()
-            .border(1.dp, mainTextColor.copy(alpha = 0.09f), RoundedCornerShape(cardCornerRadius))
+            .border(1.dp, mainTextColor.copy(alpha = 0.09f), PixelCornerShape(cardCornerRadius))
       )
 
       Column(
@@ -286,8 +288,8 @@ fun LyricsImageCard(
             contentScale = ContentScale.Crop,
             modifier =
               Modifier.size(coverArtSize)
-                .clip(RoundedCornerShape(3.dp))
-                .border(1.dp, mainTextColor.copy(alpha = 0.16f), RoundedCornerShape(3.dp))
+                .clip(PixelCornerShape(3.dp))
+                .border(1.dp, mainTextColor.copy(alpha = 0.16f), PixelCornerShape(3.dp))
           )
           Spacer(modifier = Modifier.width(16.dp))
           Column(

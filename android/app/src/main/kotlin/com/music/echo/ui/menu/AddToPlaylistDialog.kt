@@ -1,5 +1,7 @@
 package echo.music.iad1tya.ui.menu
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -144,7 +146,7 @@ fun AddToPlaylistDialog(
               }
             },
             singleLine = true,
-            shape = RoundedCornerShape(24.dp),
+            shape = PixelCornerShape(24.dp),
             colors =
               OutlinedTextFieldDefaults.colors(
                 focusedBorderColor = MaterialTheme.colorScheme.primary,

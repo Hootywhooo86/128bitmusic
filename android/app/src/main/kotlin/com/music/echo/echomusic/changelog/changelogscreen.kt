@@ -1,5 +1,8 @@
 package echo.music.iad1tya.echomusic.changelog
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+import echo.music.iad1tya.ui.theme.PixelCircleShape
+
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -377,7 +380,7 @@ fun ChangelogScreen(
                   if (showingCached) {
                     Surface(
                       color = MaterialTheme.colorScheme.primaryContainer,
-                      shape = RoundedCornerShape(8.dp)
+                      shape = PixelCornerShape(8.dp)
                     ) {
                       Text(
                         stringResource(R.string.cached),
@@ -393,7 +396,7 @@ fun ChangelogScreen(
                   AsyncImage(
                     model = imageUrl,
                     contentDescription = null,
-                    modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(12.dp)),
+                    modifier = Modifier.fillMaxWidth().clip(PixelCornerShape(12.dp)),
                     contentScale = ContentScale.FillWidth
                   )
                 }
@@ -429,7 +432,7 @@ fun ChangelogScreen(
                           modifier =
                             Modifier.padding(top = 8.dp)
                               .size(6.dp)
-                              .background(MaterialTheme.colorScheme.primary, CircleShape)
+                              .background(MaterialTheme.colorScheme.primary, PixelCircleShape)
                         )
                         ClickableText(
                           text = annotatedText,
@@ -459,7 +462,7 @@ fun ChangelogScreen(
                   Spacer(Modifier.height(24.dp))
                   Surface(
                     color = MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.2f),
-                    shape = RoundedCornerShape(12.dp)
+                    shape = PixelCornerShape(12.dp)
                   ) {
                     Row(
                       modifier = Modifier.padding(16.dp),

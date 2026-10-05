@@ -1,5 +1,7 @@
 package echo.music.iad1tya.ui.screens.settings.integrations
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -517,7 +519,7 @@ private fun ServerChooserDialog(
         val isSelected = server.url == currentUrl
         Card(
           modifier = Modifier.fillMaxWidth().clickable { onSelect(server) },
-          shape = RoundedCornerShape(16.dp),
+          shape = PixelCornerShape(16.dp),
           colors =
             CardDefaults.cardColors(
               containerColor =
@@ -581,7 +583,7 @@ private fun ServerChooserDialog(
         onClick = { onUseCustom(trimmedCustomUrl) },
         enabled = trimmedCustomUrl.isNotBlank(),
         modifier = Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(12.dp)
+        shape = PixelCornerShape(12.dp)
       ) {
         Text(stringResource(R.string.listen_together_use_custom_server))
       }
@@ -603,7 +605,7 @@ fun LogEntryItem(log: LogEntry) {
       )
       Spacer(modifier = Modifier.width(8.dp))
       Surface(
-        shape = RoundedCornerShape(8.dp),
+        shape = PixelCornerShape(8.dp),
         color =
           when (log.level) {
             LogLevel.ERROR -> MaterialTheme.colorScheme.errorContainer
@@ -678,7 +680,7 @@ fun BlockedUsersDialog(
               verticalAlignment = Alignment.CenterVertically,
               modifier =
                 Modifier.fillMaxWidth()
-                  .clip(RoundedCornerShape(12.dp))
+                  .clip(PixelCornerShape(12.dp))
                   .background(MaterialTheme.colorScheme.surfaceVariant)
                   .padding(12.dp),
               horizontalArrangement = Arrangement.SpaceBetween

@@ -1,5 +1,7 @@
 package echo.music.iad1tya.ui.component
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -64,7 +66,7 @@ fun ThumbnailCornerRadiusModal(
 
       Surface(
         modifier =
-          Modifier.fillMaxWidth(dialogWidth).wrapContentHeight().clip(RoundedCornerShape(30.dp)),
+          Modifier.fillMaxWidth(dialogWidth).wrapContentHeight().clip(PixelCornerShape(30.dp)),
         shape = MaterialTheme.shapes.large,
         color = MaterialTheme.colorScheme.surface,
         tonalElevation = 6.dp
@@ -83,12 +85,12 @@ fun ThumbnailCornerRadiusModal(
             Box(
               modifier =
                 Modifier.size(160.dp)
-                  .clip(RoundedCornerShape(thumbnailCornerRadius.dp))
+                  .clip(PixelCornerShape(thumbnailCornerRadius.dp))
                   .background(MaterialTheme.colorScheme.surface)
                   .border(
                     width = 1.dp,
                     color = MaterialTheme.colorScheme.outline.copy(alpha = 0.5f),
-                    shape = RoundedCornerShape(thumbnailCornerRadius.dp)
+                    shape = PixelCornerShape(thumbnailCornerRadius.dp)
                   ),
               contentAlignment = Alignment.Center
             ) {
@@ -102,7 +104,7 @@ fun ThumbnailCornerRadiusModal(
                 modifier =
                   Modifier.align(Alignment.BottomCenter)
                     .fillMaxWidth()
-                    .clip(RoundedCornerShape(10.dp))
+                    .clip(PixelCornerShape(10.dp))
                     .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.7f))
                     .padding(vertical = 8.dp),
                 contentAlignment = Alignment.Center

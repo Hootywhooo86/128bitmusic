@@ -1,5 +1,7 @@
 package echo.music.iad1tya.ui.component
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -73,7 +75,7 @@ fun NavigationTitle(
     onPlayAllClick?.let { playAllClick ->
       OutlinedButton(
         onClick = playAllClick,
-        shape = RoundedCornerShape(12.dp),
+        shape = PixelCornerShape(12.dp),
         border = BorderStroke(1.dp, MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)),
         colors =
           ButtonDefaults.outlinedButtonColors(

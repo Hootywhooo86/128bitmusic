@@ -16,6 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.palette.graphics.Palette
@@ -37,13 +38,21 @@ fun echomusicTheme(
   content: @Composable () -> Unit,
 ) {
   val context = LocalContext.current
-  val selectedFontValue by rememberPreference(SelectedFontKey, AppFont.SYSTEM.value)
+  val selectedFontValue by rememberPreference(SelectedFontKey, AppFont.PIXEL.value)
+  val pixelPaletteValue by rememberPreference(PixelPaletteKey, PixelPalette.CLASSIC.name)
+  val pixelPalette =
+    remember(pixelPaletteValue) {
+      PixelPalette.entries.find { it.name == pixelPaletteValue } ?: PixelPalette.CLASSIC
+    }
+  val density = LocalDensity.current
+  PixelGrid.unitPx = with(density) { 3.dp.toPx() }
   val customFontPathValue by rememberPreference(echo.music.iad1tya.constants.CustomFontPathKey, "")
 
   val brandFont =
     remember(selectedFontValue, customFontPathValue) {
       when (AppFont.fromValue(selectedFontValue)) {
         AppFont.SYSTEM -> FontFamily.Default
+        AppFont.PIXEL -> PixelifySansFontFamily
         AppFont.GOOGLE_SANS -> GoogleSansFontFamily
         AppFont.SANS_FLEX -> SansFlexFontFamily
         AppFont.OUTFIT -> OutfitFontFamily
@@ -82,21 +91,26 @@ fun echomusicTheme(
     }
 
   val colorScheme =
-    remember(baseColorScheme, pureBlack, darkTheme) {
-      if (darkTheme && pureBlack) {
+    remember(baseColorScheme, pureBlack, darkTheme, pixelPalette, themeColor) {
+      if (pixelPalette != PixelPalette.ECHO_DYNAMIC) {
+        pixelColorScheme(pixelPalette, coverAccent = themeColor.takeIf { it != DefaultThemeColor })
+      } else if (darkTheme && pureBlack) {
         baseColorScheme.pureBlack(true)
       } else {
         baseColorScheme
       }
     }
 
+  val typography =
+    remember(selectedFontValue, brandFont) {
+      if (AppFont.fromValue(selectedFontValue) == AppFont.PIXEL) pixelTypography()
+      else getTypography(brandFont)
+    }
+
   MaterialTheme(
     colorScheme = colorScheme,
-    typography = getTypography(brandFont),
-    shapes =
-      androidx.compose.material3.MaterialTheme.shapes.copy(
-        extraSmall = androidx.compose.foundation.shape.RoundedCornerShape(24.dp)
-      ),
+    typography = typography,
+    shapes = PixelShapes,
     content = content
   )
 }

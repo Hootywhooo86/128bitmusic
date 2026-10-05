@@ -1,5 +1,7 @@
 package echo.music.iad1tya.ui.component
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -45,22 +47,22 @@ fun IntegrationCard(title: String? = null, items: List<IntegrationCardItem>) {
       items.forEachIndexed { index, item ->
         val shape =
           when {
-            items.size == 1 -> RoundedCornerShape(24.dp)
+            items.size == 1 -> PixelCornerShape(24.dp)
             index == 0 ->
-              RoundedCornerShape(
+              PixelCornerShape(
                 topStart = 24.dp,
                 topEnd = 24.dp,
                 bottomStart = 6.dp,
                 bottomEnd = 6.dp
               )
             index == items.size - 1 ->
-              RoundedCornerShape(
+              PixelCornerShape(
                 topStart = 6.dp,
                 topEnd = 6.dp,
                 bottomStart = 24.dp,
                 bottomEnd = 24.dp
               )
-            else -> RoundedCornerShape(6.dp)
+            else -> PixelCornerShape(6.dp)
           }
 
         Card(
@@ -92,7 +94,7 @@ private fun IntegrationCardItemRow(item: IntegrationCardItem) {
       Box(
         modifier =
           Modifier.size(40.dp)
-            .clip(RoundedCornerShape(12.dp))
+            .clip(PixelCornerShape(12.dp))
             .background(
               MaterialTheme.colorScheme.primary.copy(
                 alpha = if (item.isHighlighted) 0.15f else 0.1f

@@ -1,5 +1,7 @@
 package echo.music.iad1tya.ui.screens.recognition
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -213,7 +215,7 @@ fun RecognitionHistoryScreen(navController: NavController) {
         },
         singleLine = true,
         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
-        shape = RoundedCornerShape(28.dp),
+        shape = PixelCornerShape(28.dp),
         colors =
           TextFieldDefaults.colors(
             focusedContainerColor = MaterialTheme.colorScheme.surfaceVariant,
@@ -325,7 +327,7 @@ private fun RecognitionHistoryItem(
   Card(
     modifier =
       Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp).clickable { onClick() },
-    shape = RoundedCornerShape(ThumbnailCornerRadius),
+    shape = PixelCornerShape(ThumbnailCornerRadius),
     colors =
       CardDefaults.cardColors(
         containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
@@ -338,7 +340,7 @@ private fun RecognitionHistoryItem(
       AsyncImage(
         model = item.coverArtUrl,
         contentDescription = null,
-        modifier = Modifier.size(60.dp).clip(RoundedCornerShape(ThumbnailCornerRadius)),
+        modifier = Modifier.size(60.dp).clip(PixelCornerShape(ThumbnailCornerRadius)),
         contentScale = ContentScale.Crop
       )
 

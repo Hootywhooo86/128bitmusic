@@ -1,5 +1,8 @@
 package echo.music.iad1tya.ui.screens
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+import echo.music.iad1tya.ui.theme.PixelCircleShape
+
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
@@ -43,7 +46,7 @@ fun WelcomeDialog(onDismissRequest: () -> Unit) {
   ) {
     Card(
       modifier = Modifier.padding(24.dp).fillMaxWidth(),
-      shape = RoundedCornerShape(28.dp),
+      shape = PixelCornerShape(28.dp),
       colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
       elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
     ) {
@@ -121,7 +124,7 @@ fun WelcomeDialog(onDismissRequest: () -> Unit) {
         Button(
           onClick = { uriHandler.openUri("https://github.com/EchoMusicApp/Echo-Music") },
           modifier = Modifier.fillMaxWidth().height(50.dp),
-          shape = RoundedCornerShape(16.dp),
+          shape = PixelCornerShape(16.dp),
           colors =
             ButtonDefaults.buttonColors(
               containerColor = MaterialTheme.colorScheme.surfaceVariant,
@@ -140,7 +143,7 @@ fun WelcomeDialog(onDismissRequest: () -> Unit) {
         Button(
           onClick = onDismissRequest,
           modifier = Modifier.fillMaxWidth().height(50.dp),
-          shape = RoundedCornerShape(16.dp),
+          shape = PixelCornerShape(16.dp),
           colors =
             ButtonDefaults.buttonColors(
               containerColor = MaterialTheme.colorScheme.primary,
@@ -158,7 +161,7 @@ fun WelcomeDialog(onDismissRequest: () -> Unit) {
 private fun WelcomeAppCard() {
   Card(
     modifier = Modifier.fillMaxWidth(),
-    shape = RoundedCornerShape(28.dp),
+    shape = PixelCornerShape(28.dp),
     colors =
       CardDefaults.cardColors(
         containerColor = MaterialTheme.colorScheme.surfaceContainerLow,
@@ -176,7 +179,7 @@ private fun WelcomeAppCard() {
         contentDescription = null,
         modifier =
           Modifier.size(100.dp)
-            .clip(CircleShape)
+            .clip(PixelCircleShape)
             .background(MaterialTheme.colorScheme.surfaceContainer),
       )
       Spacer(Modifier.height(4.dp))
@@ -191,7 +194,7 @@ private fun WelcomeAppCard() {
         verticalAlignment = Alignment.CenterVertically,
       ) {
         Surface(
-          shape = RoundedCornerShape(8.dp),
+          shape = PixelCornerShape(8.dp),
           color = MaterialTheme.colorScheme.primary.copy(alpha = 0.10f),
         ) {
           Text(
@@ -222,7 +225,7 @@ private fun WelcomeSectionCard(
     )
     Card(
       modifier = Modifier.fillMaxWidth(),
-      shape = RoundedCornerShape(28.dp),
+      shape = PixelCornerShape(28.dp),
       colors =
         CardDefaults.cardColors(
           containerColor = MaterialTheme.colorScheme.surfaceContainerLow,
@@ -262,7 +265,7 @@ private fun WelcomeActionRow(
           scaleX = scale
           scaleY = scale
         }
-        .clip(RoundedCornerShape(22.dp))
+        .clip(PixelCornerShape(22.dp))
         .clickable(
           interactionSource = interactionSource,
           indication = ripple(),
@@ -276,7 +279,7 @@ private fun WelcomeActionRow(
     ) {
       Surface(
         modifier = Modifier.size(36.dp),
-        shape = RoundedCornerShape(12.dp),
+        shape = PixelCornerShape(12.dp),
         color = tint.copy(alpha = 0.10f),
       ) {
         Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {

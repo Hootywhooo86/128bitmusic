@@ -1,5 +1,7 @@
 package echo.music.iad1tya.ui.screens.search
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -295,7 +297,7 @@ fun OnlineSearchResult(
       keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
       keyboardActions = KeyboardActions(onSearch = { onSearch(query.text) }),
       singleLine = true,
-      shape = RoundedCornerShape(28.dp),
+      shape = PixelCornerShape(28.dp),
       colors =
         OutlinedTextFieldDefaults.colors(
           focusedContainerColor =

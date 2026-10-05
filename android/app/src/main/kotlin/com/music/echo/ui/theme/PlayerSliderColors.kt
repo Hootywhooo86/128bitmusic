@@ -25,6 +25,7 @@ object PlayerSliderColors {
           }
         }
         PlayerBackgroundStyle.BLUR,
+        PlayerBackgroundStyle.PIXEL,
         PlayerBackgroundStyle.GRADIENT,
         PlayerBackgroundStyle.GLOW_ANIMATED,
         PlayerBackgroundStyle.APPLE_MUSIC,

@@ -1,5 +1,7 @@
 package echo.music.iad1tya.ui.menu
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.res.Configuration
@@ -246,12 +248,12 @@ fun YouTubeSongMenu(
     leadingContent = {
       Box(
         contentAlignment = Alignment.Center,
-        modifier = Modifier.size(ListThumbnailSize).clip(RoundedCornerShape(ThumbnailCornerRadius))
+        modifier = Modifier.size(ListThumbnailSize).clip(PixelCornerShape(ThumbnailCornerRadius))
       ) {
         AsyncImage(
           model = song.thumbnail,
           contentDescription = null,
-          modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(ThumbnailCornerRadius))
+          modifier = Modifier.fillMaxWidth().clip(PixelCornerShape(ThumbnailCornerRadius))
         )
       }
     },

@@ -2,6 +2,8 @@
 
 package echo.music.iad1tya.ui.component
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.animateColor
@@ -120,22 +122,22 @@ fun FloatingNavigationToolbar(
   val toolbarModifier =
     if (useGlass) {
         androidx.compose.ui.Modifier.clip(
-            androidx.compose.foundation.shape.RoundedCornerShape(percent = 50)
+            PixelCornerShape(percent = 50)
           )
           .liquidGlass(
             config = glassConfig,
-            shape = androidx.compose.foundation.shape.RoundedCornerShape(percent = 50)
+            shape = PixelCornerShape(percent = 50)
           )
       } else {
         androidx.compose.ui.Modifier.clip(
-            androidx.compose.foundation.shape.RoundedCornerShape(percent = 50)
+            PixelCornerShape(percent = 50)
           )
           .background(toolbarContainerColor)
       }
       .border(
         1.dp,
         outlineColor.copy(alpha = 0.3f),
-        androidx.compose.foundation.shape.RoundedCornerShape(percent = 50)
+        PixelCornerShape(percent = 50)
       )
 
   val hasOverflowMenu =
@@ -235,7 +237,7 @@ private fun ToolbarItemsContainer(
               .fillMaxHeight()
               .background(
                 color = floatingToolbarSelectedItemContainerColor(pureBlack),
-                shape = RoundedCornerShape(24.dp)
+                shape = PixelCornerShape(24.dp)
               )
         )
       }
@@ -417,7 +419,7 @@ private fun FloatingNavigationToolbarItem(
   onLongClick: (() -> Unit)? = null,
   modifier: Modifier = Modifier,
 ) {
-  val shape = RoundedCornerShape(24.dp)
+  val shape = PixelCornerShape(24.dp)
   val showLabel = selected && showSelectedLabel
   val transition = updateTransition(targetState = selected, label = "navItem_${screen.route}")
 
@@ -609,7 +611,7 @@ private fun FloatingNavigationToolbarActionItem(
     modifier =
       modifier
         .scale(pressScale)
-        .clip(RoundedCornerShape(24.dp))
+        .clip(PixelCornerShape(24.dp))
         .clickable(
           interactionSource = interactionSource,
           indication = LocalIndication.current,

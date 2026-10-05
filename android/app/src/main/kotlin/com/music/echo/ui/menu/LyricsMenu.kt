@@ -1,5 +1,7 @@
 package echo.music.iad1tya.ui.menu
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+
 import android.app.SearchManager
 import android.content.Intent
 import android.content.res.Configuration
@@ -272,7 +274,7 @@ fun LyricsMenu(
 
             Surface(
               color = MaterialTheme.colorScheme.secondaryContainer,
-              shape = RoundedCornerShape(6.dp),
+              shape = PixelCornerShape(6.dp),
               modifier = Modifier.padding(top = 4.dp)
             ) {
               Row(

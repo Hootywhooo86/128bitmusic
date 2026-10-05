@@ -1,5 +1,7 @@
 package echo.music.iad1tya.ui.component.shimmer
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -26,7 +28,7 @@ import echo.music.iad1tya.utils.rememberEnumPreference
 @Composable
 fun GridItemPlaceHolder(
   modifier: Modifier = Modifier,
-  thumbnailShape: Shape = RoundedCornerShape(ThumbnailCornerRadius),
+  thumbnailShape: Shape = PixelCornerShape(ThumbnailCornerRadius),
   fillMaxWidth: Boolean = false,
 ) {
   val gridItemSize by rememberEnumPreference(GridItemsSizeKey, GridItemSize.BIG)

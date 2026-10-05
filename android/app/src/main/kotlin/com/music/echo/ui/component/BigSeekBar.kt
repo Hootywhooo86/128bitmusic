@@ -1,5 +1,7 @@
 package echo.music.iad1tya.ui.component
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -32,7 +34,7 @@ fun BigSeekBar(
     modifier
       .fillMaxWidth()
       .height(48.dp)
-      .clip(RoundedCornerShape(16.dp))
+      .clip(PixelCornerShape(16.dp))
       .onPlaced { width = it.size.width.toFloat() }
       .pointerInput(progressProvider) {
         detectHorizontalDragGestures { _, dragAmount ->

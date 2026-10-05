@@ -1,5 +1,7 @@
 package echo.music.iad1tya.ui.screens.settings
 
+import echo.music.iad1tya.ui.theme.PixelCircleShape
+
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -165,7 +167,7 @@ fun AccountSettingsScreen(
                         model = account.avatarUrl,
                         contentDescription = null,
                         contentScale = ContentScale.Crop,
-                        modifier = Modifier.size(40.dp).clip(CircleShape)
+                        modifier = Modifier.size(40.dp).clip(PixelCircleShape)
                       )
                       Spacer(modifier = Modifier.width(12.dp))
                     }
@@ -249,7 +251,7 @@ fun AccountSettingsScreen(
                         model = accountImageUrl,
                         contentDescription = null,
                         contentScale = ContentScale.Crop,
-                        modifier = Modifier.size(40.dp).clip(CircleShape)
+                        modifier = Modifier.size(40.dp).clip(PixelCircleShape)
                       )
                       Spacer(modifier = Modifier.width(12.dp))
                     }

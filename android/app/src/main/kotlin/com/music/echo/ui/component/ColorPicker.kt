@@ -1,6 +1,9 @@
 /** vivimusic Project (C) 2026 Licensed under GPL-3.0 | See git history for contributors */
 package echo.music.iad1tya.ui.component
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+import echo.music.iad1tya.ui.theme.PixelCircleShape
+
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -221,9 +224,9 @@ fun ColorPickerDialog(
         Box(
           modifier =
             Modifier.size(40.dp)
-              .clip(CircleShape)
+              .clip(PixelCircleShape)
               .background(selectedColor)
-              .border(1.dp, MaterialTheme.colorScheme.outline, CircleShape)
+              .border(1.dp, MaterialTheme.colorScheme.outline, PixelCircleShape)
         )
 
         Spacer(Modifier.width(12.dp))
@@ -283,7 +286,7 @@ private fun PresetSwatch(
   Box(
     modifier =
       Modifier.size(32.dp)
-        .clip(CircleShape)
+        .clip(PixelCircleShape)
         .background(color)
         .border(
           width = if (isSelected) 2.dp else 1.dp,
@@ -293,7 +296,7 @@ private fun PresetSwatch(
             } else {
               MaterialTheme.colorScheme.outline.copy(alpha = 0.5f)
             },
-          shape = CircleShape,
+          shape = PixelCircleShape,
         )
         .clickable(onClick = onClick)
   )
@@ -311,7 +314,7 @@ private fun SaturationValuePanel(
     modifier =
       Modifier.fillMaxWidth()
         .height(180.dp)
-        .clip(RoundedCornerShape(12.dp))
+        .clip(PixelCornerShape(12.dp))
         .pointerInput(hue) {
           detectTapGestures { offset ->
             onChange(
@@ -356,7 +359,7 @@ private fun HueSlider(
     modifier =
       Modifier.fillMaxWidth()
         .height(24.dp)
-        .clip(RoundedCornerShape(12.dp))
+        .clip(PixelCornerShape(12.dp))
         .pointerInput(Unit) {
           detectTapGestures { offset -> onChange((offset.x / size.width).coerceIn(0f, 1f) * 360f) }
         }

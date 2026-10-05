@@ -1,5 +1,7 @@
 package echo.music.iad1tya.ui.screens.settings
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -145,7 +147,7 @@ fun AppearanceSettings(
 ) {
   val scrollState = androidx.compose.foundation.rememberScrollState()
 
-  val (selectedFontValue) = rememberPreference(SelectedFontKey, defaultValue = AppFont.SYSTEM.value)
+  val (selectedFontValue) = rememberPreference(SelectedFontKey, defaultValue = AppFont.PIXEL.value)
   val (dynamicTheme, onDynamicThemeChange) =
     rememberPreference(DynamicThemeKey, defaultValue = true)
   val (enableLegacyIcon, onEnableLegacyIconChange) =
@@ -199,7 +201,7 @@ fun AppearanceSettings(
   val (cropAlbumArt, onCropAlbumArtChange) =
     rememberPreference(CropAlbumArtKey, defaultValue = false)
   val (playerBackground, onPlayerBackgroundChange) =
-    rememberEnumPreference(PlayerBackgroundStyleKey, defaultValue = PlayerBackgroundStyle.GRADIENT)
+    rememberEnumPreference(PlayerBackgroundStyleKey, defaultValue = PlayerBackgroundStyle.PIXEL)
   val (miniPlayerBackground, onMiniPlayerBackgroundChange) =
     rememberEnumPreference(
       MiniPlayerBackgroundStyleKey,
@@ -234,7 +236,7 @@ fun AppearanceSettings(
     rememberPreference(HideStatusBarOnFullscreenKey, defaultValue = false)
 
   val (sliderStyle, onSliderStyleChange) =
-    rememberEnumPreference(SliderStyleKey, defaultValue = SliderStyle.SLIM)
+    rememberEnumPreference(SliderStyleKey, defaultValue = SliderStyle.BLOCKS)
   val (squigglySlider, onSquigglySliderChange) =
     rememberPreference(SquigglySliderKey, defaultValue = false)
   val (wavyPlayPause, onWavyPlayPauseChange) =
@@ -517,6 +519,7 @@ fun AppearanceSettings(
         when (it) {
           PlayerBackgroundStyle.DEFAULT -> stringResource(R.string.follow_theme)
           PlayerBackgroundStyle.GRADIENT -> stringResource(R.string.gradient)
+          PlayerBackgroundStyle.PIXEL -> "Pixel"
           PlayerBackgroundStyle.BLUR -> stringResource(R.string.player_background_blur)
           PlayerBackgroundStyle.GLOW_ANIMATED -> stringResource(R.string.glow_animated)
           PlayerBackgroundStyle.APPLE_MUSIC -> stringResource(R.string.apple_music)
@@ -542,6 +545,7 @@ fun AppearanceSettings(
         when (it) {
           PlayerBackgroundStyle.DEFAULT -> stringResource(R.string.follow_theme)
           PlayerBackgroundStyle.GRADIENT -> stringResource(R.string.gradient)
+          PlayerBackgroundStyle.PIXEL -> "Pixel"
           PlayerBackgroundStyle.BLUR -> stringResource(R.string.player_background_blur)
           PlayerBackgroundStyle.GLOW_ANIMATED -> stringResource(R.string.glow_animated)
           PlayerBackgroundStyle.LIVE_MESH -> stringResource(R.string.live_mesh)
@@ -720,13 +724,13 @@ fun AppearanceSettings(
           modifier =
             modifier
               .height(84.dp)
-              .clip(RoundedCornerShape(16.dp))
+              .clip(PixelCornerShape(16.dp))
               .border(
                 1.dp,
                 if (sliderStyle == SliderStyle.DEFAULT && !squigglySlider)
                   MaterialTheme.colorScheme.primary
                 else MaterialTheme.colorScheme.outlineVariant,
-                RoundedCornerShape(16.dp)
+                PixelCornerShape(16.dp)
               )
               .clickable {
                 onSliderStyleChange(SliderStyle.DEFAULT)
@@ -759,13 +763,13 @@ fun AppearanceSettings(
           modifier =
             modifier
               .height(84.dp)
-              .clip(RoundedCornerShape(16.dp))
+              .clip(PixelCornerShape(16.dp))
               .border(
                 1.dp,
                 if (sliderStyle == SliderStyle.WAVY && !squigglySlider)
                   MaterialTheme.colorScheme.primary
                 else MaterialTheme.colorScheme.outlineVariant,
-                RoundedCornerShape(16.dp)
+                PixelCornerShape(16.dp)
               )
               .clickable {
                 onSliderStyleChange(SliderStyle.WAVY)
@@ -799,12 +803,12 @@ fun AppearanceSettings(
           modifier =
             modifier
               .height(84.dp)
-              .clip(RoundedCornerShape(16.dp))
+              .clip(PixelCornerShape(16.dp))
               .border(
                 1.dp,
                 if (sliderStyle == SliderStyle.SLIM) MaterialTheme.colorScheme.primary
                 else MaterialTheme.colorScheme.outlineVariant,
-                RoundedCornerShape(16.dp)
+                PixelCornerShape(16.dp)
               )
               .clickable {
                 onSliderStyleChange(SliderStyle.SLIM)
@@ -841,13 +845,13 @@ fun AppearanceSettings(
           modifier =
             modifier
               .height(84.dp)
-              .clip(RoundedCornerShape(16.dp))
+              .clip(PixelCornerShape(16.dp))
               .border(
                 1.dp,
                 if (sliderStyle == SliderStyle.WAVY && squigglySlider)
                   MaterialTheme.colorScheme.primary
                 else MaterialTheme.colorScheme.outlineVariant,
-                RoundedCornerShape(16.dp)
+                PixelCornerShape(16.dp)
               )
               .clickable {
                 onSliderStyleChange(SliderStyle.WAVY)
@@ -874,6 +878,50 @@ fun AppearanceSettings(
         }
       }
 
+      val blocksItem: @Composable (Modifier) -> Unit = { modifier ->
+        Column(
+          horizontalAlignment = Alignment.CenterHorizontally,
+          verticalArrangement = Arrangement.spacedBy(4.dp),
+          modifier =
+            modifier
+              .height(84.dp)
+              .clip(PixelCornerShape(16.dp))
+              .border(
+                1.dp,
+                if (sliderStyle == SliderStyle.BLOCKS) MaterialTheme.colorScheme.primary
+                else MaterialTheme.colorScheme.outlineVariant,
+                PixelCornerShape(16.dp)
+              )
+              .clickable {
+                onSliderStyleChange(SliderStyle.BLOCKS)
+                onSquigglySliderChange(false)
+                showSliderOptionDialog = false
+              }
+              .padding(12.dp)
+        ) {
+          Slider(
+            value = 0.65f,
+            valueRange = 0f..1f,
+            onValueChange = {},
+            thumb = { Spacer(modifier = Modifier.size(0.dp)) },
+            track = { sliderState ->
+              echo.music.iad1tya.ui.component.PixelBlockTrack(
+                sliderState = sliderState,
+                activeColor = MaterialTheme.colorScheme.primary
+              )
+            },
+            enabled = false,
+            modifier = Modifier.weight(1f)
+          )
+          Text(
+            text = "Blocks",
+            style = MaterialTheme.typography.labelSmall,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis
+          )
+        }
+      }
+
       if (isLandscape) {
         Row(
           horizontalArrangement = Arrangement.spacedBy(10.dp),
@@ -883,6 +931,7 @@ fun AppearanceSettings(
           wavyItem(Modifier.weight(1f))
           slimItem(Modifier.weight(1f))
           squigglyItem(Modifier.weight(1f))
+          blocksItem(Modifier.weight(1f))
         }
       } else {
         Column(
@@ -903,6 +952,7 @@ fun AppearanceSettings(
             slimItem(Modifier.weight(1f))
             squigglyItem(Modifier.weight(1f))
           }
+          blocksItem(Modifier.fillMaxWidth())
         }
       }
     }
@@ -942,6 +992,7 @@ fun AppearanceSettings(
               trailingContent = {
                 val fontLabel =
                   when (AppFont.fromValue(selectedFontValue)) {
+                    AppFont.PIXEL -> "128bit Pixel"
                     AppFont.SYSTEM -> stringResource(echo.music.iad1tya.R.string.font_system)
                     AppFont.GOOGLE_SANS ->
                       stringResource(echo.music.iad1tya.R.string.font_google_sans)
@@ -1021,6 +1072,7 @@ fun AppearanceSettings(
                   when (miniPlayerBackground) {
                     PlayerBackgroundStyle.DEFAULT -> stringResource(R.string.follow_theme)
                     PlayerBackgroundStyle.GRADIENT -> stringResource(R.string.gradient)
+                    PlayerBackgroundStyle.PIXEL -> "Pixel"
                     PlayerBackgroundStyle.BLUR -> stringResource(R.string.player_background_blur)
                     PlayerBackgroundStyle.GLOW_ANIMATED -> stringResource(R.string.glow_animated)
                     PlayerBackgroundStyle.LIVE_MESH -> stringResource(R.string.live_mesh)
@@ -1118,6 +1170,7 @@ fun AppearanceSettings(
                 when (playerBackground) {
                   PlayerBackgroundStyle.DEFAULT -> stringResource(R.string.follow_theme)
                   PlayerBackgroundStyle.GRADIENT -> stringResource(R.string.gradient)
+                  PlayerBackgroundStyle.PIXEL -> "Pixel"
                   PlayerBackgroundStyle.BLUR -> stringResource(R.string.player_background_blur)
                   PlayerBackgroundStyle.GLOW_ANIMATED -> stringResource(R.string.glow_animated)
                   PlayerBackgroundStyle.APPLE_MUSIC -> stringResource(R.string.apple_music)
@@ -1222,6 +1275,7 @@ fun AppearanceSettings(
                     if (squigglySlider) stringResource(R.string.squiggly)
                     else stringResource(R.string.wavy)
                   SliderStyle.SLIM -> stringResource(R.string.slim)
+                  SliderStyle.BLOCKS -> "Blocks"
                 }
               )
             },

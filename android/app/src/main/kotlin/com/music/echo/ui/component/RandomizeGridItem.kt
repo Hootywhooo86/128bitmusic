@@ -1,5 +1,8 @@
 package echo.music.iad1tya.ui.component
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+import echo.music.iad1tya.ui.theme.PixelCircleShape
+
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
@@ -44,7 +47,7 @@ fun RandomizeGridItem(isLoading: Boolean, onClick: () -> Unit, modifier: Modifie
     modifier =
       modifier
         .aspectRatio(1f)
-        .clip(RoundedCornerShape(ThumbnailCornerRadius))
+        .clip(PixelCornerShape(ThumbnailCornerRadius))
         .background(MaterialTheme.colorScheme.surfaceContainerHigh)
         .clickable(onClick = onClick),
     contentAlignment = Alignment.Center
@@ -58,7 +61,7 @@ fun RandomizeGridItem(isLoading: Boolean, onClick: () -> Unit, modifier: Modifie
         Modifier.align(Alignment.Center)
           .offset(x = -padding * dotOffsetMultiplier, y = -padding * dotOffsetMultiplier)
           .size(dotSize)
-          .clip(CircleShape)
+          .clip(PixelCircleShape)
           .background(dotColor)
     )
 
@@ -67,13 +70,13 @@ fun RandomizeGridItem(isLoading: Boolean, onClick: () -> Unit, modifier: Modifie
         Modifier.align(Alignment.Center)
           .offset(x = padding * dotOffsetMultiplier, y = -padding * dotOffsetMultiplier)
           .size(dotSize)
-          .clip(CircleShape)
+          .clip(PixelCircleShape)
           .background(dotColor)
     )
 
     Box(
       modifier =
-        Modifier.align(Alignment.Center).size(dotSize).clip(CircleShape).background(dotColor)
+        Modifier.align(Alignment.Center).size(dotSize).clip(PixelCircleShape).background(dotColor)
     )
 
     Box(
@@ -81,7 +84,7 @@ fun RandomizeGridItem(isLoading: Boolean, onClick: () -> Unit, modifier: Modifie
         Modifier.align(Alignment.Center)
           .offset(x = -padding * dotOffsetMultiplier, y = padding * dotOffsetMultiplier)
           .size(dotSize)
-          .clip(CircleShape)
+          .clip(PixelCircleShape)
           .background(dotColor)
     )
 
@@ -90,7 +93,7 @@ fun RandomizeGridItem(isLoading: Boolean, onClick: () -> Unit, modifier: Modifie
         Modifier.align(Alignment.Center)
           .offset(x = padding * dotOffsetMultiplier, y = padding * dotOffsetMultiplier)
           .size(dotSize)
-          .clip(CircleShape)
+          .clip(PixelCircleShape)
           .background(dotColor)
     )
 

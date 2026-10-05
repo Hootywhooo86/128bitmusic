@@ -1,6 +1,8 @@
 /** vivimusic Project (C) 2026 Licensed under GPL-3.0 | See git history for contributors */
 package echo.music.iad1tya.ui.screens
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -67,7 +69,7 @@ fun DetailedListeningHistoryScreen(
       item {
         ElevatedCard(
           modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
-          shape = androidx.compose.foundation.shape.RoundedCornerShape(16.dp)
+          shape = PixelCornerShape(16.dp)
         ) {
           Column(
             modifier = Modifier.fillMaxWidth().padding(20.dp),
@@ -158,7 +160,7 @@ fun DetailedListeningHistoryScreen(
                   Modifier.fillMaxWidth()
                     .background(
                       MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.3f),
-                      androidx.compose.foundation.shape.RoundedCornerShape(8.dp)
+                      PixelCornerShape(8.dp)
                     )
                     .padding(12.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,

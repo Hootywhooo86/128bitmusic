@@ -1,6 +1,9 @@
 /** Echo Music Project (C) 2026 Licensed under GPL-3.0 | See git history for contributors */
 package echo.music.iad1tya.ui.screens
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+import echo.music.iad1tya.ui.theme.PixelCircleShape
+
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
@@ -55,7 +58,7 @@ fun ActivityHistoryBottomSheet(
     sheetState = sheetState,
     dragHandle = { BottomSheetDefaults.DragHandle() },
     containerColor = MaterialTheme.colorScheme.surfaceContainerLow,
-    shape = RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp)
+    shape = PixelCornerShape(topStart = 28.dp, topEnd = 28.dp)
   ) {
     Column(
       modifier =
@@ -103,7 +106,7 @@ fun ActivityHistoryBottomSheet(
       // Total Listening Time Hero Card (Pixel Settings banner style)
       Surface(
         modifier = Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(24.dp),
+        shape = PixelCornerShape(24.dp),
         color = MaterialTheme.colorScheme.surfaceContainerHigh
       ) {
         Row(
@@ -145,7 +148,7 @@ fun ActivityHistoryBottomSheet(
           Spacer(modifier = Modifier.width(16.dp))
           Box(
             modifier =
-              Modifier.size(48.dp).background(MaterialTheme.colorScheme.surface, CircleShape),
+              Modifier.size(48.dp).background(MaterialTheme.colorScheme.surface, PixelCircleShape),
             contentAlignment = Alignment.Center
           ) {
             Icon(
@@ -172,7 +175,7 @@ fun ActivityHistoryBottomSheet(
               .background(
                 color = segmentBgColor,
                 shape =
-                  RoundedCornerShape(
+                  PixelCornerShape(
                     topStart = 20.dp,
                     bottomStart = 20.dp,
                     topEnd = 6.dp,
@@ -230,7 +233,7 @@ fun ActivityHistoryBottomSheet(
           modifier =
             Modifier.weight(1f)
               .height(112.dp)
-              .background(color = segmentBgColor, shape = RoundedCornerShape(6.dp)),
+              .background(color = segmentBgColor, shape = PixelCornerShape(6.dp)),
           contentAlignment = Alignment.Center
         ) {
           Column(
@@ -285,7 +288,7 @@ fun ActivityHistoryBottomSheet(
               .background(
                 color = segmentBgColor,
                 shape =
-                  RoundedCornerShape(
+                  PixelCornerShape(
                     topEnd = 20.dp,
                     bottomEnd = 20.dp,
                     topStart = 6.dp,
@@ -342,7 +345,7 @@ fun ActivityHistoryBottomSheet(
       // All-Time Total Play Time Card (Clean Wide rounded settings-style row)
       Surface(
         modifier = Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(24.dp),
+        shape = PixelCornerShape(24.dp),
         color = MaterialTheme.colorScheme.surfaceContainerHigh
       ) {
         Row(
@@ -357,7 +360,7 @@ fun ActivityHistoryBottomSheet(
           ) {
             Box(
               modifier =
-                Modifier.size(40.dp).background(MaterialTheme.colorScheme.surface, CircleShape),
+                Modifier.size(40.dp).background(MaterialTheme.colorScheme.surface, PixelCircleShape),
               contentAlignment = Alignment.Center
             ) {
               Icon(

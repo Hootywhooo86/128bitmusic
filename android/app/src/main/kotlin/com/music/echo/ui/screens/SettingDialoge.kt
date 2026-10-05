@@ -1,5 +1,7 @@
 package echo.music.iad1tya.ui.screens
 
+import echo.music.iad1tya.ui.theme.PixelCircleShape
+
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
@@ -95,7 +97,7 @@ fun SettingDialoge(
                         model = accountImageUrl,
                         contentDescription = "Profile Photo",
                         contentScale = ContentScale.Crop,
-                        modifier = Modifier.size(40.dp).clip(CircleShape)
+                        modifier = Modifier.size(40.dp).clip(PixelCircleShape)
                       )
                     }
                   } else null,

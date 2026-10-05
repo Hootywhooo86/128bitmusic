@@ -1,5 +1,8 @@
 package echo.music.iad1tya.ui.screens.search.suggestions
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+import echo.music.iad1tya.ui.theme.PixelCircleShape
+
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -66,7 +69,7 @@ fun SuggestionRegionSheet(
       LazyColumn(
         state = listState,
         modifier =
-          Modifier.fillMaxWidth().padding(horizontal = 16.dp).clip(RoundedCornerShape(24.dp))
+          Modifier.fillMaxWidth().padding(horizontal = 16.dp).clip(PixelCornerShape(24.dp))
       ) {
         item {
           Text(
@@ -185,9 +188,9 @@ fun RegionListItem(
         ),
     modifier =
       Modifier.clip(
-          if (selected) CircleShape
+          if (selected) PixelCircleShape
           else
-            RoundedCornerShape(
+            PixelCornerShape(
               topStart = top,
               topEnd = top,
               bottomStart = bottom,

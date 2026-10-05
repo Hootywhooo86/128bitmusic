@@ -1,5 +1,9 @@
 package echo.music.iad1tya.ui.player
 
+import echo.music.iad1tya.ui.component.PixelCoverBackground
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+import echo.music.iad1tya.ui.theme.PixelCircleShape
+
 import android.content.res.Configuration
 import android.os.Build
 import androidx.compose.animation.AnimatedVisibility
@@ -230,10 +234,10 @@ fun MiniPlayer(
       if (useGlass) {
         Modifier.liquidGlass(
           config = glassConfig,
-          shape = RoundedCornerShape(percent = 50),
+          shape = PixelCornerShape(percent = 50),
         )
       } else {
-        Modifier.clip(RoundedCornerShape(percent = 50)).background(bgTint)
+        Modifier.clip(PixelCornerShape(percent = 50)).background(bgTint)
       }
 
     Box(
@@ -465,7 +469,7 @@ private fun NewMiniPlayer(progressState: ProgressState, modifier: Modifier = Mod
           .height(MiniPlayerHeight)
           .offset { IntOffset(offsetXAnimatable.value.roundToInt(), 0) }
           .let { m ->
-            val shape = RoundedCornerShape(percent = 50)
+            val shape = PixelCornerShape(percent = 50)
             if (useGlass) {
                 m.clip(shape).liquidGlass(config = glassConfig, shape = shape)
               } else {
@@ -590,15 +594,15 @@ private fun NewMiniPlayerThumbnail(
       contentAlignment = Alignment.Center,
       modifier =
         Modifier.size(40.dp)
-          .clip(CircleShape)
-          .border(1.dp, outlineColor.copy(alpha = 0.3f), CircleShape)
+          .clip(PixelCircleShape)
+          .border(1.dp, outlineColor.copy(alpha = 0.3f), PixelCircleShape)
     ) {
       mediaMetadata?.let { metadata ->
         AsyncImage(
           model = ImageRequest.Builder(LocalContext.current).data(metadata.thumbnailUrl).build(),
           contentDescription = null,
           contentScale = ContentScale.Crop,
-          modifier = Modifier.fillMaxSize().clip(CircleShape)
+          modifier = Modifier.fillMaxSize().clip(PixelCircleShape)
         )
       }
     }
@@ -744,7 +748,7 @@ private fun LegacyMiniPlayer(progressState: ProgressState, modifier: Modifier = 
         .widthIn(max = 340.dp)
         .height(MiniPlayerHeight)
         .windowInsetsPadding(WindowInsets.systemBars.only(WindowInsetsSides.Horizontal))
-        .clip(RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp))
+        .clip(PixelCornerShape(topStart = 16.dp, topEnd = 16.dp))
         .background(
           if (pureBlack && isSystemInDarkTheme()) Color.Black
           else MaterialTheme.colorScheme.surfaceContainer
@@ -937,7 +941,7 @@ private fun LegacyMiniMediaInfo(
     modifier = modifier,
   ) {
     Box(
-      modifier = Modifier.padding(6.dp).size(48.dp).clip(RoundedCornerShape(ThumbnailCornerRadius))
+      modifier = Modifier.padding(6.dp).size(48.dp).clip(PixelCornerShape(ThumbnailCornerRadius))
     ) {
       Box(modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.surfaceVariant))
 
@@ -945,7 +949,7 @@ private fun LegacyMiniMediaInfo(
         model = ImageRequest.Builder(LocalContext.current).data(mediaMetadata.thumbnailUrl).build(),
         contentDescription = null,
         contentScale = if (cropAlbumArt) ContentScale.Crop else ContentScale.Fit,
-        modifier = Modifier.fillMaxSize().clip(RoundedCornerShape(ThumbnailCornerRadius)),
+        modifier = Modifier.fillMaxSize().clip(PixelCornerShape(ThumbnailCornerRadius)),
       )
 
       androidx.compose.animation.AnimatedVisibility(
@@ -957,7 +961,7 @@ private fun LegacyMiniMediaInfo(
           Modifier.fillMaxSize()
             .background(
               color = if (pureBlack) Color.Black else Color.Black.copy(alpha = 0.6f),
-              shape = RoundedCornerShape(ThumbnailCornerRadius),
+              shape = PixelCornerShape(ThumbnailCornerRadius),
             ),
         ) {
           Icon(
@@ -1012,15 +1016,15 @@ private fun FavoriteButton(
     contentAlignment = Alignment.Center,
     modifier =
       Modifier.size(40.dp)
-        .clip(CircleShape)
+        .clip(PixelCircleShape)
         .border(
           width = 1.dp,
           color = if (isLiked) errorColor.copy(alpha = 0.5f) else outlineColor.copy(alpha = 0.3f),
-          shape = CircleShape
+          shape = PixelCircleShape
         )
         .background(
           color = if (isLiked) errorColor.copy(alpha = 0.1f) else Color.Transparent,
-          shape = CircleShape
+          shape = PixelCircleShape
         )
         .clickable { playerConnection.service.toggleLike() }
   ) {
@@ -1101,6 +1105,9 @@ private fun MiniPlayerBackgroundLayer(
   val context = LocalContext.current
 
   when (style) {
+    PlayerBackgroundStyle.PIXEL -> {
+      mediaMetadata?.thumbnailUrl?.let { PixelCoverBackground(thumbnailUrl = it, dim = 0.5f) }
+    }
     PlayerBackgroundStyle.BLUR -> {
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
         AsyncImage(
@@ -1313,7 +1320,7 @@ private fun MiniPlayerControls(
     Box(
       contentAlignment = Alignment.Center,
       modifier =
-        Modifier.size(48.dp).clip(CircleShape).clickable {
+        Modifier.size(48.dp).clip(PixelCircleShape).clickable {
           if (isListenTogetherGuest) {
             playerConnection.toggleMute()
             return@clickable
@@ -1334,7 +1341,7 @@ private fun MiniPlayerControls(
             .graphicsLayer {
               rotationZ = rotation
               clip = true
-              shape = if (wavyPlayPause) PolygonCookieShape(sides = 9, indent = cookieIndent) else androidx.compose.foundation.shape.CircleShape
+              shape = if (wavyPlayPause) PolygonCookieShape(sides = 9, indent = cookieIndent) else PixelCircleShape
             }
             .background(primaryColor)
       )

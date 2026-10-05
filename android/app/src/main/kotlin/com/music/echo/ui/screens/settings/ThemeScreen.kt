@@ -6,6 +6,8 @@
 
 package echo.music.iad1tya.ui.screens.settings
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateDpAsState
@@ -140,6 +142,16 @@ fun ThemeScreen(navController: NavController, highlightKey: String? = null) {
     ) {
       item {
         Text(
+          text = "128BIT PALETTE",
+          style = MaterialTheme.typography.headlineSmall,
+          color = MaterialTheme.colorScheme.primary,
+          modifier = Modifier.padding(bottom = 12.dp, start = 4.dp)
+        )
+        echo.music.iad1tya.ui.component.PixelPalettePicker()
+      }
+
+      item {
+        Text(
           text = stringResource(R.string.theme_mode),
           style = MaterialTheme.typography.titleMedium,
           color = MaterialTheme.colorScheme.primary,
@@ -219,7 +231,7 @@ fun ThemeScreen(navController: NavController, highlightKey: String? = null) {
 
         Card(
           modifier = Modifier.fillMaxWidth(),
-          shape = RoundedCornerShape(32.dp),
+          shape = PixelCornerShape(32.dp),
           colors =
             CardDefaults.cardColors(
               containerColor = MaterialTheme.colorScheme.surfaceContainerLow.copy(alpha = 0.6f)
@@ -235,7 +247,7 @@ fun ThemeScreen(navController: NavController, highlightKey: String? = null) {
             Row(
               modifier =
                 Modifier.fillMaxWidth()
-                  .clip(RoundedCornerShape(16.dp))
+                  .clip(PixelCornerShape(16.dp))
                   .clickable {
                     if (!isDynamic) {
                       handleColorSelection(DefaultThemeColor)
@@ -254,7 +266,7 @@ fun ThemeScreen(navController: NavController, highlightKey: String? = null) {
                 Box(
                   modifier =
                     Modifier.size(40.dp)
-                      .clip(RoundedCornerShape(12.dp))
+                      .clip(PixelCornerShape(12.dp))
                       .background(MaterialTheme.colorScheme.primaryContainer),
                   contentAlignment = Alignment.Center
                 ) {
@@ -353,9 +365,9 @@ fun ThemeModeCard(
           scaleX = scale
           scaleY = scale
         }
-        .clip(RoundedCornerShape(24.dp))
+        .clip(PixelCornerShape(24.dp))
         .background(backgroundBrush)
-        .border(borderWidth, borderColor, RoundedCornerShape(24.dp))
+        .border(borderWidth, borderColor, PixelCornerShape(24.dp))
         .clickable(onClick = onClick)
         .padding(vertical = 24.dp, horizontal = 12.dp),
     contentAlignment = Alignment.Center
@@ -427,7 +439,7 @@ fun HsvColorPicker(
       modifier =
         Modifier.fillMaxWidth()
           .height(60.dp)
-          .clip(RoundedCornerShape(16.dp))
+          .clip(PixelCornerShape(16.dp))
           .background(getLocalColor())
     )
 
@@ -473,7 +485,7 @@ fun CustomColorSlider(
     )
     Box(
       modifier =
-        Modifier.fillMaxWidth().height(32.dp).clip(RoundedCornerShape(16.dp)).background(brush),
+        Modifier.fillMaxWidth().height(32.dp).clip(PixelCornerShape(16.dp)).background(brush),
       contentAlignment = Alignment.CenterStart
     ) {
       Slider(

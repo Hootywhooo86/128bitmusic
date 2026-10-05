@@ -1,5 +1,7 @@
 package echo.music.iad1tya.ui.screens.playlist
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -42,7 +44,7 @@ fun AiModifyPlaylistDialog(
   ) {
     Surface(
       modifier = Modifier.fillMaxWidth(0.9f).wrapContentHeight(),
-      shape = RoundedCornerShape(24.dp),
+      shape = PixelCornerShape(24.dp),
       color = MaterialTheme.colorScheme.surface,
       tonalElevation = 6.dp
     ) {
@@ -63,7 +65,7 @@ fun AiModifyPlaylistDialog(
             label = { Text(stringResource(R.string.modify_with_ai_desc)) },
             placeholder = { Text(stringResource(R.string.ai_modify_prompt_hint)) },
             modifier = Modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(12.dp),
+            shape = PixelCornerShape(12.dp),
             enabled = true,
             minLines = 3
           )

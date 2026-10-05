@@ -1,5 +1,7 @@
 package echo.music.iad1tya.utils
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ListItemColors
 import androidx.compose.material3.ListItemDefaults
@@ -16,18 +18,18 @@ fun listItemColors(): ListItemColors {
   return ListItemDefaults.colors(containerColor = MaterialTheme.colorScheme.surfaceContainerHigh)
 }
 
-fun leadingItemShape(): RoundedCornerShape =
-  RoundedCornerShape(
+fun leadingItemShape(): PixelCornerShape =
+  PixelCornerShape(
     topStart = EndCornerRadius.dp,
     topEnd = EndCornerRadius.dp,
     bottomStart = ConnectedCornerRadius.dp,
     bottomEnd = ConnectedCornerRadius.dp
   )
 
-fun middleItemShape(): RoundedCornerShape = RoundedCornerShape(ConnectedCornerRadius.dp)
+fun middleItemShape(): PixelCornerShape = PixelCornerShape(ConnectedCornerRadius.dp)
 
-fun endItemShape(): RoundedCornerShape =
-  RoundedCornerShape(
+fun endItemShape(): PixelCornerShape =
+  PixelCornerShape(
     topStart = ConnectedCornerRadius.dp,
     topEnd = ConnectedCornerRadius.dp,
     bottomStart = EndCornerRadius.dp,

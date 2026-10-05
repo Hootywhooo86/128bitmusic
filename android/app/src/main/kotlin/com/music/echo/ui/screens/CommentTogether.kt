@@ -1,5 +1,8 @@
 package echo.music.iad1tya.ui.screens
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+import echo.music.iad1tya.ui.theme.PixelCircleShape
+
 import android.content.Intent
 import android.net.Uri
 import android.widget.Toast
@@ -105,7 +108,7 @@ fun CommentTogetherScreen(navController: NavController) {
             Surface(
               modifier = Modifier.padding(bottom = 8.dp).fillMaxWidth(),
               color = MaterialTheme.colorScheme.surfaceVariant,
-              shape = RoundedCornerShape(12.dp)
+              shape = PixelCornerShape(12.dp)
             ) {
               Row(
                 modifier = Modifier.padding(8.dp).height(IntrinsicSize.Min),
@@ -115,7 +118,7 @@ fun CommentTogetherScreen(navController: NavController) {
                   modifier =
                     Modifier.fillMaxHeight()
                       .width(4.dp)
-                      .clip(RoundedCornerShape(2.dp))
+                      .clip(PixelCornerShape(2.dp))
                       .background(MaterialTheme.colorScheme.primary)
                 )
                 Column(modifier = Modifier.weight(1f).padding(horizontal = 12.dp)) {
@@ -218,7 +221,7 @@ private fun MessageItem(
     Surface(
       color = bubbleColor,
       shape =
-        RoundedCornerShape(
+        PixelCornerShape(
           topStart = 16.dp,
           topEnd = 16.dp,
           bottomStart = if (isMe) 16.dp else 4.dp,
@@ -233,7 +236,7 @@ private fun MessageItem(
         message.replyTo?.let { reply ->
           Surface(
             color = replyBgColor,
-            shape = RoundedCornerShape(8.dp),
+            shape = PixelCornerShape(8.dp),
             modifier = Modifier.padding(bottom = 6.dp).fillMaxWidth()
           ) {
             Row(modifier = Modifier.padding(8.dp).height(IntrinsicSize.Min)) {
@@ -241,7 +244,7 @@ private fun MessageItem(
                 modifier =
                   Modifier.fillMaxHeight()
                     .width(3.dp)
-                    .clip(RoundedCornerShape(1.5.dp))
+                    .clip(PixelCornerShape(1.5.dp))
                     .background(MaterialTheme.colorScheme.primary)
               )
               Column(modifier = Modifier.padding(start = 10.dp)) {
@@ -293,7 +296,7 @@ private fun ChatInputArea(
 ) {
   Surface(
     color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
-    shape = RoundedCornerShape(28.dp),
+    shape = PixelCornerShape(28.dp),
     modifier = modifier.fillMaxWidth()
   ) {
     Row(
@@ -318,7 +321,7 @@ private fun ChatInputArea(
 
       FloatingActionButton(
         onClick = onSend,
-        shape = CircleShape,
+        shape = PixelCircleShape,
         containerColor = MaterialTheme.colorScheme.primary,
         contentColor = MaterialTheme.colorScheme.onPrimary,
         modifier = Modifier.size(48.dp),
@@ -344,7 +347,7 @@ private fun EmptyChatPlaceholder() {
     Box(
       modifier =
         Modifier.size(120.dp)
-          .clip(CircleShape)
+          .clip(PixelCircleShape)
           .background(
             Brush.verticalGradient(
               listOf(

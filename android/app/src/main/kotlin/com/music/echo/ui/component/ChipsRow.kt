@@ -1,5 +1,7 @@
 package echo.music.iad1tya.ui.component
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+
 import android.annotation.SuppressLint
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
@@ -106,7 +108,7 @@ fun <E> ChipsRow(
           } else {
             null
           },
-        shape = RoundedCornerShape(cornerRadius),
+        shape = PixelCornerShape(cornerRadius),
         border = null,
         modifier =
           Modifier.animateContentSize(
@@ -186,7 +188,7 @@ fun <Int> ChoiceChipsRow(
               modifier = Modifier.graphicsLayer(rotationZ = rotationAnimation)
             )
           },
-          shape = RoundedCornerShape(16.dp),
+          shape = PixelCornerShape(16.dp),
           border = null,
           colors =
             FilterChipDefaults.filterChipColors(
@@ -262,7 +264,7 @@ fun <Int> ChoiceChipsRow(
             } else {
               null
             },
-          shape = RoundedCornerShape(cornerRadius),
+          shape = PixelCornerShape(cornerRadius),
           border = null,
           modifier =
             Modifier.padding(horizontal = 4.dp)

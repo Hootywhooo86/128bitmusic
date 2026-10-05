@@ -2,6 +2,8 @@
 
 package echo.music.iad1tya.ui.screens.settings
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+
 import android.app.Activity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -179,22 +181,22 @@ fun AppIconSettingsScreen(
         icons.forEachIndexed { index, option ->
           val shape =
             when {
-              icons.size == 1 -> RoundedCornerShape(24.dp)
+              icons.size == 1 -> PixelCornerShape(24.dp)
               index == 0 ->
-                RoundedCornerShape(
+                PixelCornerShape(
                   topStart = 24.dp,
                   topEnd = 24.dp,
                   bottomStart = 4.dp,
                   bottomEnd = 4.dp
                 )
               index == icons.size - 1 ->
-                RoundedCornerShape(
+                PixelCornerShape(
                   topStart = 4.dp,
                   topEnd = 4.dp,
                   bottomStart = 24.dp,
                   bottomEnd = 24.dp
                 )
-              else -> RoundedCornerShape(4.dp)
+              else -> PixelCornerShape(4.dp)
             }
 
           Card(
@@ -257,14 +259,14 @@ fun AppIconRow(option: AppIconOption, isSelected: Boolean, onClick: () -> Unit) 
       }
 
     Box(
-      modifier = Modifier.size(40.dp).clip(RoundedCornerShape(12.dp)),
+      modifier = Modifier.size(40.dp).clip(PixelCornerShape(12.dp)),
       contentAlignment = Alignment.Center
     ) {
       if (bitmap != null) {
         Image(
           bitmap = bitmap,
           contentDescription = null,
-          modifier = Modifier.fillMaxSize().clip(RoundedCornerShape(12.dp))
+          modifier = Modifier.fillMaxSize().clip(PixelCornerShape(12.dp))
         )
       }
     }

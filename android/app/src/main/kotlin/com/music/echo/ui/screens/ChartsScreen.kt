@@ -1,5 +1,7 @@
 package echo.music.iad1tya.ui.screens
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
@@ -149,7 +151,7 @@ fun ChartsScreen(
                     Box(
                       modifier =
                         Modifier.size(ListItemHeight - 16.dp)
-                          .clip(RoundedCornerShape(4.dp))
+                          .clip(PixelCornerShape(4.dp))
                           .background(MaterialTheme.colorScheme.onSurface),
                     )
                     Spacer(modifier = Modifier.width(8.dp))

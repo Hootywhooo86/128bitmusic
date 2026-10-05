@@ -1,5 +1,7 @@
 package echo.music.iad1tya.ui.menu
 
+import echo.music.iad1tya.ui.theme.PixelCircleShape
+
 import android.content.Intent
 import android.content.res.Configuration
 import androidx.compose.animation.core.animateFloatAsState
@@ -165,7 +167,7 @@ fun QueueMenu(
             AsyncImage(
               model = null,
               contentDescription = null,
-              modifier = Modifier.size(ListThumbnailSize).clip(CircleShape),
+              modifier = Modifier.size(ListThumbnailSize).clip(PixelCircleShape),
             )
           }
           Text(

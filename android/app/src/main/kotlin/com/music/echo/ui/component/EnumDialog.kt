@@ -1,5 +1,7 @@
 package echo.music.iad1tya.ui.component
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -41,22 +43,22 @@ fun <T> EnumDialog(
     itemsIndexed(values) { index, value ->
       val shape =
         when {
-          values.size == 1 -> RoundedCornerShape(24.dp)
+          values.size == 1 -> PixelCornerShape(24.dp)
           index == 0 ->
-            RoundedCornerShape(
+            PixelCornerShape(
               topStart = 24.dp,
               topEnd = 24.dp,
               bottomStart = 4.dp,
               bottomEnd = 4.dp
             )
           index == values.size - 1 ->
-            RoundedCornerShape(
+            PixelCornerShape(
               topStart = 4.dp,
               topEnd = 4.dp,
               bottomStart = 24.dp,
               bottomEnd = 24.dp
             )
-          else -> RoundedCornerShape(4.dp)
+          else -> PixelCornerShape(4.dp)
         }
       Row(
         verticalAlignment = Alignment.CenterVertically,

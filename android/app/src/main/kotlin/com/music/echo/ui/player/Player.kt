@@ -1,5 +1,10 @@
 package echo.music.iad1tya.ui.player
 
+import echo.music.iad1tya.ui.component.PixelCoverBackground
+import echo.music.iad1tya.ui.component.PixelBlockTrack
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+import echo.music.iad1tya.ui.theme.PixelCircleShape
+
 import android.content.BroadcastReceiver
 import android.content.ClipData
 import android.content.ClipboardManager
@@ -310,7 +315,7 @@ fun BottomSheetPlayer(
   val playerBackgroundPref by
     rememberEnumPreference(
       key = PlayerBackgroundStyleKey,
-      defaultValue = PlayerBackgroundStyle.GRADIENT
+      defaultValue = PlayerBackgroundStyle.PIXEL
     )
   val playerBackground = playerBackgroundPref
   val playerButtonsStyle by
@@ -332,6 +337,7 @@ fun BottomSheetPlayer(
     remember(playerBackground, useDarkTheme) {
       when (playerBackground) {
         PlayerBackgroundStyle.BLUR,
+        PlayerBackgroundStyle.PIXEL,
         PlayerBackgroundStyle.GRADIENT,
         PlayerBackgroundStyle.GLOW_ANIMATED,
         PlayerBackgroundStyle.APPLE_MUSIC,
@@ -386,6 +392,7 @@ fun BottomSheetPlayer(
           playerBackground in
             listOf(
               PlayerBackgroundStyle.BLUR,
+              PlayerBackgroundStyle.PIXEL,
               PlayerBackgroundStyle.GRADIENT,
               PlayerBackgroundStyle.GLOW_ANIMATED,
               PlayerBackgroundStyle.APPLE_MUSIC,
@@ -433,7 +440,7 @@ fun BottomSheetPlayer(
   val playerVolume by playerConnection.service.playerVolume.collectAsState()
 
   val (audioQuality) = rememberEnumPreference(AudioQualityKey, defaultValue = AudioQuality.OPUS)
-  val sliderStyle by rememberEnumPreference(SliderStyleKey, SliderStyle.SLIM)
+  val sliderStyle by rememberEnumPreference(SliderStyleKey, SliderStyle.BLOCKS)
   val squigglySlider by rememberPreference(SquigglySliderKey, defaultValue = false)
   val wavyPlayPause by rememberPreference(WavyPlayPauseKey, defaultValue = true)
 
@@ -493,7 +500,7 @@ fun BottomSheetPlayer(
         Column(
           modifier =
             Modifier.padding(horizontal = PlayerHorizontalPadding, vertical = 4.dp)
-              .clip(RoundedCornerShape(6.dp))
+              .clip(PixelCornerShape(6.dp))
               .background(Color.Black.copy(alpha = 0.45f))
               .padding(6.dp)
         ) {
@@ -773,6 +780,7 @@ fun BottomSheetPlayer(
     when {
       isLocalMedia ||
         playerBackground == PlayerBackgroundStyle.BLUR ||
+        playerBackground == PlayerBackgroundStyle.PIXEL ||
         playerBackground == PlayerBackgroundStyle.GRADIENT ||
         playerBackground == PlayerBackgroundStyle.GLOW_ANIMATED ||
         playerBackground == PlayerBackgroundStyle.APPLE_MUSIC ||
@@ -1011,6 +1019,7 @@ fun BottomSheetPlayer(
       playerBackground in
         listOf(
           PlayerBackgroundStyle.BLUR,
+          PlayerBackgroundStyle.PIXEL,
           PlayerBackgroundStyle.GRADIENT,
           PlayerBackgroundStyle.GLOW_ANIMATED,
           PlayerBackgroundStyle.APPLE_MUSIC
@@ -1032,6 +1041,19 @@ fun BottomSheetPlayer(
           ?: playerConnection.player.currentMediaItem?.mediaMetadata?.artworkUri?.toString()
       Box(modifier = Modifier.fillMaxSize().background(bottomSheetBackgroundColor)) {
         when (playerBackground) {
+          PlayerBackgroundStyle.PIXEL -> {
+            AnimatedContent(
+              targetState = backgroundThumbnailUrl,
+              transitionSpec = { fadeIn(tween(400)).togetherWith(fadeOut(tween(400))) },
+              label = "pixelBackground"
+            ) { thumbnailUrl ->
+              if (thumbnailUrl != null) {
+                Box(modifier = Modifier.graphicsLayer { alpha = backgroundAlphaProvider() }) {
+                  PixelCoverBackground(thumbnailUrl = thumbnailUrl, dim = 0.55f)
+                }
+              }
+            }
+          }
           PlayerBackgroundStyle.BLUR -> {
             AnimatedContent(
               targetState = backgroundThumbnailUrl,
@@ -1497,7 +1519,7 @@ fun BottomSheetPlayer(
                 Box(
                   modifier =
                     Modifier.size(56.dp)
-                      .clip(RoundedCornerShape(ThumbnailCornerRadius))
+                      .clip(PixelCornerShape(ThumbnailCornerRadius))
                       .background(MaterialTheme.colorScheme.surfaceVariant),
                   contentAlignment = Alignment.Center
                 ) {
@@ -1512,7 +1534,7 @@ fun BottomSheetPlayer(
                 Box(
                   contentAlignment = Alignment.Center,
                   modifier =
-                    Modifier.size(56.dp).clip(RoundedCornerShape(ThumbnailCornerRadius)).clickable(
+                    Modifier.size(56.dp).clip(PixelCornerShape(ThumbnailCornerRadius)).clickable(
                       enabled = isFullScreen && enableLyricsThumbnailPlayPause
                     ) {
                       playerConnection.togglePlayPause()
@@ -1719,7 +1741,7 @@ fun BottomSheetPlayer(
 
         if (useNewPlayerDesign) {
           val shareShape =
-            RoundedCornerShape(
+            PixelCornerShape(
               topStart = 50.dp,
               bottomStart = 50.dp,
               topEnd = 3.dp,
@@ -1727,14 +1749,14 @@ fun BottomSheetPlayer(
             )
 
           val favShape =
-            RoundedCornerShape(
+            PixelCornerShape(
               topStart = 3.dp,
               bottomStart = 3.dp,
               topEnd = 50.dp,
               bottomEnd = 50.dp
             )
 
-          val middleShape = RoundedCornerShape(3.dp)
+          val middleShape = PixelCornerShape(3.dp)
 
           Row(
             horizontalArrangement = Arrangement.spacedBy(6.dp),
@@ -1890,7 +1912,7 @@ fun BottomSheetPlayer(
               Box(
                 modifier =
                   Modifier.size(40.dp)
-                    .clip(RoundedCornerShape(24.dp))
+                    .clip(PixelCornerShape(24.dp))
                     .background(textButtonColor.copy(alpha = 0.2f))
                     .clickable { isFullScreen = !isFullScreen },
               ) {
@@ -1911,7 +1933,7 @@ fun BottomSheetPlayer(
               Box(
                 modifier =
                   Modifier.size(40.dp)
-                    .clip(RoundedCornerShape(24.dp))
+                    .clip(PixelCornerShape(24.dp))
                     .background(textButtonColor.copy(alpha = 0.2f))
                     .clickable {
                       menuState.show {
@@ -1945,7 +1967,7 @@ fun BottomSheetPlayer(
               Box(
                 modifier =
                   Modifier.size(40.dp)
-                    .clip(RoundedCornerShape(24.dp))
+                    .clip(PixelCornerShape(24.dp))
                     .background(textButtonColor.copy(alpha = 0.2f))
                     .clickable {
                       menuState.show {
@@ -1974,7 +1996,7 @@ fun BottomSheetPlayer(
               Box(
                 modifier =
                   Modifier.size(40.dp)
-                    .clip(RoundedCornerShape(24.dp))
+                    .clip(PixelCornerShape(24.dp))
                     .background(textButtonColor.copy(alpha = 0.2f))
                     .clickable(onClick = playerConnection::toggleLike),
               ) {
@@ -2147,6 +2169,59 @@ fun BottomSheetPlayer(
             modifier = Modifier.padding(horizontal = PlayerHorizontalPadding)
           )
         }
+        SliderStyle.BLOCKS -> {
+          val trackInteractionSource = remember { MutableInteractionSource() }
+          val isTrackDragged by trackInteractionSource.collectIsDraggedAsState()
+          val isTrackPressed by trackInteractionSource.collectIsPressedAsState()
+          val isTrackActive = (isTrackDragged || isTrackPressed) && !useNewPlayerDesign
+
+          val trackHeight by
+            animateDpAsState(
+              targetValue = if (isTrackActive) 16.dp else 10.dp,
+              animationSpec =
+                spring(
+                  dampingRatio = Spring.DampingRatioMediumBouncy,
+                  stiffness = Spring.StiffnessMedium
+                ),
+              label = "trackHeight"
+            )
+
+          Slider(
+            value = (sliderPosition ?: effectivePosition).toFloat(),
+            valueRange = 0f..(if (duration == C.TIME_UNSET) 0f else duration.toFloat()),
+            onValueChange = {
+              if (!isListenTogetherGuest) {
+                sliderPosition = it.toLong()
+              }
+            },
+            onValueChangeFinished = {
+              if (!isListenTogetherGuest) {
+                sliderPosition?.let {
+                  if (isCasting) {
+                    castHandler?.seekTo(it)
+                    lastManualSeekTime = System.currentTimeMillis()
+                  } else {
+                    playerConnection.player.seekTo(it)
+                  }
+                  position = it
+                }
+                sliderPosition = null
+              }
+            },
+            enabled = !isListenTogetherGuest,
+            interactionSource = trackInteractionSource,
+            thumb = { Spacer(modifier = Modifier.size(0.dp)) },
+            track = { sliderState ->
+              PixelBlockTrack(
+                sliderState = sliderState,
+                activeColor = textButtonColor,
+                inactiveColor = textButtonColor.copy(alpha = 0.22f),
+                height = if (isTrackActive) 16.dp else 12.dp
+              )
+            },
+            modifier = Modifier.padding(horizontal = PlayerHorizontalPadding)
+          )
+        }
       }
       Spacer(Modifier.height(4.dp))
 
@@ -2202,12 +2277,12 @@ fun BottomSheetPlayer(
           if (sleepTimerEnabled || shouldShowCodecBox) {
             Box(
               modifier =
-                Modifier.clip(RoundedCornerShape(4.dp))
+                Modifier.clip(PixelCornerShape(4.dp))
                   .background(TextBackgroundColor.copy(alpha = 0.08f))
                   .border(
                     width = 0.5.dp,
                     color = TextBackgroundColor.copy(alpha = 0.12f),
-                    shape = RoundedCornerShape(4.dp)
+                    shape = PixelCornerShape(4.dp)
                   )
                   .clickable(enabled = sleepTimerEnabled) { showSleepTimerDialog = true }
                   .padding(horizontal = 6.dp, vertical = 2.dp)
@@ -2442,7 +2517,7 @@ fun BottomSheetPlayer(
               FilledIconButton(
                 onClick = playerConnection::seekToPrevious,
                 enabled = canSkipPrevious && !isListenTogetherGuest,
-                shape = CircleShape,
+                shape = PixelCircleShape,
                 interactionSource = backInteractionSource,
                 colors =
                   IconButtonDefaults.filledIconButtonColors(
@@ -2504,7 +2579,7 @@ fun BottomSheetPlayer(
                   }
                 },
                 shape =
-                  if (wavyPlayPause && cookieIndent > 0f) WavyShape(9, cookieIndent, rotation) else CircleShape,
+                  if (wavyPlayPause && cookieIndent > 0f) WavyShape(9, cookieIndent, rotation) else PixelCircleShape,
                 interactionSource = playPauseInteractionSource,
                 colors =
                   IconButtonDefaults.filledIconButtonColors(
@@ -2548,7 +2623,7 @@ fun BottomSheetPlayer(
               FilledIconButton(
                 onClick = playerConnection::seekToNext,
                 enabled = canSkipNext && !isListenTogetherGuest,
-                shape = CircleShape,
+                shape = PixelCircleShape,
                 interactionSource = nextInteractionSource,
                 colors =
                   IconButtonDefaults.filledIconButtonColors(
@@ -2590,7 +2665,7 @@ fun BottomSheetPlayer(
 
               Box(
                 modifier =
-                  Modifier.size(100.dp).clip(RoundedCornerShape(playPauseRoundness)).clickable(
+                  Modifier.size(100.dp).clip(PixelCornerShape(playPauseRoundness)).clickable(
                     interactionSource = remember { MutableInteractionSource() },
                     indication = null
                   ) {
@@ -3012,7 +3087,7 @@ fun InlineLyricsView(
   }
 
   Box(
-    modifier = Modifier.fillMaxSize().clip(RoundedCornerShape(12.dp)),
+    modifier = Modifier.fillMaxSize().clip(PixelCornerShape(12.dp)),
     contentAlignment = Alignment.Center
   ) {
     when {
@@ -3059,7 +3134,7 @@ fun MoreActionsButton(
 
   Box(
     modifier =
-      Modifier.size(40.dp).clip(RoundedCornerShape(24.dp)).background(textButtonColor).clickable {
+      Modifier.size(40.dp).clip(PixelCornerShape(24.dp)).background(textButtonColor).clickable {
         menuState.show {
           PlayerMenu(
             mediaMetadata = mediaMetadata,
@@ -3095,7 +3170,7 @@ private fun PlayerMoreMenuButton(
   Box(
     contentAlignment = Alignment.Center,
     modifier =
-      Modifier.size(40.dp).clip(RoundedCornerShape(24.dp)).background(textButtonColor).clickable {
+      Modifier.size(40.dp).clip(PixelCornerShape(24.dp)).background(textButtonColor).clickable {
         menuState.show {
           PlayerMenu(
             mediaMetadata = mediaMetadata,

@@ -1,5 +1,7 @@
 package echo.music.iad1tya.ui.component
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -28,7 +30,7 @@ fun AutoPlaylistButton(
   modifier: Modifier = Modifier
 ) {
   Surface(
-    shape = RoundedCornerShape(12.dp),
+    shape = PixelCornerShape(12.dp),
     color = MaterialTheme.colorScheme.surfaceContainerHigh,
     modifier = modifier.clickable(onClick = onClick)
   ) {

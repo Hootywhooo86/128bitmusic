@@ -1,5 +1,7 @@
 package echo.music.iad1tya.ui.screens
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -174,7 +176,7 @@ fun CrashScreen(crashLog: String, onClose: () -> Unit, onShare: () -> Unit, onCo
       Box(
         modifier =
           Modifier.fillMaxWidth()
-            .clip(RoundedCornerShape(16.dp))
+            .clip(PixelCornerShape(16.dp))
             .background(MaterialTheme.colorScheme.surfaceContainerHighest)
             .padding(16.dp)
       ) {

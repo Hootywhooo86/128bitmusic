@@ -1,5 +1,7 @@
 package echo.music.iad1tya.ui.screens.library
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -107,7 +109,7 @@ fun LibraryArtistsScreen(
           colors =
             FilterChipDefaults.filterChipColors(containerColor = MaterialTheme.colorScheme.surface),
           onClick = onDeselect,
-          shape = RoundedCornerShape(16.dp),
+          shape = PixelCornerShape(16.dp),
           leadingIcon = {
             Icon(painter = painterResource(R.drawable.close), contentDescription = "")
           },

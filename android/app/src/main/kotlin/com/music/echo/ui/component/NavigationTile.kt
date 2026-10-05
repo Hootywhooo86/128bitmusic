@@ -1,5 +1,7 @@
 package echo.music.iad1tya.ui.component
 
+import echo.music.iad1tya.ui.theme.PixelCircleShape
+
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -36,7 +38,7 @@ fun NavigationTile(
       contentAlignment = Alignment.Center,
       modifier =
         Modifier.size(56.dp)
-          .clip(CircleShape)
+          .clip(PixelCircleShape)
           .background(MaterialTheme.colorScheme.surfaceContainer)
           .clickable(onClick = onClick),
     ) {

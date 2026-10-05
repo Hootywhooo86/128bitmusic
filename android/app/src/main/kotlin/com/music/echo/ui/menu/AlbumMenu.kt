@@ -1,5 +1,7 @@
 package echo.music.iad1tya.ui.menu
 
+import echo.music.iad1tya.ui.theme.PixelCircleShape
+
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.res.Configuration
@@ -215,7 +217,7 @@ fun AlbumMenu(
             AsyncImage(
               model = artist.thumbnailUrl,
               contentDescription = null,
-              modifier = Modifier.size(ListThumbnailSize).clip(CircleShape),
+              modifier = Modifier.size(ListThumbnailSize).clip(PixelCircleShape),
             )
           }
           Text(

@@ -3,6 +3,8 @@
 
 package echo.music.iad1tya.ui.component
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+
 import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
@@ -89,7 +91,7 @@ fun AppFloatingNavBar(
     if (useGlass) {
       Modifier.liquidGlass(
         config = glassConfig,
-        shape = RoundedCornerShape(percent = 50),
+        shape = PixelCornerShape(percent = 50),
       )
     } else {
       Modifier

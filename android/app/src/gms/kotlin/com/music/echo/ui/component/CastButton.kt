@@ -1,5 +1,7 @@
 package echo.music.iad1tya.ui.component
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -132,7 +134,7 @@ fun CastButton(
       Box(
         contentAlignment = Alignment.Center,
         modifier =
-          Modifier.size(40.dp).align(Alignment.Center).clip(RoundedCornerShape(20.dp)).clickable {
+          Modifier.size(40.dp).align(Alignment.Center).clip(PixelCornerShape(20.dp)).clickable {
             if (isCasting) {
               showSession()
             } else {

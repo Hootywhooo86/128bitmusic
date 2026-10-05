@@ -1,5 +1,8 @@
 package echo.music.iad1tya.echomusic.commitscreen
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+import echo.music.iad1tya.ui.theme.PixelCircleShape
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -41,7 +44,7 @@ fun CommitItem(commit: CommitData, onClick: () -> Unit) {
     Box(
       modifier =
         Modifier.size(40.dp)
-          .background(color = MaterialTheme.colorScheme.primaryContainer, shape = CircleShape),
+          .background(color = MaterialTheme.colorScheme.primaryContainer, shape = PixelCircleShape),
       contentAlignment = Alignment.Center
     ) {
       Icon(
@@ -87,7 +90,7 @@ fun CommitItem(commit: CommitData, onClick: () -> Unit) {
 
       Surface(
         color = MaterialTheme.colorScheme.secondaryContainer,
-        shape = RoundedCornerShape(4.dp)
+        shape = PixelCornerShape(4.dp)
       ) {
         Text(
           text = commit.sha.take(7),
@@ -104,14 +107,14 @@ fun CommitItem(commit: CommitData, onClick: () -> Unit) {
       AsyncImage(
         model = commit.authorAvatarUrl,
         contentDescription = commit.authorName,
-        modifier = Modifier.size(36.dp).clip(CircleShape)
+        modifier = Modifier.size(36.dp).clip(PixelCircleShape)
       )
     } else {
 
       Box(
         modifier =
           Modifier.size(36.dp)
-            .background(color = MaterialTheme.colorScheme.tertiaryContainer, shape = CircleShape),
+            .background(color = MaterialTheme.colorScheme.tertiaryContainer, shape = PixelCircleShape),
         contentAlignment = Alignment.Center
       ) {
         Text(

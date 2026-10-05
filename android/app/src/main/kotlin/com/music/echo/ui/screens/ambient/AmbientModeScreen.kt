@@ -1,5 +1,7 @@
 package echo.music.iad1tya.ui.screens.ambient
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+
 import android.app.Activity
 import android.content.pm.ActivityInfo
 import android.media.AudioManager
@@ -184,7 +186,7 @@ fun AmbientModeScreen(navController: NavController) {
               modifier =
                 Modifier.fillMaxHeight(artScale)
                   .aspectRatio(1f)
-                  .clip(RoundedCornerShape(16.dp))
+                  .clip(PixelCornerShape(16.dp))
                   .pointerInput(Unit) {
                     detectTapGestures(onDoubleTap = { playerConnection.togglePlayPause() })
                   }
@@ -306,7 +308,7 @@ fun AmbientModeScreen(navController: NavController) {
                 interactionSource = remember { MutableInteractionSource() },
                 indication = null
               ) {}, // consume clicks so they don't dismiss
-            shape = RoundedCornerShape(24.dp),
+            shape = PixelCornerShape(24.dp),
             tonalElevation = 3.dp
           ) {
             echo.music.iad1tya.ui.screens.settings.AmbientSettingsContent(

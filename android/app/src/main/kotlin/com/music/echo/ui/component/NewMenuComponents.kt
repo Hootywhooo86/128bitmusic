@@ -1,5 +1,8 @@
 package echo.music.iad1tya.ui.component
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+import echo.music.iad1tya.ui.theme.PixelCircleShape
+
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.basicMarquee
@@ -77,7 +80,7 @@ fun NewActionButton(
   Card(
     modifier = modifier.clickable(enabled = enabled) { performAction = true },
     colors = CardDefaults.cardColors(containerColor = animatedBackground),
-    shape = RoundedCornerShape(16.dp),
+    shape = PixelCornerShape(16.dp),
     elevation = CardDefaults.cardElevation()
   ) {
     Column(
@@ -253,7 +256,7 @@ fun NewIconButton(
   Card(
     modifier = modifier.clickable(enabled = enabled) { onClick() },
     colors = CardDefaults.cardColors(containerColor = animatedBackground),
-    shape = CircleShape,
+    shape = PixelCircleShape,
     elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
   ) {
     Box(modifier = Modifier.size(48.dp).padding(12.dp), contentAlignment = Alignment.Center) {

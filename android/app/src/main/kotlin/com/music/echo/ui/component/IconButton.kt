@@ -1,5 +1,7 @@
 package echo.music.iad1tya.ui.component
 
+import echo.music.iad1tya.ui.theme.PixelCircleShape
+
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
@@ -71,7 +73,7 @@ fun IconButton(
       modifier
         .minimumInteractiveComponentSize()
         .sizeIn(minWidth = 48.dp, minHeight = 48.dp)
-        .clip(CircleShape)
+        .clip(PixelCircleShape)
         .background(color = colors.containerColor)
         .combinedClickable(
           onClick = onClick,

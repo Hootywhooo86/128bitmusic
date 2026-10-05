@@ -1,5 +1,8 @@
 package echo.music.iad1tya.ui.screens.playlist
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+import echo.music.iad1tya.ui.theme.PixelCircleShape
+
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
@@ -837,7 +840,7 @@ fun LocalPlaylistScreen(
               modifier =
                 Modifier.background(
                   androidx.compose.material3.MaterialTheme.colorScheme.surface.copy(alpha = 0.6f),
-                  CircleShape
+                  PixelCircleShape
                 )
             ) {
               if (isSyncing) {
@@ -858,7 +861,7 @@ fun LocalPlaylistScreen(
             modifier =
               Modifier.background(
                 androidx.compose.material3.MaterialTheme.colorScheme.surface.copy(alpha = 0.6f),
-                CircleShape
+                PixelCircleShape
               )
           ) {
             Icon(painter = painterResource(R.drawable.search), contentDescription = null)
@@ -1061,7 +1064,7 @@ fun LocalPlaylistHeader(
               if (LocalConfiguration.current.screenWidthDp > 600) Modifier.size(300.dp)
               else Modifier.fillMaxWidth().padding(horizontal = 48.dp).aspectRatio(1f)
             )
-            .clip(RoundedCornerShape(8.dp))
+            .clip(PixelCornerShape(8.dp))
       ) {
         when (playlist.thumbnails.size) {
           0 ->
@@ -1256,7 +1259,7 @@ fun LocalPlaylistHeader(
           )
         },
         modifier = Modifier.weight(1f).height(48.dp),
-        shape = CircleShape,
+        shape = PixelCircleShape,
         colors =
           androidx.compose.material3.ButtonDefaults.textButtonColors(
             containerColor = MaterialTheme.colorScheme.primary,
@@ -1286,7 +1289,7 @@ fun LocalPlaylistHeader(
           )
         },
         modifier = Modifier.weight(1f).height(48.dp),
-        shape = CircleShape,
+        shape = PixelCircleShape,
         colors =
           androidx.compose.material3.ButtonDefaults.textButtonColors(
             containerColor = MaterialTheme.colorScheme.surfaceVariant,
@@ -1380,7 +1383,7 @@ fun LocalPlaylistHeader(
             )
           }
         },
-        shape = CircleShape,
+        shape = PixelCircleShape,
         color = MaterialTheme.colorScheme.surfaceVariant,
         modifier = Modifier.size(48.dp)
       ) {
@@ -1433,7 +1436,7 @@ fun LocalPlaylistHeader(
 private fun MetadataChip(icon: Int, text: String, modifier: Modifier = Modifier) {
   Surface(
     modifier = modifier,
-    shape = RoundedCornerShape(20.dp),
+    shape = PixelCornerShape(20.dp),
     color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.7f)
   ) {
     Row(

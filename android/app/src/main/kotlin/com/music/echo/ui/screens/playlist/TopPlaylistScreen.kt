@@ -1,5 +1,8 @@
 package echo.music.iad1tya.ui.screens.playlist
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+import echo.music.iad1tya.ui.theme.PixelCircleShape
+
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -527,7 +530,7 @@ private fun TopPlaylistHeader(
               if (LocalConfiguration.current.screenWidthDp > 600) Modifier.size(300.dp)
               else Modifier.fillMaxWidth().aspectRatio(1f)
             )
-            .clip(RoundedCornerShape(8.dp)),
+            .clip(PixelCornerShape(8.dp)),
         contentScale = ContentScale.Crop
       )
     }
@@ -673,7 +676,7 @@ private fun TopPlaylistHeader(
               )
             }
           },
-          shape = CircleShape,
+          shape = PixelCircleShape,
           color = MaterialTheme.colorScheme.surfaceVariant,
           modifier = Modifier.size(48.dp)
         ) {

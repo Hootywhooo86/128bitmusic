@@ -22,6 +22,9 @@
 
 package echo.music.iad1tya.ui.component.floatingtabbar
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+import echo.music.iad1tya.ui.theme.PixelCircleShape
+
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.EnterExitState
@@ -1102,10 +1105,10 @@ object FloatingTabBarDefaults {
    */
   @Composable
   fun shapes(
-    tabBarShape: Shape = RoundedCornerShape(100),
-    tabShape: Shape = RoundedCornerShape(100),
-    standaloneTabShape: Shape = CircleShape,
-    accessoryShape: Shape = RoundedCornerShape(100),
+    tabBarShape: Shape = PixelCornerShape(100),
+    tabShape: Shape = PixelCornerShape(100),
+    standaloneTabShape: Shape = PixelCircleShape,
+    accessoryShape: Shape = PixelCornerShape(100),
   ): FloatingTabBarShapes =
     FloatingTabBarShapes(
       tabBarShape = tabBarShape,

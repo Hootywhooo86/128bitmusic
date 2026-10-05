@@ -1,5 +1,7 @@
 package echo.music.iad1tya.ui.screens.library
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -161,7 +163,7 @@ fun LibrarySongsScreen(
                   containerColor = MaterialTheme.colorScheme.surface
                 ),
               onClick = onDeselect,
-              shape = RoundedCornerShape(16.dp),
+              shape = PixelCornerShape(16.dp),
               leadingIcon = {
                 Icon(painter = painterResource(R.drawable.close), contentDescription = "")
               },

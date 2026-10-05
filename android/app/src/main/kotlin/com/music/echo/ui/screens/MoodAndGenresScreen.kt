@@ -1,5 +1,7 @@
 package echo.music.iad1tya.ui.screens
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+
 import android.content.res.Configuration.ORIENTATION_LANDSCAPE
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -118,7 +120,7 @@ fun MoodAndGenresButton(
     modifier =
       modifier
         .height(MoodAndGenresButtonHeight)
-        .clip(RoundedCornerShape(6.dp))
+        .clip(PixelCornerShape(6.dp))
         .background(MaterialTheme.colorScheme.surfaceContainer)
         .clickable(onClick = onClick)
         .padding(horizontal = 12.dp),

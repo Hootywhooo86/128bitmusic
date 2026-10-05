@@ -1,5 +1,8 @@
 package echo.music.iad1tya.ui.component
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+import echo.music.iad1tya.ui.theme.PixelCircleShape
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -94,14 +97,14 @@ fun CastSessionSheet(onDismiss: () -> Unit, modifier: Modifier = Modifier) {
       verticalAlignment = Alignment.CenterVertically,
       modifier =
         Modifier.fillMaxWidth()
-          .clip(RoundedCornerShape(14.dp))
+          .clip(PixelCornerShape(14.dp))
           .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f))
           .padding(horizontal = 16.dp, vertical = 14.dp)
     ) {
       Box(
         modifier =
           Modifier.size(48.dp)
-            .clip(CircleShape)
+            .clip(PixelCircleShape)
             .background(MaterialTheme.colorScheme.primaryContainer),
         contentAlignment = Alignment.Center
       ) {
@@ -143,7 +146,7 @@ fun CastSessionSheet(onDismiss: () -> Unit, modifier: Modifier = Modifier) {
         onDismiss()
       },
       modifier = Modifier.fillMaxWidth(),
-      shape = RoundedCornerShape(12.dp)
+      shape = PixelCornerShape(12.dp)
     ) {
       Icon(
         painter = painterResource(deviceType.connectedIcon),
@@ -168,7 +171,7 @@ private fun NowPlayingCard(metadata: MediaMetadata, modifier: Modifier = Modifie
     modifier =
       modifier
         .fillMaxWidth()
-        .clip(RoundedCornerShape(14.dp))
+        .clip(PixelCornerShape(14.dp))
         .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f))
         .padding(horizontal = 16.dp, vertical = 14.dp)
   ) {
@@ -181,13 +184,13 @@ private fun NowPlayingCard(metadata: MediaMetadata, modifier: Modifier = Modifie
         contentScale = ContentScale.Crop,
         placeholder = musicNotePlaceholder,
         error = musicNotePlaceholder,
-        modifier = Modifier.size(48.dp).clip(RoundedCornerShape(8.dp))
+        modifier = Modifier.size(48.dp).clip(PixelCornerShape(8.dp))
       )
     } else {
       Box(
         modifier =
           Modifier.size(48.dp)
-            .clip(RoundedCornerShape(8.dp))
+            .clip(PixelCornerShape(8.dp))
             .background(MaterialTheme.colorScheme.surfaceVariant),
         contentAlignment = Alignment.Center
       ) {

@@ -1,5 +1,7 @@
 package echo.music.iad1tya.echomusic.updater
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -471,7 +473,7 @@ fun UpdateScreen(navController: NavHostController) {
                       model = currentStatus.imageUrl,
                       contentDescription = null,
                       modifier =
-                        Modifier.fillMaxWidth().height(200.dp).clip(RoundedCornerShape(24.dp)),
+                        Modifier.fillMaxWidth().height(200.dp).clip(PixelCornerShape(24.dp)),
                       contentScale = ContentScale.Crop
                     )
                     Spacer(modifier = Modifier.height(24.dp))
@@ -536,7 +538,7 @@ fun UpdateScreen(navController: NavHostController) {
                         modifier =
                           Modifier.fillMaxWidth()
                             .height(8.dp)
-                            .clip(androidx.compose.foundation.shape.RoundedCornerShape(4.dp)),
+                            .clip(PixelCornerShape(4.dp)),
                         color = MaterialTheme.colorScheme.primary,
                         trackColor = MaterialTheme.colorScheme.surfaceContainerHigh
                       )
@@ -545,7 +547,7 @@ fun UpdateScreen(navController: NavHostController) {
                         modifier =
                           Modifier.fillMaxWidth()
                             .height(8.dp)
-                            .clip(androidx.compose.foundation.shape.RoundedCornerShape(4.dp)),
+                            .clip(PixelCornerShape(4.dp)),
                         color = MaterialTheme.colorScheme.primary,
                         trackColor = MaterialTheme.colorScheme.surfaceContainerHigh
                       )
@@ -581,7 +583,8 @@ fun saveUpdateAvailableState(context: Context, available: Boolean) {
 
 fun getAutoUpdateCheckSetting(context: Context): Boolean {
   val sharedPrefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-  return sharedPrefs.getBoolean(KEY_AUTO_UPDATE_CHECK, true)
+  // 128bit: off by default; Echo's update feed points at Echo's own releases, not ours.
+  return sharedPrefs.getBoolean(KEY_AUTO_UPDATE_CHECK, false)
 }
 
 fun saveAutoUpdateCheckSetting(context: Context, enabled: Boolean) {

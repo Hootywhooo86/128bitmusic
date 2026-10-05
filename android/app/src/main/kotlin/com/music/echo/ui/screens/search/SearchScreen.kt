@@ -1,5 +1,7 @@
 package echo.music.iad1tya.ui.screens.search
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
@@ -411,12 +413,12 @@ fun ExploreTabContent(
                 Modifier.weight(1f)
                   .padding(6.dp)
                   .height(64.dp)
-                  .clip(RoundedCornerShape(12.dp))
+                  .clip(PixelCornerShape(12.dp))
                   .background(MaterialTheme.colorScheme.surfaceContainerLow)
                   .border(
                     width = 1.dp,
                     color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f),
-                    shape = RoundedCornerShape(12.dp)
+                    shape = PixelCornerShape(12.dp)
                   )
                   .clickable {
                     navController.navigate(

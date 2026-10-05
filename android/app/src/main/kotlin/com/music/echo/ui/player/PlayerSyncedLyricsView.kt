@@ -1,5 +1,7 @@
 package echo.music.iad1tya.ui.player
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.SizeTransform
 import androidx.compose.animation.fadeIn
@@ -100,7 +102,7 @@ fun PlayerSyncedLyricsView(
       ShimmerHost(modifier = Modifier.fillMaxWidth()) {
         TextPlaceholder(
           height = 20.dp,
-          shape = RoundedCornerShape(8.dp),
+          shape = PixelCornerShape(8.dp),
           modifier = Modifier.fillMaxWidth(0.6f)
         )
       }

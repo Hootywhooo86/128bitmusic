@@ -1,5 +1,7 @@
 package echo.music.iad1tya.ui.component
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.awaitEachGesture
@@ -218,7 +220,7 @@ private fun SearchBarInputField(
             visualTransformation = VisualTransformation.None,
             interactionSource = interactionSource,
             placeholder = placeholder,
-            shape = RoundedCornerShape(0.dp),
+            shape = PixelCornerShape(0.dp),
             colors = colors,
             contentPadding = PaddingValues(),
             container = {},

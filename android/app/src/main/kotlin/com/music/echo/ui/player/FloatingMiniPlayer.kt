@@ -1,6 +1,8 @@
 /** vivimusic Project (C) 2026 Licensed under GPL-3.0 | See git history for contributors */
 package echo.music.iad1tya.ui.player
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
@@ -237,7 +239,7 @@ fun FloatingMiniPlayer(
         contentScale = ContentScale.Crop,
         modifier =
           Modifier.size(artSize)
-            .clip(RoundedCornerShape(artCornerRadius))
+            .clip(PixelCornerShape(artCornerRadius))
             .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)),
       )
 

@@ -1,5 +1,7 @@
 package echo.music.iad1tya.ui.menu
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
@@ -59,7 +61,7 @@ fun CsvColumnMappingDialog(
     Column(
       modifier =
         Modifier.fillMaxWidth(0.95f)
-          .clip(RoundedCornerShape(16.dp))
+          .clip(PixelCornerShape(16.dp))
           .background(MaterialTheme.colorScheme.surface)
           .padding(24.dp),
       verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -74,7 +76,7 @@ fun CsvColumnMappingDialog(
         Column(
           modifier =
             Modifier.fillMaxWidth()
-              .clip(RoundedCornerShape(8.dp))
+              .clip(PixelCornerShape(8.dp))
               .background(MaterialTheme.colorScheme.surfaceVariant)
               .padding(12.dp),
           verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -98,7 +100,7 @@ fun CsvColumnMappingDialog(
                   Box(
                     modifier =
                       Modifier.width(120.dp)
-                        .clip(RoundedCornerShape(4.dp))
+                        .clip(PixelCornerShape(4.dp))
                         .background(
                           when {
                             rowIndex == 0 && hasHeader -> MaterialTheme.colorScheme.primaryContainer
@@ -280,7 +282,7 @@ fun CsvImportProgressDialog(
     Column(
       modifier =
         Modifier.fillMaxWidth(0.85f)
-          .clip(RoundedCornerShape(16.dp))
+          .clip(PixelCornerShape(16.dp))
           .background(MaterialTheme.colorScheme.surface)
           .padding(24.dp),
       verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -293,7 +295,7 @@ fun CsvImportProgressDialog(
 
       LinearProgressIndicator(
         progress = { progress / 100f },
-        modifier = Modifier.fillMaxWidth().height(8.dp).clip(RoundedCornerShape(4.dp)),
+        modifier = Modifier.fillMaxWidth().height(8.dp).clip(PixelCornerShape(4.dp)),
       )
 
       Text(
@@ -306,7 +308,7 @@ fun CsvImportProgressDialog(
         Column(
           modifier =
             Modifier.fillMaxWidth()
-              .clip(RoundedCornerShape(8.dp))
+              .clip(PixelCornerShape(8.dp))
               .background(MaterialTheme.colorScheme.surfaceVariant)
               .padding(12.dp),
           verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -321,7 +323,7 @@ fun CsvImportProgressDialog(
             Column(
               modifier =
                 Modifier.fillMaxWidth()
-                  .clip(RoundedCornerShape(4.dp))
+                  .clip(PixelCornerShape(4.dp))
                   .background(MaterialTheme.colorScheme.background)
                   .padding(8.dp),
               verticalArrangement = Arrangement.spacedBy(4.dp),

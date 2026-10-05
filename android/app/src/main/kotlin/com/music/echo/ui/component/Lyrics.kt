@@ -1,5 +1,8 @@
 package echo.music.iad1tya.ui.component
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+import echo.music.iad1tya.ui.theme.PixelCircleShape
+
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
@@ -714,7 +717,7 @@ fun Lyrics(
                 CardDefaults.cardColors(
                   containerColor = MaterialTheme.colorScheme.primaryContainer
                 ),
-              shape = RoundedCornerShape(16.dp),
+              shape = PixelCornerShape(16.dp),
               elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
             ) {
               Row(
@@ -741,7 +744,7 @@ fun Lyrics(
             Card(
               colors =
                 CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer),
-              shape = RoundedCornerShape(16.dp),
+              shape = PixelCornerShape(16.dp),
               elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
             ) {
               Row(
@@ -769,7 +772,7 @@ fun Lyrics(
                 CardDefaults.cardColors(
                   containerColor = MaterialTheme.colorScheme.tertiaryContainer
                 ),
-              shape = RoundedCornerShape(16.dp),
+              shape = PixelCornerShape(16.dp),
               elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
             ) {
               Row(
@@ -1073,14 +1076,14 @@ fun Lyrics(
             val isNextSelected = selectedIndices.contains(index + 1)
             val cornerShape =
               if (isSelected && isSelectionModeActive) {
-                androidx.compose.foundation.shape.RoundedCornerShape(
+                PixelCornerShape(
                   topStart = if (isPrevSelected) 0.dp else 16.dp,
                   topEnd = if (isPrevSelected) 0.dp else 16.dp,
                   bottomStart = if (isNextSelected) 0.dp else 16.dp,
                   bottomEnd = if (isNextSelected) 0.dp else 16.dp
                 )
               } else {
-                androidx.compose.foundation.shape.RoundedCornerShape(16.dp)
+                PixelCornerShape(16.dp)
               }
 
             val itemModifier =
@@ -2125,7 +2128,7 @@ fun Lyrics(
       val (lyricsText, songTitle, artists) = shareDialogData!!
       BasicAlertDialog(onDismissRequest = { showShareDialog = false }) {
         Card(
-          shape = androidx.compose.foundation.shape.RoundedCornerShape(24.dp),
+          shape = PixelCornerShape(24.dp),
           elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
           colors =
             CardDefaults.cardColors(
@@ -2282,7 +2285,7 @@ fun Lyrics(
           contentAlignment = Alignment.Center
         ) {
           Card(
-            shape = RoundedCornerShape(28.dp),
+            shape = PixelCornerShape(28.dp),
             colors =
               CardDefaults.cardColors(
                 containerColor = MaterialTheme.colorScheme.surfaceContainerHigh
@@ -2340,7 +2343,7 @@ fun Lyrics(
                   Modifier.fillMaxWidth()
                     .aspectRatio(1f)
                     .padding(8.dp)
-                    .clip(RoundedCornerShape(12.dp))
+                    .clip(PixelCornerShape(12.dp))
               ) {
                 LyricsImageCard(
                   lyricText = lyricsText,
@@ -2387,7 +2390,7 @@ fun Lyrics(
                     Box(
                       modifier =
                         Modifier.size(40.dp)
-                          .clip(androidx.compose.foundation.shape.CircleShape)
+                          .clip(PixelCircleShape)
                           .background(color)
                           .clickable { previewBackgroundColor = color }
                           .border(
@@ -2395,7 +2398,7 @@ fun Lyrics(
                             color =
                               if (previewBackgroundColor == color) MaterialTheme.colorScheme.primary
                               else MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f),
-                            shape = androidx.compose.foundation.shape.CircleShape
+                            shape = PixelCircleShape
                           )
                     )
                   }
@@ -2431,7 +2434,7 @@ fun Lyrics(
                     Box(
                       modifier =
                         Modifier.size(40.dp)
-                          .clip(androidx.compose.foundation.shape.CircleShape)
+                          .clip(PixelCircleShape)
                           .background(color)
                           .clickable { previewTextColor = color }
                           .border(
@@ -2439,7 +2442,7 @@ fun Lyrics(
                             color =
                               if (previewTextColor == color) MaterialTheme.colorScheme.primary
                               else MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f),
-                            shape = androidx.compose.foundation.shape.CircleShape
+                            shape = PixelCircleShape
                           )
                     )
                   }
@@ -2474,7 +2477,7 @@ fun Lyrics(
                     Box(
                       modifier =
                         Modifier.size(40.dp)
-                          .clip(androidx.compose.foundation.shape.CircleShape)
+                          .clip(PixelCircleShape)
                           .background(color)
                           .clickable { previewSecondaryTextColor = color }
                           .border(
@@ -2483,7 +2486,7 @@ fun Lyrics(
                               if (previewSecondaryTextColor == color)
                                 MaterialTheme.colorScheme.primary
                               else MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f),
-                            shape = androidx.compose.foundation.shape.CircleShape
+                            shape = PixelCircleShape
                           )
                     )
                   }

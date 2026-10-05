@@ -1,5 +1,7 @@
 package echo.music.iad1tya.ui.menu
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+
 import android.content.Context
 import android.content.res.Configuration
 import android.widget.Toast
@@ -828,7 +830,7 @@ fun PlayerMenu(
                     )
                     if (pendingSuggestions.isNotEmpty()) {
                       Surface(
-                        shape = RoundedCornerShape(12.dp),
+                        shape = PixelCornerShape(12.dp),
                         color = MaterialTheme.colorScheme.primary,
                         modifier = Modifier.offset(x = 8.dp, y = (-6).dp).align(Alignment.TopEnd)
                       ) {
@@ -950,7 +952,7 @@ fun TempoPitchDialog(onDismiss: () -> Unit) {
   ) {
     androidx.compose.material3.Card(
       modifier = Modifier.fillMaxWidth().padding(24.dp),
-      shape = androidx.compose.foundation.shape.RoundedCornerShape(28.dp),
+      shape = PixelCornerShape(28.dp),
       colors = androidx.compose.material3.CardDefaults.cardColors(containerColor = androidx.compose.material3.MaterialTheme.colorScheme.surface),
       elevation = androidx.compose.material3.CardDefaults.cardElevation(defaultElevation = 8.dp)
     ) {
@@ -968,7 +970,7 @@ fun TempoPitchDialog(onDismiss: () -> Unit) {
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
           if (!isInRoom) {
             androidx.compose.material3.Card(
-              shape = androidx.compose.foundation.shape.RoundedCornerShape(24.dp),
+              shape = PixelCornerShape(24.dp),
               colors = androidx.compose.material3.CardDefaults.cardColors(containerColor = androidx.compose.material3.MaterialTheme.colorScheme.surfaceContainerHigh),
               elevation = androidx.compose.material3.CardDefaults.cardElevation(defaultElevation = 0.dp),
               modifier = Modifier.fillMaxWidth()
@@ -988,7 +990,7 @@ fun TempoPitchDialog(onDismiss: () -> Unit) {
             }
           }
           androidx.compose.material3.Card(
-            shape = androidx.compose.foundation.shape.RoundedCornerShape(24.dp),
+            shape = PixelCornerShape(24.dp),
             colors = androidx.compose.material3.CardDefaults.cardColors(containerColor = androidx.compose.material3.MaterialTheme.colorScheme.surfaceContainerHigh),
             elevation = androidx.compose.material3.CardDefaults.cardElevation(defaultElevation = 0.dp),
             modifier = Modifier.fillMaxWidth()
@@ -1199,7 +1201,7 @@ fun ListenTogetherDialog(visible: Boolean, mediaMetadata: MediaMetadata?, onDism
               selectedUserForMenu = null
               selectedUsername = null
             },
-          shape = RoundedCornerShape(12.dp),
+          shape = PixelCornerShape(12.dp),
           color = MaterialTheme.colorScheme.errorContainer
         ) {
           Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(16.dp)) {
@@ -1242,7 +1244,7 @@ fun ListenTogetherDialog(visible: Boolean, mediaMetadata: MediaMetadata?, onDism
               selectedUserForMenu = null
               selectedUsername = null
             },
-          shape = RoundedCornerShape(12.dp),
+          shape = PixelCornerShape(12.dp),
           color = MaterialTheme.colorScheme.surfaceVariant
         ) {
           Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(16.dp)) {
@@ -1280,7 +1282,7 @@ fun ListenTogetherDialog(visible: Boolean, mediaMetadata: MediaMetadata?, onDism
               selectedUserForMenu = null
               selectedUsername = null
             },
-          shape = RoundedCornerShape(12.dp),
+          shape = PixelCornerShape(12.dp),
           color = MaterialTheme.colorScheme.primaryContainer
         ) {
           Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(16.dp)) {
@@ -1385,7 +1387,7 @@ fun ListenTogetherDialog(visible: Boolean, mediaMetadata: MediaMetadata?, onDism
     item {
       Surface(
         modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
-        shape = RoundedCornerShape(16.dp),
+        shape = PixelCornerShape(16.dp),
         color =
           when (connectionState) {
             ConnectionState.CONNECTED -> MaterialTheme.colorScheme.primary.copy(alpha = 0.15f)
@@ -1415,7 +1417,7 @@ fun ListenTogetherDialog(visible: Boolean, mediaMetadata: MediaMetadata?, onDism
                         ConnectionState.ERROR -> MaterialTheme.colorScheme.error
                         ConnectionState.DISCONNECTED -> MaterialTheme.colorScheme.outline
                       },
-                    shape = RoundedCornerShape(50)
+                    shape = PixelCornerShape(50)
                   )
             )
             Spacer(modifier = Modifier.width(8.dp))
@@ -1514,7 +1516,7 @@ fun ListenTogetherDialog(visible: Boolean, mediaMetadata: MediaMetadata?, onDism
         item {
           Surface(
             modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
-            shape = RoundedCornerShape(16.dp),
+            shape = PixelCornerShape(16.dp),
             color = MaterialTheme.colorScheme.primary.copy(alpha = 0.1f)
           ) {
             Column(
@@ -1631,7 +1633,7 @@ fun ListenTogetherDialog(visible: Boolean, mediaMetadata: MediaMetadata?, onDism
                   Box(contentAlignment = Alignment.Center) {
                     Surface(
                       modifier = Modifier.size(52.dp),
-                      shape = RoundedCornerShape(50),
+                      shape = PixelCornerShape(50),
                       color =
                         if (user.isHost) {
                           MaterialTheme.colorScheme.primary
@@ -1664,7 +1666,7 @@ fun ListenTogetherDialog(visible: Boolean, mediaMetadata: MediaMetadata?, onDism
                           Modifier.align(Alignment.BottomEnd)
                             .offset(x = 4.dp, y = 4.dp)
                             .size(18.dp),
-                        shape = RoundedCornerShape(50),
+                        shape = PixelCornerShape(50),
                         color =
                           if (user.isHost) MaterialTheme.colorScheme.primary
                           else MaterialTheme.colorScheme.secondary
@@ -1741,7 +1743,7 @@ fun ListenTogetherDialog(visible: Boolean, mediaMetadata: MediaMetadata?, onDism
           items(pendingJoinRequests) { request ->
             Surface(
               modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 4.dp),
-              shape = RoundedCornerShape(12.dp),
+              shape = PixelCornerShape(12.dp),
               color = MaterialTheme.colorScheme.secondary.copy(alpha = 0.15f)
             ) {
               Row(
@@ -1756,7 +1758,7 @@ fun ListenTogetherDialog(visible: Boolean, mediaMetadata: MediaMetadata?, onDism
                 ) {
                   Surface(
                     modifier = Modifier.size(36.dp),
-                    shape = RoundedCornerShape(50),
+                    shape = PixelCornerShape(50),
                     color = MaterialTheme.colorScheme.secondary
                   ) {
                     Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
@@ -1821,7 +1823,7 @@ fun ListenTogetherDialog(visible: Boolean, mediaMetadata: MediaMetadata?, onDism
           items(pendingSuggestions) { suggestion ->
             Surface(
               modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 4.dp),
-              shape = RoundedCornerShape(12.dp),
+              shape = PixelCornerShape(12.dp),
               color = MaterialTheme.colorScheme.secondary.copy(alpha = 0.15f)
             ) {
               Row(
@@ -1925,7 +1927,7 @@ fun ListenTogetherDialog(visible: Boolean, mediaMetadata: MediaMetadata?, onDism
       item {
         Surface(
           modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
-          shape = RoundedCornerShape(16.dp),
+          shape = PixelCornerShape(16.dp),
           color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
         ) {
           Column(
@@ -1959,7 +1961,7 @@ fun ListenTogetherDialog(visible: Boolean, mediaMetadata: MediaMetadata?, onDism
                 }
               },
               singleLine = true,
-              shape = RoundedCornerShape(12.dp),
+              shape = PixelCornerShape(12.dp),
               colors =
                 OutlinedTextFieldDefaults.colors(
                   focusedBorderColor = MaterialTheme.colorScheme.primary,
@@ -2000,7 +2002,7 @@ fun ListenTogetherDialog(visible: Boolean, mediaMetadata: MediaMetadata?, onDism
                 )
               },
               singleLine = true,
-              shape = RoundedCornerShape(12.dp),
+              shape = PixelCornerShape(12.dp),
               colors =
                 OutlinedTextFieldDefaults.colors(
                   focusedBorderColor = MaterialTheme.colorScheme.primary,
@@ -2034,7 +2036,7 @@ fun ListenTogetherDialog(visible: Boolean, mediaMetadata: MediaMetadata?, onDism
             joinErrorMessage?.let { msg ->
               Surface(
                 modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(8.dp),
+                shape = PixelCornerShape(8.dp),
                 color = MaterialTheme.colorScheme.error.copy(alpha = 0.1f)
               ) {
                 Row(

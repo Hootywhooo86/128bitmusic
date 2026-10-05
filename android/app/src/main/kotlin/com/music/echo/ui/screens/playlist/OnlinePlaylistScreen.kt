@@ -1,5 +1,8 @@
 package echo.music.iad1tya.ui.screens.playlist
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+import echo.music.iad1tya.ui.theme.PixelCircleShape
+
 import android.content.Intent
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedContent
@@ -483,7 +486,7 @@ fun OnlinePlaylistScreen(
           modifier =
             Modifier.background(
               androidx.compose.material3.MaterialTheme.colorScheme.surface.copy(alpha = 0.6f),
-              CircleShape
+              PixelCircleShape
             ),
           onClick = {
             if (isSearching) {
@@ -542,7 +545,7 @@ fun OnlinePlaylistScreen(
             modifier =
               Modifier.background(
                 androidx.compose.material3.MaterialTheme.colorScheme.surface.copy(alpha = 0.6f),
-                CircleShape
+                PixelCircleShape
               )
           ) {
             Icon(painter = painterResource(R.drawable.search), contentDescription = null)
@@ -612,7 +615,7 @@ private fun OnlinePlaylistHeader(
                 if (LocalConfiguration.current.screenWidthDp > 600) Modifier.size(300.dp)
                 else Modifier.fillMaxWidth().aspectRatio(1f)
               )
-              .clip(RoundedCornerShape(8.dp)),
+              .clip(PixelCornerShape(8.dp)),
           contentScale = ContentScale.Crop
         )
       }
@@ -650,7 +653,7 @@ private fun OnlinePlaylistHeader(
 
       if (hasExplicitContent) {
         Surface(
-          shape = RoundedCornerShape(6.dp),
+          shape = PixelCornerShape(6.dp),
           color = MaterialTheme.colorScheme.surfaceVariant
         ) {
           Row(
@@ -677,7 +680,7 @@ private fun OnlinePlaylistHeader(
 
       val totalDuration = songs.sumOf { it.duration ?: 0 }
       Surface(
-        shape = RoundedCornerShape(6.dp),
+        shape = PixelCornerShape(6.dp),
         color = MaterialTheme.colorScheme.surfaceVariant,
         modifier = Modifier.padding(horizontal = 32.dp)
       ) {
@@ -832,7 +835,7 @@ private fun OnlinePlaylistHeader(
               }
             context.startActivity(Intent.createChooser(intent, null))
           },
-          shape = CircleShape,
+          shape = PixelCircleShape,
           color = MaterialTheme.colorScheme.surfaceVariant,
           modifier = Modifier.size(48.dp)
         ) {

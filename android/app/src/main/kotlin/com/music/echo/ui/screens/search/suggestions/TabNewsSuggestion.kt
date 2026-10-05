@@ -1,5 +1,8 @@
 package echo.music.iad1tya.ui.screens.search.suggestions
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+import echo.music.iad1tya.ui.theme.PixelCircleShape
+
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.tween
@@ -294,28 +297,28 @@ fun TrendingAppleMusicSection(
           val isBottom = i == endIdx - 1
           val shape =
             when {
-              isTop && isBottom -> RoundedCornerShape(24.dp)
+              isTop && isBottom -> PixelCornerShape(24.dp)
               isTop ->
-                RoundedCornerShape(
+                PixelCornerShape(
                   topStart = 24.dp,
                   topEnd = 24.dp,
                   bottomStart = 2.dp,
                   bottomEnd = 2.dp
                 )
               isBottom ->
-                RoundedCornerShape(
+                PixelCornerShape(
                   topStart = 2.dp,
                   topEnd = 2.dp,
                   bottomStart = 24.dp,
                   bottomEnd = 24.dp
                 )
-              else -> RoundedCornerShape(2.dp)
+              else -> PixelCornerShape(2.dp)
             }
           if (isMoreCard) {
             Row(
               modifier =
                 Modifier.fillMaxWidth()
-                  .clip(RoundedCornerShape(12.dp))
+                  .clip(PixelCornerShape(12.dp))
                   .background(MaterialTheme.colorScheme.surfaceContainerHigh)
                   .clickable { onMoreClick() }
                   .padding(16.dp),
@@ -366,7 +369,7 @@ fun TrendingAppleMusicSection(
                       LoadingIndicator()
                     }
                   },
-                  modifier = Modifier.clip(RoundedCornerShape(12.dp)).size(52.dp)
+                  modifier = Modifier.clip(PixelCornerShape(12.dp)).size(52.dp)
                 )
               }
               Column(Modifier.weight(1f).padding(start = 14.dp)) {
@@ -473,12 +476,12 @@ fun TopArtistsSection(artists: List<SuggestionArtist>, onArtistClick: (Suggestio
               },
               modifier =
                 Modifier.size(120.dp)
-                  .clip(RoundedCornerShape(12.dp))
+                  .clip(PixelCornerShape(12.dp))
                   .background(MaterialTheme.colorScheme.surfaceVariant)
             )
             Surface(
               modifier = Modifier.size(28.dp).offset((-4).dp, (-4).dp),
-              shape = CircleShape,
+              shape = PixelCircleShape,
               color = MaterialTheme.colorScheme.onSurface,
               tonalElevation = 4.dp
             ) {
@@ -556,12 +559,12 @@ fun TrendingAlbumsSection(
               },
               modifier =
                 Modifier.size(120.dp)
-                  .clip(RoundedCornerShape(12.dp))
+                  .clip(PixelCornerShape(12.dp))
                   .background(MaterialTheme.colorScheme.surfaceVariant)
             )
             Surface(
               modifier = Modifier.size(28.dp).offset((-4).dp, (-4).dp),
-              shape = CircleShape,
+              shape = PixelCircleShape,
               color = MaterialTheme.colorScheme.onSurface,
               tonalElevation = 4.dp
             ) {
@@ -605,7 +608,7 @@ fun TrendingAlbumsSection(
             contentAlignment = Alignment.Center,
             modifier =
               Modifier.size(120.dp)
-                .clip(RoundedCornerShape(12.dp))
+                .clip(PixelCornerShape(12.dp))
                 .background(MaterialTheme.colorScheme.primaryContainer)
           ) {
             Icon(
@@ -676,7 +679,7 @@ fun TrendingVideosSection(
       Box(
         modifier =
           Modifier.fillMaxSize()
-            .clip(RoundedCornerShape(16.dp))
+            .clip(PixelCornerShape(16.dp))
             .onGloballyPositioned { coordinates ->
               val cardCenter = coordinates.boundsInRoot().center.x
               val screenWidth = context.resources.displayMetrics.widthPixels

@@ -1,5 +1,7 @@
 package com.music.echo.ui.screens
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateDpAsState
@@ -111,7 +113,7 @@ fun ListeningSummaryScreen(
               CardDefaults.cardColors(
                 containerColor = MaterialTheme.colorScheme.secondaryContainer
               ),
-            shape = RoundedCornerShape(16.dp)
+            shape = PixelCornerShape(16.dp)
           ) {
             Column(modifier = Modifier.padding(16.dp)) {
               Text(
@@ -147,7 +149,7 @@ fun ListeningSummaryScreen(
       item {
         Card(
           modifier = Modifier.fillMaxWidth(),
-          shape = RoundedCornerShape(16.dp),
+          shape = PixelCornerShape(16.dp),
           colors =
             CardDefaults.cardColors(
               containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
@@ -212,7 +214,7 @@ fun ListeningSummaryScreen(
             // Week navigation pill
             OutlinedCard(
               modifier = Modifier.fillMaxWidth(),
-              shape = RoundedCornerShape(50),
+              shape = PixelCornerShape(50),
               border =
                 androidx.compose.foundation.BorderStroke(
                   1.dp,
@@ -276,7 +278,7 @@ fun ListeningSummaryScreen(
         Card(
           onClick = { showDailyBreakdown = !showDailyBreakdown },
           modifier = Modifier.fillMaxWidth(),
-          shape = RoundedCornerShape(50),
+          shape = PixelCornerShape(50),
           colors = CardDefaults.cardColors(containerColor = containerColor)
         ) {
           Row(
@@ -327,7 +329,7 @@ fun ListeningSummaryScreen(
                 label = "bottomRadius_$index"
               )
             val cardShape =
-              RoundedCornerShape(
+              PixelCornerShape(
                 topStart = topRadius,
                 topEnd = topRadius,
                 bottomStart = bottomRadius,
@@ -391,20 +393,20 @@ fun ListeningSummaryScreen(
                       val subShape =
                         when (i) {
                           0 ->
-                            RoundedCornerShape(
+                            PixelCornerShape(
                               topStart = 12.dp,
                               topEnd = 12.dp,
                               bottomStart = 2.dp,
                               bottomEnd = 2.dp
                             )
                           breakdownItems.size - 1 ->
-                            RoundedCornerShape(
+                            PixelCornerShape(
                               topStart = 2.dp,
                               topEnd = 2.dp,
                               bottomStart = 12.dp,
                               bottomEnd = 12.dp
                             )
-                          else -> RoundedCornerShape(2.dp)
+                          else -> PixelCornerShape(2.dp)
                         }
                       Surface(
                         modifier = Modifier.fillMaxWidth(),

@@ -1,5 +1,8 @@
 package echo.music.iad1tya.ui.component
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+import echo.music.iad1tya.ui.theme.PixelCircleShape
+
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -236,7 +239,7 @@ fun CastDevicePickerSheet(onDismiss: () -> Unit, modifier: Modifier = Modifier) 
     AnimatedVisibility(visible = isScanning) {
       Column {
         LinearProgressIndicator(
-          modifier = Modifier.fillMaxWidth().height(2.dp).clip(RoundedCornerShape(1.dp)),
+          modifier = Modifier.fillMaxWidth().height(2.dp).clip(PixelCornerShape(1.dp)),
           strokeCap = StrokeCap.Round
         )
         Spacer(modifier = Modifier.height(12.dp))
@@ -267,7 +270,7 @@ fun CastDevicePickerSheet(onDismiss: () -> Unit, modifier: Modifier = Modifier) 
           Box(
             modifier =
               Modifier.size(64.dp)
-                .clip(CircleShape)
+                .clip(PixelCircleShape)
                 .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)),
             contentAlignment = Alignment.Center
           ) {
@@ -335,7 +338,7 @@ private fun CastDeviceItem(
     modifier =
       modifier
         .fillMaxWidth()
-        .clip(RoundedCornerShape(12.dp))
+        .clip(PixelCornerShape(12.dp))
         .clickable(onClick = onClick)
         .padding(horizontal = 12.dp, vertical = 14.dp)
   ) {
@@ -343,7 +346,7 @@ private fun CastDeviceItem(
     Box(
       modifier =
         Modifier.size(44.dp)
-          .clip(CircleShape)
+          .clip(PixelCircleShape)
           .background(
             if (isSelected) MaterialTheme.colorScheme.primaryContainer
             else MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.6f)

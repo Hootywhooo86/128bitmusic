@@ -1,5 +1,7 @@
 package echo.music.iad1tya.ui.component
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
@@ -43,14 +45,14 @@ fun SpeedDialGridItem(
   val scope = rememberCoroutineScope()
 
   Box(
-    modifier = modifier.aspectRatio(1f).clip(RoundedCornerShape(ThumbnailCornerRadius)),
+    modifier = modifier.aspectRatio(1f).clip(PixelCornerShape(ThumbnailCornerRadius)),
     contentAlignment = Alignment.Center
   ) {
     ItemThumbnail(
       thumbnailUrl = item.thumbnail,
       isActive = isActive,
       isPlaying = isPlaying,
-      shape = RoundedCornerShape(ThumbnailCornerRadius),
+      shape = PixelCornerShape(ThumbnailCornerRadius),
       forceCrop = true,
       modifier = Modifier.fillMaxSize()
     )

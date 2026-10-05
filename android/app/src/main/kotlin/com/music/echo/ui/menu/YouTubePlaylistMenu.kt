@@ -1,5 +1,7 @@
 package echo.music.iad1tya.ui.menu
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.res.Configuration
@@ -360,7 +362,7 @@ fun YouTubePlaylistMenu(
               AsyncImage(
                 model = song.thumbnailUrl,
                 contentDescription = null,
-                modifier = Modifier.fillMaxSize().clip(RoundedCornerShape(ThumbnailCornerRadius)),
+                modifier = Modifier.fillMaxSize().clip(PixelCornerShape(ThumbnailCornerRadius)),
               )
             }
           },

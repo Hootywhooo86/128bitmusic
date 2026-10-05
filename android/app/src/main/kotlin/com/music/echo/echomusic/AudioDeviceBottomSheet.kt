@@ -2,6 +2,9 @@
 
 package echo.music.iad1tya.echomusic
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+import echo.music.iad1tya.ui.theme.PixelCircleShape
+
 import android.Manifest
 import android.annotation.SuppressLint
 import android.bluetooth.BluetoothDevice
@@ -467,7 +470,7 @@ fun AudioDeviceBottomSheet(onDismiss: () -> Unit, modifier: Modifier = Modifier)
                       val isActive = device.isActive
                       Surface(
                         onClick = { showDevicePopup = !showDevicePopup },
-                        shape = CircleShape,
+                        shape = PixelCircleShape,
                         color =
                           if (isActive) MaterialTheme.colorScheme.primaryContainer
                           else MaterialTheme.colorScheme.surfaceVariant,
@@ -533,22 +536,22 @@ fun AudioDeviceBottomSheet(onDismiss: () -> Unit, modifier: Modifier = Modifier)
                       val itemShape =
                         remember(index, effectiveDevices.size) {
                           when {
-                            effectiveDevices.size == 1 -> RoundedCornerShape(24.dp)
+                            effectiveDevices.size == 1 -> PixelCornerShape(24.dp)
                             index == 0 ->
-                              RoundedCornerShape(
+                              PixelCornerShape(
                                 topStart = 24.dp,
                                 topEnd = 24.dp,
                                 bottomStart = 4.dp,
                                 bottomEnd = 4.dp
                               )
                             index == effectiveDevices.lastIndex ->
-                              RoundedCornerShape(
+                              PixelCornerShape(
                                 topStart = 4.dp,
                                 topEnd = 4.dp,
                                 bottomStart = 24.dp,
                                 bottomEnd = 24.dp
                               )
-                            else -> RoundedCornerShape(4.dp)
+                            else -> PixelCornerShape(4.dp)
                           }
                         }
 
@@ -695,7 +698,7 @@ fun AudioDeviceBottomSheet(onDismiss: () -> Unit, modifier: Modifier = Modifier)
               Spacer(modifier = Modifier.width(1.dp))
             }
 
-            Button(onClick = onDismiss, shape = RoundedCornerShape(24.dp)) {
+            Button(onClick = onDismiss, shape = PixelCornerShape(24.dp)) {
               Text(stringResource(R.string.done))
             }
           }
@@ -762,7 +765,7 @@ fun VolumeControlRow(
 
   Surface(
     modifier = modifier.fillMaxWidth().height(72.dp),
-    shape = CircleShape,
+    shape = PixelCircleShape,
     color = MaterialTheme.colorScheme.surfaceContainerHigh,
     tonalElevation = 1.dp
   ) {
@@ -849,7 +852,7 @@ fun VolumeControlRow(
                 color =
                   if (currentValue / maxVolume > 0.95f) MaterialTheme.colorScheme.onPrimaryContainer
                   else MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f),
-                shape = CircleShape
+                shape = PixelCircleShape
               )
         )
       }
@@ -1183,7 +1186,7 @@ private fun AudioDeviceRow(
       else -> Icons.Filled.Speaker
     }
 
-  Surface(modifier = modifier.clip(CircleShape), color = containerColor, tonalElevation = 2.dp) {
+  Surface(modifier = modifier.clip(PixelCircleShape), color = containerColor, tonalElevation = 2.dp) {
     Row(
       modifier = Modifier.fillMaxWidth().padding(12.dp),
       verticalAlignment = Alignment.CenterVertically,
@@ -1199,7 +1202,7 @@ private fun AudioDeviceRow(
               .graphicsLayer(scaleX = backgroundScale, scaleY = backgroundScale)
               .background(
                 color = onContainer.copy(alpha = 0.12f),
-                shape = if (isActiveDevice) scallopShape else CircleShape
+                shape = if (isActiveDevice) scallopShape else PixelCircleShape
               )
         )
 
@@ -1227,7 +1230,7 @@ private fun AudioDeviceRow(
 
         Row(
           modifier =
-            Modifier.clip(RoundedCornerShape(50))
+            Modifier.clip(PixelCornerShape(50))
               .background(onContainer.copy(alpha = 0.08f))
               .padding(horizontal = 10.dp, vertical = 6.dp),
           verticalAlignment = Alignment.CenterVertically,

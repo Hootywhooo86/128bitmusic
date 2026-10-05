@@ -2,6 +2,9 @@
 
 package echo.music.iad1tya.ui.screens.settings
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+import echo.music.iad1tya.ui.theme.PixelCircleShape
+
 import android.content.Intent
 import android.net.Uri
 import androidx.activity.compose.BackHandler
@@ -478,7 +481,7 @@ fun DiscordSettings(
                         )
                       }
                     },
-                    shape = androidx.compose.foundation.shape.CircleShape,
+                    shape = PixelCircleShape,
                   ) {
                     Text(stringResource(R.string.refresh))
                   }
@@ -659,7 +662,7 @@ fun DiscordSettings(
               authorizationSession = DiscordOAuthRepository.createAuthorizationSession()
               showLogoutConfirm = false
             },
-            shape = androidx.compose.foundation.shape.CircleShape,
+            shape = PixelCircleShape,
           ) {
             Text(stringResource(R.string.logout_confirm_yes))
           }
@@ -667,7 +670,7 @@ fun DiscordSettings(
         dismissButton = {
           TextButton(
             onClick = { showLogoutConfirm = false },
-            shape = androidx.compose.foundation.shape.CircleShape,
+            shape = PixelCircleShape,
           ) {
             Text(stringResource(R.string.logout_confirm_no))
           }
@@ -814,7 +817,7 @@ private fun DiscordAccountGroupCard(
         ) {
           Surface(
             modifier = Modifier.fillMaxSize(),
-            shape = CircleShape,
+            shape = PixelCircleShape,
             color = MaterialTheme.colorScheme.secondaryContainer,
           ) {
             Box(contentAlignment = Alignment.Center) {
@@ -829,7 +832,7 @@ private fun DiscordAccountGroupCard(
                 AsyncImage(
                   model = it,
                   contentDescription = displayName,
-                  modifier = Modifier.fillMaxSize().clip(CircleShape),
+                  modifier = Modifier.fillMaxSize().clip(PixelCircleShape),
                 )
               }
             }
@@ -907,7 +910,7 @@ private fun DiscordAccountGroupCard(
       ) {
         Surface(
           modifier = Modifier.weight(1f),
-          shape = androidx.compose.foundation.shape.CircleShape,
+          shape = PixelCircleShape,
           color = MaterialTheme.colorScheme.surfaceContainerHigh,
         ) {
           Row(
@@ -970,7 +973,7 @@ private fun DiscordAccountGroupCard(
             onClick = onPrimaryAction,
             enabled = primaryActionEnabled,
             modifier = Modifier.weight(1f).heightIn(min = 56.dp),
-            shape = androidx.compose.foundation.shape.CircleShape,
+            shape = PixelCircleShape,
           ) {
             Text(stringResource(R.string.action_logout))
           }
@@ -979,7 +982,7 @@ private fun DiscordAccountGroupCard(
             onClick = onPrimaryAction,
             enabled = primaryActionEnabled,
             modifier = Modifier.weight(1f).heightIn(min = 56.dp),
-            shape = androidx.compose.foundation.shape.CircleShape,
+            shape = PixelCircleShape,
           ) {
             Text(stringResource(R.string.discord_open_authorization))
           }
@@ -1033,7 +1036,7 @@ private fun DiscordReauthorizeWarningRow(
             ButtonDefaults.textButtonColors(
               contentColor = MaterialTheme.colorScheme.onErrorContainer,
             ),
-          shape = androidx.compose.foundation.shape.CircleShape,
+          shape = PixelCircleShape,
         ) {
           Text(stringResource(R.string.discord_reauthorize_action))
         }
@@ -1275,14 +1278,14 @@ fun RichPresence(
                 contentDescription = null,
                 modifier =
                   Modifier.size(96.dp)
-                    .clip(RoundedCornerShape(12.dp))
+                    .clip(PixelCornerShape(12.dp))
                     .align(Alignment.TopStart)
                     .run {
                       if (song == null) {
                         border(
                           2.dp,
                           MaterialTheme.colorScheme.onSurface,
-                          RoundedCornerShape(12.dp),
+                          PixelCornerShape(12.dp),
                         )
                       } else {
                         this
@@ -1304,14 +1307,14 @@ fun RichPresence(
               smallModel?.let {
                 Box(
                   modifier =
-                    Modifier.border(2.dp, MaterialTheme.colorScheme.surfaceContainer, CircleShape)
+                    Modifier.border(2.dp, MaterialTheme.colorScheme.surfaceContainer, PixelCircleShape)
                       .padding(2.dp)
                       .align(Alignment.BottomEnd),
                 ) {
                   AsyncImage(
                     model = it,
                     contentDescription = null,
-                    modifier = Modifier.size(32.dp).clip(CircleShape),
+                    modifier = Modifier.size(32.dp).clip(PixelCircleShape),
                   )
                 }
               }
@@ -1380,7 +1383,7 @@ fun RichPresence(
                 }
               },
               modifier = Modifier.fillMaxWidth(),
-              shape = androidx.compose.foundation.shape.CircleShape,
+              shape = PixelCircleShape,
             ) {
               Text(button1Label)
             }
@@ -1395,7 +1398,7 @@ fun RichPresence(
                 }
               },
               modifier = Modifier.fillMaxWidth(),
-              shape = androidx.compose.foundation.shape.CircleShape,
+              shape = PixelCircleShape,
             ) {
               Text(button2Label)
             }
@@ -1438,7 +1441,7 @@ fun SongProgressBar(
     Spacer(modifier = Modifier.height(8.dp))
     LinearWavyProgressIndicator(
       progress = { progress.coerceIn(0f, 1f) },
-      modifier = Modifier.fillMaxWidth().height(6.dp).clip(RoundedCornerShape(3.dp)),
+      modifier = Modifier.fillMaxWidth().height(6.dp).clip(PixelCornerShape(3.dp)),
     )
     Row(modifier = Modifier.fillMaxWidth()) {
       Text(
@@ -1496,22 +1499,22 @@ fun PreferenceGroup(
       scope.items.forEachIndexed { index, item ->
         val shape =
           when {
-            scope.items.size == 1 -> androidx.compose.foundation.shape.RoundedCornerShape(24.dp)
+            scope.items.size == 1 -> PixelCornerShape(24.dp)
             index == 0 ->
-              androidx.compose.foundation.shape.RoundedCornerShape(
+              PixelCornerShape(
                 topStart = 24.dp,
                 topEnd = 24.dp,
                 bottomStart = 4.dp,
                 bottomEnd = 4.dp
               )
             index == scope.items.size - 1 ->
-              androidx.compose.foundation.shape.RoundedCornerShape(
+              PixelCornerShape(
                 topStart = 4.dp,
                 topEnd = 4.dp,
                 bottomStart = 24.dp,
                 bottomEnd = 24.dp
               )
-            else -> androidx.compose.foundation.shape.RoundedCornerShape(4.dp)
+            else -> PixelCornerShape(4.dp)
           }
 
         androidx.compose.material3.Card(

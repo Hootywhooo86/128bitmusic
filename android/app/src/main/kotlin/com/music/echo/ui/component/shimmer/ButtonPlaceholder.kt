@@ -1,5 +1,7 @@
 package echo.music.iad1tya.ui.component.shimmer
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -15,7 +17,7 @@ fun ButtonPlaceholder(modifier: Modifier = Modifier) {
   Spacer(
     modifier
       .height(ButtonDefaults.MinHeight)
-      .clip(RoundedCornerShape(50))
+      .clip(PixelCornerShape(50))
       .background(MaterialTheme.colorScheme.surfaceVariant),
   )
 }

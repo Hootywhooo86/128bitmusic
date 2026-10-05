@@ -1,5 +1,7 @@
 package echo.music.iad1tya.ai.weather
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -40,7 +42,7 @@ fun WeatherCoverOverlay(
   playlistName: String,
   weatherInfo: WeatherInfo?,
   modifier: Modifier = Modifier,
-  shape: Shape = RoundedCornerShape(16.dp),
+  shape: Shape = PixelCornerShape(16.dp),
   placeholderPainter: Painter? = null
 ) {
   Box(

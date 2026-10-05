@@ -1,5 +1,7 @@
 package echo.music.iad1tya.ui.component
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
@@ -54,7 +56,7 @@ fun RefreshAiRecommendationDialog(onDismiss: () -> Unit) {
   ) {
     Surface(
       modifier = Modifier.fillMaxWidth(0.9f).wrapContentHeight(),
-      shape = RoundedCornerShape(24.dp),
+      shape = PixelCornerShape(24.dp),
       color = MaterialTheme.colorScheme.surface,
       tonalElevation = 6.dp
     ) {

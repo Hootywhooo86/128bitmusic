@@ -1,5 +1,8 @@
 package echo.music.iad1tya.echomusic.commitscreen
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+import echo.music.iad1tya.ui.theme.PixelCircleShape
+
 import android.content.Intent
 import android.net.Uri
 import android.util.Log
@@ -264,7 +267,7 @@ fun CommitScreen(navController: NavController, scrollBehavior: TopAppBarScrollBe
                         }
                         Surface(
                           color = MaterialTheme.colorScheme.secondaryContainer,
-                          shape = RoundedCornerShape(4.dp)
+                          shape = PixelCornerShape(4.dp)
                         ) {
                           Text(
                             text = commit.sha.take(7),
@@ -280,7 +283,7 @@ fun CommitScreen(navController: NavController, scrollBehavior: TopAppBarScrollBe
                         AsyncImage(
                           model = commit.authorAvatarUrl,
                           contentDescription = commit.authorName,
-                          modifier = Modifier.size(36.dp).clip(CircleShape)
+                          modifier = Modifier.size(36.dp).clip(PixelCircleShape)
                         )
                       } else {
                         Box(
@@ -288,7 +291,7 @@ fun CommitScreen(navController: NavController, scrollBehavior: TopAppBarScrollBe
                             Modifier.size(36.dp)
                               .background(
                                 color = MaterialTheme.colorScheme.tertiaryContainer,
-                                shape = CircleShape
+                                shape = PixelCircleShape
                               ),
                           contentAlignment = Alignment.Center
                         ) {

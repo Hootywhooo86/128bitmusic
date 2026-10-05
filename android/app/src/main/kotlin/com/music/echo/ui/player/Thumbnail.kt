@@ -1,5 +1,7 @@
 package echo.music.iad1tya.ui.player
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.animateFloat
@@ -187,6 +189,7 @@ private fun getTextColor(playerBackground: PlayerBackgroundStyle): Color {
   return when (playerBackground) {
     PlayerBackgroundStyle.DEFAULT -> MaterialTheme.colorScheme.onBackground
     PlayerBackgroundStyle.BLUR,
+    PlayerBackgroundStyle.PIXEL,
     PlayerBackgroundStyle.GRADIENT,
     PlayerBackgroundStyle.GLOW_ANIMATED,
     PlayerBackgroundStyle.APPLE_MUSIC,
@@ -271,7 +274,7 @@ fun Thumbnail(
   val playerBackgroundPref by
     rememberEnumPreference(
       key = PlayerBackgroundStyleKey,
-      defaultValue = PlayerBackgroundStyle.GRADIENT
+      defaultValue = PlayerBackgroundStyle.PIXEL
     )
   val isLocalMedia = mediaMetadata?.id?.isLocalMediaId() == true
   val playerBackground = playerBackgroundPref
@@ -650,7 +653,7 @@ private fun ThumbnailItem(
             if (rotatingThumbnail) {
               MaterialShapes.Clover8Leaf.toShape()
             } else {
-              RoundedCornerShape(dimensions.cornerRadius)
+              PixelCornerShape(dimensions.cornerRadius)
             }
           )
           .graphicsLayer { rotationZ = -rotation }
@@ -890,7 +893,7 @@ private fun SeekEffectOverlay(seekDirection: String, modifier: Modifier = Modifi
     fontWeight = FontWeight.Bold,
     textAlign = TextAlign.Center,
     modifier =
-      modifier.background(Color.Black.copy(alpha = 0.7f), RoundedCornerShape(8.dp)).padding(8.dp)
+      modifier.background(Color.Black.copy(alpha = 0.7f), PixelCornerShape(8.dp)).padding(8.dp)
   )
 }
 

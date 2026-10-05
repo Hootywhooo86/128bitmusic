@@ -1,5 +1,7 @@
 package echo.music.iad1tya.ui.component
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+
 import android.content.Intent
 import android.net.Uri
 import androidx.compose.animation.core.animateIntAsState
@@ -65,7 +67,7 @@ fun AnimatedActionButton(
     androidx.compose.material3.OutlinedButton(
       onClick = onClick,
       modifier = modifier.height(buttonHeight),
-      shape = RoundedCornerShape(cornerPercent),
+      shape = PixelCornerShape(cornerPercent),
       enabled = enabled,
       interactionSource = interactionSource,
       colors = ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.colorScheme.primary)
@@ -76,7 +78,7 @@ fun AnimatedActionButton(
     Button(
       onClick = onClick,
       modifier = modifier.height(buttonHeight),
-      shape = RoundedCornerShape(cornerPercent),
+      shape = PixelCornerShape(cornerPercent),
       enabled = enabled,
       interactionSource = interactionSource,
       colors =
@@ -113,7 +115,7 @@ fun ExpressiveIconButton(
     onClick = onClick,
     enabled = enabled,
     modifier = modifier.size(44.dp),
-    shape = RoundedCornerShape(cornerPercent),
+    shape = PixelCornerShape(cornerPercent),
     color = containerColor,
     contentColor = contentColor,
     interactionSource = interactionSource
@@ -145,25 +147,25 @@ fun ErrorSnackbar(hostState: SnackbarHostState, modifier: Modifier = Modifier) {
 private const val ConnectedCornerRadius = 4
 private const val EndCornerRadius = 16
 
-fun leadingItemShape(): RoundedCornerShape =
-  RoundedCornerShape(
+fun leadingItemShape(): PixelCornerShape =
+  PixelCornerShape(
     topStart = EndCornerRadius.dp,
     topEnd = EndCornerRadius.dp,
     bottomStart = ConnectedCornerRadius.dp,
     bottomEnd = ConnectedCornerRadius.dp
   )
 
-fun middleItemShape(): RoundedCornerShape = RoundedCornerShape(ConnectedCornerRadius.dp)
+fun middleItemShape(): PixelCornerShape = PixelCornerShape(ConnectedCornerRadius.dp)
 
-fun endItemShape(): RoundedCornerShape =
-  RoundedCornerShape(
+fun endItemShape(): PixelCornerShape =
+  PixelCornerShape(
     topStart = ConnectedCornerRadius.dp,
     topEnd = ConnectedCornerRadius.dp,
     bottomStart = EndCornerRadius.dp,
     bottomEnd = EndCornerRadius.dp
   )
 
-fun detachedItemShape(): RoundedCornerShape = RoundedCornerShape(EndCornerRadius.dp)
+fun detachedItemShape(): PixelCornerShape = PixelCornerShape(EndCornerRadius.dp)
 
 /**
  * Parses markdown formatted text into an [androidx.compose.ui.text.AnnotatedString] supporting
@@ -270,7 +272,7 @@ fun ChangelogItem(
         modifier =
           Modifier.padding(top = 7.dp)
             .size(6.dp)
-            .background(MaterialTheme.colorScheme.primary, RoundedCornerShape(50))
+            .background(MaterialTheme.colorScheme.primary, PixelCornerShape(50))
       )
       androidx.compose.foundation.layout.Spacer(modifier = Modifier.size(16.dp))
       ClickableText(

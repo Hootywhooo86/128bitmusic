@@ -1,5 +1,7 @@
 package echo.music.iad1tya.ui.component
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
@@ -300,7 +302,7 @@ fun TextFieldDialog(
             singleLine = singleLine,
             maxLines = maxLines,
             colors = OutlinedTextFieldDefaults.colors(),
-            shape = RoundedCornerShape(24.dp),
+            shape = PixelCornerShape(24.dp),
             keyboardOptions =
               KeyboardOptions(
                 imeAction = if (singleLine) ImeAction.Done else ImeAction.None,
@@ -329,7 +331,7 @@ fun TextFieldDialog(
           singleLine = singleLine,
           maxLines = maxLines,
           colors = OutlinedTextFieldDefaults.colors(),
-          shape = RoundedCornerShape(24.dp),
+          shape = PixelCornerShape(24.dp),
           keyboardOptions =
             KeyboardOptions(
               imeAction = if (singleLine) ImeAction.Done else ImeAction.None,

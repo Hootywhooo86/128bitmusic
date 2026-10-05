@@ -85,7 +85,8 @@ val DeveloperModeKey = booleanPreferencesKey("developerMode")
 enum class SliderStyle {
   DEFAULT,
   WAVY,
-  SLIM
+  SLIM,
+  BLOCKS
 }
 
 const val SYSTEM_DEFAULT = "SYSTEM_DEFAULT"
@@ -445,6 +446,7 @@ enum class PlayerBackgroundStyle {
   DEFAULT,
   GRADIENT,
   BLUR,
+  PIXEL,
   GLOW_ANIMATED,
   APPLE_MUSIC,
   LIVE_MESH,
@@ -827,6 +829,7 @@ val AmbientFullScreenArtKey = booleanPreferencesKey("ambient_full_screen_art")
 val AmbientSpacingKey = floatPreferencesKey("ambient_spacing")
 
 enum class AppFont(val value: String) {
+  PIXEL("pixel"),
   SYSTEM("system"),
   GOOGLE_SANS("google_sans"),
   SANS_FLEX("sans_flex"),

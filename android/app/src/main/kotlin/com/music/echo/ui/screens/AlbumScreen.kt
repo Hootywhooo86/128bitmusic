@@ -1,5 +1,7 @@
 package echo.music.iad1tya.ui.screens
 
+import echo.music.iad1tya.ui.theme.PixelCircleShape
+
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -335,7 +337,7 @@ fun AlbumScreen(
                     AsyncImage(
                       model = artist.thumbnailUrl,
                       contentDescription = null,
-                      modifier = Modifier.size(28.dp).clip(CircleShape),
+                      modifier = Modifier.size(28.dp).clip(PixelCircleShape),
                       contentScale = ContentScale.Crop
                     )
                     Spacer(Modifier.width(8.dp))
@@ -443,7 +445,7 @@ fun AlbumScreen(
               ) {
                 Surface(
                   onClick = { database.query { update(albumWithSongs.album.toggleLike()) } },
-                  shape = CircleShape,
+                  shape = PixelCircleShape,
                   color = MaterialTheme.colorScheme.surfaceVariant,
                   modifier = Modifier.size(48.dp)
                 ) {
@@ -466,7 +468,7 @@ fun AlbumScreen(
                       playerConnection.playQueue(LocalAlbumRadio(albumWithSongs))
                     }
                   },
-                  shape = CircleShape,
+                  shape = PixelCircleShape,
                   colors =
                     androidx.compose.material3.ButtonDefaults.buttonColors(
                       containerColor = MaterialTheme.colorScheme.primary,
@@ -515,7 +517,7 @@ fun AlbumScreen(
                       LocalAlbumRadio(albumWithSongs.copy(songs = albumWithSongs.songs.shuffled())),
                     )
                   },
-                  shape = CircleShape,
+                  shape = PixelCircleShape,
                   color = MaterialTheme.colorScheme.surfaceVariant,
                   modifier = Modifier.size(48.dp)
                 ) {
@@ -779,7 +781,7 @@ fun AlbumScreen(
           modifier =
             Modifier.background(
               androidx.compose.material3.MaterialTheme.colorScheme.surface.copy(alpha = 0.6f),
-              CircleShape
+              PixelCircleShape
             )
         ) {
           Icon(painter = painterResource(R.drawable.arrow_back_ios), contentDescription = null)
@@ -822,7 +824,7 @@ fun AlbumScreen(
                 .background(
                   color =
                     androidx.compose.material3.MaterialTheme.colorScheme.surface.copy(alpha = 0.6f),
-                  shape = CircleShape
+                  shape = PixelCircleShape
                 )
                 .padding(horizontal = 8.dp),
             verticalAlignment = Alignment.CenterVertically,

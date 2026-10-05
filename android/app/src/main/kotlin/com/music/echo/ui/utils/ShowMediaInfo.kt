@@ -1,5 +1,7 @@
 package echo.music.iad1tya.ui.utils
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.text.format.Formatter
@@ -74,7 +76,7 @@ fun ShowMediaInfo(videoId: String) {
   LaunchedEffect(Unit, videoId) { database.song(videoId).collect { song = it } }
   LaunchedEffect(Unit, videoId) { database.format(videoId).collect { currentFormat = it } }
 
-  val albumArtShape = RoundedCornerShape(24.dp)
+  val albumArtShape = PixelCornerShape(24.dp)
 
   LazyColumn(
     state = rememberLazyListState(),
@@ -123,7 +125,7 @@ fun ShowMediaInfo(videoId: String) {
     if (song != null || info != null) {
       item {
         androidx.compose.material3.Card(
-          shape = androidx.compose.foundation.shape.RoundedCornerShape(24.dp),
+          shape = PixelCornerShape(24.dp),
           colors = androidx.compose.material3.CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerHigh),
           elevation = androidx.compose.material3.CardDefaults.cardElevation(defaultElevation = 0.dp),
           modifier = Modifier.fillMaxWidth()
@@ -279,7 +281,7 @@ fun ShowMediaInfo(videoId: String) {
 
       item {
         androidx.compose.material3.Card(
-          shape = androidx.compose.foundation.shape.RoundedCornerShape(24.dp),
+          shape = PixelCornerShape(24.dp),
           colors = androidx.compose.material3.CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerHigh),
           elevation = androidx.compose.material3.CardDefaults.cardElevation(defaultElevation = 0.dp),
           modifier = Modifier.fillMaxWidth()

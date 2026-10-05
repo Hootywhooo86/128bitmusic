@@ -1,5 +1,7 @@
 package echo.music.iad1tya.ui.screens.settings
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
@@ -120,7 +122,7 @@ fun SettingsScreen(
           }
         }
       },
-      shape = RoundedCornerShape(28.dp),
+      shape = PixelCornerShape(28.dp),
       colors =
         TextFieldDefaults.colors(
           focusedIndicatorColor = androidx.compose.ui.graphics.Color.Transparent,

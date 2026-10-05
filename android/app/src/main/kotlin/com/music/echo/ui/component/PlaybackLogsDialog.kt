@@ -1,5 +1,7 @@
 package echo.music.iad1tya.ui.component
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+
 import android.widget.Toast
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -110,7 +112,7 @@ private fun PlaybackLogEntryItem(log: PlaybackLogEntry) {
       )
       Spacer(modifier = Modifier.width(8.dp))
       Surface(
-        shape = RoundedCornerShape(8.dp),
+        shape = PixelCornerShape(8.dp),
         color =
           when (log.level) {
             PlaybackLogLevel.ERROR -> MaterialTheme.colorScheme.errorContainer

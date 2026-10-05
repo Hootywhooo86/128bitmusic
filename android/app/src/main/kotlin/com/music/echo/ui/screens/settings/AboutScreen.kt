@@ -2,6 +2,9 @@
 
 package echo.music.iad1tya.ui.screens.settings
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+import echo.music.iad1tya.ui.theme.PixelCircleShape
+
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
@@ -153,7 +156,7 @@ fun AboutScreen(
                   model = contributor.avatarUrl,
                   contentDescription = contributor.login,
                   modifier =
-                    Modifier.size(48.dp).clip(CircleShape).clickable {
+                    Modifier.size(48.dp).clip(PixelCircleShape).clickable {
                       uriHandler.openUri(contributor.htmlUrl)
                     },
                   contentScale = androidx.compose.ui.layout.ContentScale.Crop
@@ -306,7 +309,7 @@ private fun AboutAppCard() {
             scaleY = scale
             cameraDistance = 12f * density
           }
-          .clip(CircleShape)
+          .clip(PixelCircleShape)
           .clickable(
             interactionSource = interactionSource,
             indication = null,
@@ -345,7 +348,7 @@ private fun AboutAppCard() {
       verticalAlignment = Alignment.CenterVertically,
     ) {
       Surface(
-        shape = RoundedCornerShape(8.dp),
+        shape = PixelCornerShape(8.dp),
         color = MaterialTheme.colorScheme.primary.copy(alpha = 0.10f),
       ) {
         Text(
@@ -358,7 +361,7 @@ private fun AboutAppCard() {
       }
       if (BuildConfig.DEBUG) {
         Surface(
-          shape = RoundedCornerShape(8.dp),
+          shape = PixelCornerShape(8.dp),
           color = MaterialTheme.colorScheme.error.copy(alpha = 0.10f),
         ) {
           Text(
@@ -371,7 +374,7 @@ private fun AboutAppCard() {
         }
       } else {
         Surface(
-          shape = RoundedCornerShape(8.dp),
+          shape = PixelCornerShape(8.dp),
           color = MaterialTheme.colorScheme.secondary.copy(alpha = 0.10f),
         ) {
           Text(

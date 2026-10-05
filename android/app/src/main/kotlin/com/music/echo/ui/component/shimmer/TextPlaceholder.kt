@@ -1,5 +1,7 @@
 package echo.music.iad1tya.ui.component.shimmer
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -20,7 +22,7 @@ import kotlin.random.Random
 fun TextPlaceholder(
   modifier: Modifier = Modifier,
   height: Dp = 16.dp,
-  shape: CornerBasedShape = RoundedCornerShape(0.dp)
+  shape: CornerBasedShape = PixelCornerShape(0.dp)
 ) {
   Box(
     modifier =

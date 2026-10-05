@@ -2,6 +2,9 @@
 
 package echo.music.iad1tya.ui.screens
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+import echo.music.iad1tya.ui.theme.PixelCircleShape
+
 import android.net.Uri
 import android.webkit.CookieManager
 import android.webkit.WebResourceRequest
@@ -298,7 +301,7 @@ private fun SpotifyImportProgressDialog(
       )
       LinearProgressIndicator(
         progress = { progress.percent.toFloat() / 100f },
-        modifier = Modifier.fillMaxWidth().clip(CircleShape),
+        modifier = Modifier.fillMaxWidth().clip(PixelCircleShape),
       )
     }
   }
@@ -326,7 +329,7 @@ private fun SpotifyLoginSheet(
     modifier = Modifier.fillMaxHeight(),
     onDismissRequest = onDismiss,
     sheetState = sheetState,
-    shape = RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp),
+    shape = PixelCornerShape(topStart = 28.dp, topEnd = 28.dp),
     containerColor = MaterialTheme.colorScheme.surface,
   ) {
     Column(
@@ -670,7 +673,7 @@ private fun SpotifySourcePickerSheet(
     modifier = Modifier.fillMaxHeight(),
     onDismissRequest = onDismiss,
     sheetState = sheetState,
-    shape = RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp),
+    shape = PixelCornerShape(topStart = 28.dp, topEnd = 28.dp),
     containerColor = MaterialTheme.colorScheme.surface,
   ) {
     Column(
@@ -729,7 +732,7 @@ private fun SpotifySourcePickerSheet(
         onClick = onImport,
         modifier = Modifier.fillMaxWidth().heightIn(min = 52.dp),
         enabled = state.canImport,
-        shape = RoundedCornerShape(16.dp),
+        shape = PixelCornerShape(16.dp),
       ) {
         Text(stringResource(R.string.spotify_import_selected))
       }

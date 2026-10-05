@@ -1,5 +1,8 @@
 package echo.music.iad1tya.ui.screens
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+import echo.music.iad1tya.ui.theme.PixelCircleShape
+
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -219,7 +222,7 @@ fun CommunityPlaylistCard(
   Card(
     modifier = modifier.width(320.dp).height(420.dp),
     colors = CardDefaults.cardColors(containerColor = containerColor),
-    shape = RoundedCornerShape(28.dp),
+    shape = PixelCornerShape(28.dp),
     onClick = onClick
   ) {
     Column(modifier = Modifier.fillMaxSize()) {
@@ -227,7 +230,7 @@ fun CommunityPlaylistCard(
         modifier = Modifier.fillMaxWidth().padding(16.dp),
         horizontalArrangement = Arrangement.spacedBy(16.dp)
       ) {
-        Box(modifier = Modifier.size(100.dp).clip(RoundedCornerShape(12.dp))) {
+        Box(modifier = Modifier.size(100.dp).clip(PixelCornerShape(12.dp))) {
           Column(modifier = Modifier.fillMaxSize()) {
             Row(modifier = Modifier.weight(1f)) {
               AsyncImage(
@@ -283,7 +286,7 @@ fun CommunityPlaylistCard(
             modifier =
               Modifier.fillMaxWidth()
                 .padding(vertical = 4.dp)
-                .clip(RoundedCornerShape(12.dp))
+                .clip(PixelCornerShape(12.dp))
                 .combinedClickable(onClick = { onSongClick(song) }),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(12.dp)
@@ -291,7 +294,7 @@ fun CommunityPlaylistCard(
             AsyncImage(
               model = song.thumbnail.resize(544, 544),
               contentDescription = null,
-              modifier = Modifier.size(56.dp).clip(RoundedCornerShape(12.dp)),
+              modifier = Modifier.size(56.dp).clip(PixelCornerShape(12.dp)),
               contentScale = ContentScale.Crop
             )
             Column(modifier = Modifier.weight(1f)) {
@@ -322,7 +325,7 @@ fun CommunityPlaylistCard(
             item.playlist.playEndpoint?.let { playerConnection?.playQueue(YouTubeQueue(it)) }
           },
           modifier =
-            Modifier.size(48.dp).background(MaterialTheme.colorScheme.onSurface, CircleShape)
+            Modifier.size(48.dp).background(MaterialTheme.colorScheme.onSurface, PixelCircleShape)
         ) {
           Icon(
             painter = painterResource(R.drawable.ic_widget_play),
@@ -340,7 +343,7 @@ fun CommunityPlaylistCard(
             Modifier.size(48.dp)
               .background(
                 MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.5f),
-                CircleShape
+                PixelCircleShape
               )
         ) {
           Icon(
@@ -399,7 +402,7 @@ fun CommunityPlaylistCard(
             Modifier.size(48.dp)
               .background(
                 MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.5f),
-                CircleShape
+                PixelCircleShape
               )
         ) {
           Icon(
@@ -438,7 +441,7 @@ fun DailyDiscoverCard(
     modifier =
       modifier
         .fillMaxSize()
-        .clip(RoundedCornerShape(28.dp))
+        .clip(PixelCornerShape(28.dp))
         .combinedClickable(
           onClick = onClick,
           onLongClick = {
@@ -458,7 +461,7 @@ fun DailyDiscoverCard(
       CardDefaults.cardColors(
         containerColor = MaterialTheme.colorScheme.surfaceVariant,
       ),
-    shape = RoundedCornerShape(28.dp)
+    shape = PixelCornerShape(28.dp)
   ) {
     BoxWithConstraints(modifier = Modifier.fillMaxSize()) {
       AsyncImage(
@@ -942,7 +945,7 @@ fun HomeScreen(
                 repeat(5) {
                   TextPlaceholder(
                     height = 30.dp,
-                    shape = RoundedCornerShape(16.dp),
+                    shape = PixelCornerShape(16.dp),
                     modifier = Modifier.width(72.dp)
                   )
                 }
@@ -1134,7 +1137,7 @@ fun HomeScreen(
                             Box(
                               modifier =
                                 Modifier.padding(4.dp)
-                                  .clip(RoundedCornerShape(ThumbnailCornerRadius))
+                                  .clip(PixelCornerShape(ThumbnailCornerRadius))
                                   .background(color)
                                   .size(8.dp)
                             )
@@ -1269,7 +1272,7 @@ fun HomeScreen(
                               Modifier.align(Alignment.TopEnd)
                                 .padding(12.dp)
                                 .size(32.dp)
-                                .background(MaterialTheme.colorScheme.onSurface, CircleShape),
+                                .background(MaterialTheme.colorScheme.onSurface, PixelCircleShape),
                             contentAlignment = Alignment.Center
                           ) {
                             Icon(
@@ -1457,7 +1460,7 @@ fun HomeScreen(
                             contentScale = ContentScale.Crop,
                             modifier =
                               Modifier.size(ListThumbnailSize)
-                                .clip(RoundedCornerShape(ThumbnailCornerRadius))
+                                .clip(PixelCornerShape(ThumbnailCornerRadius))
                           )
                         } else {
                           Icon(
@@ -1595,7 +1598,7 @@ fun HomeScreen(
                     thumbnail =
                       recommendation.title.thumbnailUrl?.let { thumbnailUrl ->
                         {
-                          val shape = RoundedCornerShape(ThumbnailCornerRadius)
+                          val shape = PixelCornerShape(ThumbnailCornerRadius)
                           AsyncImage(
                             model = thumbnailUrl,
                             contentDescription = null,
@@ -1645,7 +1648,7 @@ fun HomeScreen(
                     thumbnail =
                       sectionData.thumbnail?.let { thumbnailUrl ->
                         {
-                          val shape = RoundedCornerShape(ThumbnailCornerRadius)
+                          val shape = PixelCornerShape(ThumbnailCornerRadius)
                           AsyncImage(
                             model = thumbnailUrl,
                             contentDescription = null,

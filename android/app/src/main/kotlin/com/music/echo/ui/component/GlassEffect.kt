@@ -1,6 +1,8 @@
 /** vivimusic Project (C) 2026 Licensed under GPL-3.0 | See git history for contributors */
 package echo.music.iad1tya.ui.component
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+
 import android.os.Build
 import androidx.compose.foundation.shape.CornerBasedShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -100,7 +102,9 @@ fun glassResolutionScale(blurRadiusDp: Float): Float {
  * The backdrop blur pipeline requires [android.graphics.RenderEffect] on a
  * [android.graphics.RenderNode], which is available from Android 12 (API 31).
  */
-fun isGlassSupported(sdkInt: Int = Build.VERSION.SDK_INT): Boolean = sdkInt >= Build.VERSION_CODES.S
+// 128bit: blur and refraction don't belong in a pixel UI, so glass always takes the solid fallback.
+@Suppress("UNUSED_PARAMETER")
+fun isGlassSupported(sdkInt: Int = Build.VERSION.SDK_INT): Boolean = false
 
 /**
  * Maps the user-facing vibrancy preference (0..2, default 1) to a saturation multiplier. A value of
@@ -136,7 +140,7 @@ val LocalAppBackdrop = staticCompositionLocalOf<Backdrop> { error("No AppBackdro
 @Composable
 fun Modifier.liquidGlass(
   config: GlassEffectConfig,
-  shape: CornerBasedShape = RoundedCornerShape(0.dp),
+  shape: CornerBasedShape = PixelCornerShape(0.dp),
   applyEdgeEffects: Boolean = true,
   blurRadiusDp: Float = config.blurRadius,
 ): Modifier {

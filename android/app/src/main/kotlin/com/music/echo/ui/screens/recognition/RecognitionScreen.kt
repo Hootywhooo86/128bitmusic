@@ -1,5 +1,8 @@
 package echo.music.iad1tya.ui.screens.recognition
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+import echo.music.iad1tya.ui.theme.PixelCircleShape
+
 import android.Manifest
 import android.content.pm.PackageManager
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -282,7 +285,7 @@ private fun ReadyState(onStartRecognition: () -> Unit) {
       modifier =
         Modifier.size(120.dp)
           .scale(scale)
-          .clip(CircleShape)
+          .clip(PixelCircleShape)
           .background(MaterialTheme.colorScheme.onSurface)
           .clickable { onStartRecognition() },
       contentAlignment = Alignment.Center
@@ -344,7 +347,7 @@ private fun ListeningState(onCancel: () -> Unit) {
             modifier =
               Modifier.width(24.dp)
                 .fillMaxHeight(animatable.value)
-                .clip(CircleShape)
+                .clip(PixelCircleShape)
                 .background(color)
           )
         }
@@ -376,7 +379,7 @@ private fun ProcessingState() {
 
       Box(
         modifier =
-          Modifier.size(96.dp).clip(CircleShape).background(MaterialTheme.colorScheme.onSurface),
+          Modifier.size(96.dp).clip(PixelCircleShape).background(MaterialTheme.colorScheme.onSurface),
         contentAlignment = Alignment.Center
       ) {
         Icon(
@@ -447,8 +450,8 @@ private fun SuccessState(
         modifier =
           Modifier.fillMaxWidth(0.8f)
             .aspectRatio(1f)
-            .shadow(elevation = 32.dp, shape = RoundedCornerShape(24.dp))
-            .clip(RoundedCornerShape(24.dp)),
+            .shadow(elevation = 32.dp, shape = PixelCornerShape(24.dp))
+            .clip(PixelCornerShape(24.dp)),
         contentScale = ContentScale.Crop
       )
     }
@@ -477,7 +480,7 @@ private fun SuccessState(
 
       androidx.compose.material3.Surface(
         onClick = onTryAgain,
-        shape = CircleShape,
+        shape = PixelCircleShape,
         color = MaterialTheme.colorScheme.surface.copy(alpha = 0.3f),
         contentColor = MaterialTheme.colorScheme.onSurface
       ) {
@@ -530,7 +533,7 @@ private fun SuccessState(
         onClick = { onPlayOnApp(result) },
         containerColor = MaterialTheme.colorScheme.onSurface,
         contentColor = MaterialTheme.colorScheme.surface,
-        shape = CircleShape,
+        shape = PixelCircleShape,
         modifier = Modifier.size(72.dp)
       ) {
         Icon(
@@ -552,8 +555,8 @@ private fun NoMatchState(message: String, onTryAgain: () -> Unit) {
     Box(
       modifier =
         Modifier.size(120.dp)
-          .border(2.dp, MaterialTheme.colorScheme.outlineVariant, CircleShape)
-          .background(Color.Transparent, CircleShape),
+          .border(2.dp, MaterialTheme.colorScheme.outlineVariant, PixelCircleShape)
+          .background(Color.Transparent, PixelCircleShape),
       contentAlignment = Alignment.Center
     ) {
       Icon(
@@ -604,8 +607,8 @@ private fun ErrorState(message: String, onTryAgain: () -> Unit) {
     Box(
       modifier =
         Modifier.size(120.dp)
-          .border(2.dp, MaterialTheme.colorScheme.outlineVariant, CircleShape)
-          .background(Color.Transparent, CircleShape),
+          .border(2.dp, MaterialTheme.colorScheme.outlineVariant, PixelCircleShape)
+          .background(Color.Transparent, PixelCircleShape),
       contentAlignment = Alignment.Center
     ) {
       Icon(

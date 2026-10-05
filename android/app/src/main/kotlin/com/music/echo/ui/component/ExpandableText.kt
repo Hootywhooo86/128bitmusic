@@ -1,5 +1,7 @@
 package echo.music.iad1tya.ui.component
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -95,7 +97,7 @@ fun ExpandableText(
       Box(
         modifier =
           Modifier.padding(top = 8.dp)
-            .clip(RoundedCornerShape(8.dp))
+            .clip(PixelCornerShape(8.dp))
             .background(MaterialTheme.colorScheme.secondaryContainer)
             .clickable { isExpanded = !isExpanded }
             .padding(horizontal = 10.dp, vertical = 4.dp)

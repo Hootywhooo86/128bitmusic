@@ -1,5 +1,7 @@
 package echo.music.iad1tya.ui.component.shimmer
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -22,7 +24,7 @@ import echo.music.iad1tya.constants.ThumbnailCornerRadius
 @Composable
 fun ListItemPlaceHolder(
   modifier: Modifier = Modifier,
-  thumbnailShape: Shape = RoundedCornerShape(ThumbnailCornerRadius),
+  thumbnailShape: Shape = PixelCornerShape(ThumbnailCornerRadius),
 ) {
   Row(
     verticalAlignment = Alignment.CenterVertically,

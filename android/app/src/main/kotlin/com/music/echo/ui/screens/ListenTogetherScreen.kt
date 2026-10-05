@@ -1,5 +1,8 @@
 package echo.music.iad1tya.ui.screens
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+import echo.music.iad1tya.ui.theme.PixelCircleShape
+
 import android.content.Context
 import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
@@ -305,7 +308,7 @@ fun ListenTogetherScreen(navController: NavController, showTopBar: Boolean = fal
             onClick = { listenTogetherManager.leaveRoom() },
             modifier = Modifier.fillMaxWidth(),
             colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error),
-            shape = RoundedCornerShape(16.dp)
+            shape = PixelCornerShape(16.dp)
           ) {
             Icon(
               painter = painterResource(R.drawable.logout),
@@ -414,7 +417,7 @@ fun ListenTogetherScreen(navController: NavController, showTopBar: Boolean = fal
       item {
         Card(
           modifier = Modifier.fillMaxWidth(),
-          shape = RoundedCornerShape(24.dp),
+          shape = PixelCornerShape(24.dp),
           colors =
             CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
           elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
@@ -542,7 +545,7 @@ private fun ConnectionStatusCard(
           animationSpec =
             spring(dampingRatio = Spring.DampingRatioMediumBouncy, stiffness = Spring.StiffnessLow)
         ),
-    shape = RoundedCornerShape(24.dp),
+    shape = PixelCornerShape(24.dp),
     colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
     elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
   ) {
@@ -555,7 +558,7 @@ private fun ConnectionStatusCard(
         Box(
           modifier =
             Modifier.size(10.dp)
-              .clip(CircleShape)
+              .clip(PixelCircleShape)
               .background(
                 color =
                   when (connectionState) {
@@ -596,7 +599,7 @@ private fun ConnectionStatusCard(
       ) {
         Spacer(modifier = Modifier.height(12.dp))
         LinearProgressIndicator(
-          modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(8.dp)),
+          modifier = Modifier.fillMaxWidth().clip(PixelCornerShape(8.dp)),
           color = MaterialTheme.colorScheme.onSurface
         )
       }
@@ -611,7 +614,7 @@ private fun ConnectionStatusCard(
           Button(
             onClick = onConnect,
             modifier = Modifier.weight(1f),
-            shape = RoundedCornerShape(12.dp),
+            shape = PixelCornerShape(12.dp),
             colors =
               ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.onSurface)
           ) {
@@ -627,7 +630,7 @@ private fun ConnectionStatusCard(
           Button(
             onClick = onDisconnect,
             modifier = Modifier.weight(1f),
-            shape = RoundedCornerShape(12.dp),
+            shape = PixelCornerShape(12.dp),
             colors =
               ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.onSurface)
           ) {
@@ -636,7 +639,7 @@ private fun ConnectionStatusCard(
           FilledTonalButton(
             onClick = onReconnect,
             modifier = Modifier.weight(1f),
-            shape = RoundedCornerShape(12.dp)
+            shape = PixelCornerShape(12.dp)
           ) {
             Text("Reconnect", fontWeight = FontWeight.SemiBold)
           }
@@ -657,7 +660,7 @@ private fun RoomStatusCard(
 ) {
   Card(
     modifier = Modifier.fillMaxWidth(),
-    shape = RoundedCornerShape(24.dp),
+    shape = PixelCornerShape(24.dp),
     colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
     elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
   ) {
@@ -710,7 +713,7 @@ private fun RoomStatusCard(
               clipboard.setPrimaryClip(clip)
               Toast.makeText(context, R.string.copied_to_clipboard, Toast.LENGTH_SHORT).show()
             },
-            shape = RoundedCornerShape(12.dp)
+            shape = PixelCornerShape(12.dp)
           ) {
             Icon(
               painter = painterResource(R.drawable.link),
@@ -730,7 +733,7 @@ private fun RoomStatusCard(
               clipboard.setPrimaryClip(clip)
               Toast.makeText(context, R.string.copied_to_clipboard, Toast.LENGTH_SHORT).show()
             },
-            shape = RoundedCornerShape(12.dp)
+            shape = PixelCornerShape(12.dp)
           ) {
             Icon(
               painter = painterResource(R.drawable.content_copy),
@@ -755,7 +758,7 @@ private fun ConnectedUsersSection(
 ) {
   Card(
     modifier = Modifier.fillMaxWidth(),
-    shape = RoundedCornerShape(24.dp),
+    shape = PixelCornerShape(24.dp),
     colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
     elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
   ) {
@@ -799,7 +802,7 @@ private fun UserAvatar(
     Box(contentAlignment = Alignment.Center) {
       Surface(
         modifier = Modifier.size(56.dp),
-        shape = CircleShape,
+        shape = PixelCircleShape,
         color =
           when {
             user.isHost -> MaterialTheme.colorScheme.onSurface
@@ -825,7 +828,7 @@ private fun UserAvatar(
       if (user.isHost || isCurrentUser) {
         Surface(
           modifier = Modifier.align(Alignment.BottomEnd).offset(x = 4.dp, y = 4.dp).size(20.dp),
-          shape = CircleShape,
+          shape = PixelCircleShape,
           color =
             if (user.isHost) MaterialTheme.colorScheme.onSurface
             else MaterialTheme.colorScheme.onSurfaceVariant
@@ -880,7 +883,7 @@ private fun PendingJoinRequestsSection(
 ) {
   Card(
     modifier = Modifier.fillMaxWidth(),
-    shape = RoundedCornerShape(24.dp),
+    shape = PixelCornerShape(24.dp),
     colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
     elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
   ) {
@@ -900,7 +903,7 @@ private fun PendingJoinRequestsSection(
         ) {
           Surface(
             modifier = Modifier.size(40.dp),
-            shape = CircleShape,
+            shape = PixelCircleShape,
             color = MaterialTheme.colorScheme.surfaceContainerHigh
           ) {
             Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
@@ -949,7 +952,7 @@ private fun PendingSuggestionsSection(
 ) {
   Card(
     modifier = Modifier.fillMaxWidth(),
-    shape = RoundedCornerShape(24.dp),
+    shape = PixelCornerShape(24.dp),
     colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
     elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
   ) {
@@ -1032,7 +1035,7 @@ private fun JoinCreateRoomSection(
 
   Card(
     modifier = Modifier.fillMaxWidth(),
-    shape = RoundedCornerShape(24.dp),
+    shape = PixelCornerShape(24.dp),
     colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
     elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
   ) {
@@ -1044,14 +1047,14 @@ private fun JoinCreateRoomSection(
       Row(
         modifier =
           Modifier.fillMaxWidth()
-            .clip(RoundedCornerShape(16.dp))
+            .clip(PixelCornerShape(16.dp))
             .background(MaterialTheme.colorScheme.surfaceContainerLow),
         horizontalArrangement = Arrangement.spacedBy(0.dp)
       ) {
         Button(
           onClick = { selectedTab = 0 },
           modifier = Modifier.weight(1f),
-          shape = RoundedCornerShape(16.dp),
+          shape = PixelCornerShape(16.dp),
           colors =
             ButtonDefaults.buttonColors(
               containerColor =
@@ -1073,7 +1076,7 @@ private fun JoinCreateRoomSection(
         Button(
           onClick = { selectedTab = 1 },
           modifier = Modifier.weight(1f),
-          shape = RoundedCornerShape(16.dp),
+          shape = PixelCornerShape(16.dp),
           colors =
             ButtonDefaults.buttonColors(
               containerColor =
@@ -1110,7 +1113,7 @@ private fun JoinCreateRoomSection(
           }
         },
         singleLine = true,
-        shape = RoundedCornerShape(16.dp),
+        shape = PixelCornerShape(16.dp),
         colors =
           OutlinedTextFieldDefaults.colors(
             focusedBorderColor = MaterialTheme.colorScheme.onSurface,
@@ -1146,7 +1149,7 @@ private fun JoinCreateRoomSection(
             }
           },
           singleLine = true,
-          shape = RoundedCornerShape(16.dp),
+          shape = PixelCornerShape(16.dp),
           colors =
             OutlinedTextFieldDefaults.colors(
               focusedBorderColor = MaterialTheme.colorScheme.onSurface,
@@ -1168,7 +1171,7 @@ private fun JoinCreateRoomSection(
       ) {
         Surface(
           modifier = Modifier.fillMaxWidth(),
-          shape = RoundedCornerShape(12.dp),
+          shape = PixelCornerShape(12.dp),
           color = MaterialTheme.colorScheme.surfaceContainerHigh
         ) {
           Row(
@@ -1200,7 +1203,7 @@ private fun JoinCreateRoomSection(
       ) {
         Surface(
           modifier = Modifier.fillMaxWidth(),
-          shape = RoundedCornerShape(12.dp),
+          shape = PixelCornerShape(12.dp),
           color = MaterialTheme.colorScheme.errorContainer
         ) {
           Row(
@@ -1234,7 +1237,7 @@ private fun JoinCreateRoomSection(
           onClick = onCreateRoom,
           modifier = Modifier.fillMaxWidth(),
           enabled = hasUsername && !isCreatingRoom && !isJoiningRoom,
-          shape = RoundedCornerShape(16.dp),
+          shape = PixelCornerShape(16.dp),
           colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.onSurface)
         ) {
           Icon(
@@ -1250,7 +1253,7 @@ private fun JoinCreateRoomSection(
           onClick = onJoinRoom,
           modifier = Modifier.fillMaxWidth(),
           enabled = hasUsername && hasRoomCode && !isCreatingRoom && !isJoiningRoom,
-          shape = RoundedCornerShape(16.dp),
+          shape = PixelCornerShape(16.dp),
           colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.tertiary)
         ) {
           Icon(
@@ -1339,7 +1342,7 @@ private fun UserActionDialog(
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
       Surface(
         modifier = Modifier.fillMaxWidth().clickable(onClick = onKick),
-        shape = RoundedCornerShape(12.dp),
+        shape = PixelCornerShape(12.dp),
         color = MaterialTheme.colorScheme.errorContainer
       ) {
         Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(16.dp)) {
@@ -1368,7 +1371,7 @@ private fun UserActionDialog(
 
       Surface(
         modifier = Modifier.fillMaxWidth().clickable(onClick = onPermanentKick),
-        shape = RoundedCornerShape(12.dp),
+        shape = PixelCornerShape(12.dp),
         color = MaterialTheme.colorScheme.surfaceVariant
       ) {
         Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(16.dp)) {
@@ -1396,7 +1399,7 @@ private fun UserActionDialog(
 
       Surface(
         modifier = Modifier.fillMaxWidth().clickable(onClick = onTransferOwnership),
-        shape = RoundedCornerShape(12.dp),
+        shape = PixelCornerShape(12.dp),
         color = MaterialTheme.colorScheme.surfaceContainerHigh
       ) {
         Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(16.dp)) {

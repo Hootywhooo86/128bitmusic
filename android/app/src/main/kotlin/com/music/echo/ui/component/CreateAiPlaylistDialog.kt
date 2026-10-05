@@ -1,5 +1,7 @@
 package echo.music.iad1tya.ui.component
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+
 import android.Manifest
 import android.app.Activity
 import android.content.Intent
@@ -94,7 +96,7 @@ fun CreateAiPlaylistDialog(
   ) {
     Surface(
       modifier = Modifier.fillMaxWidth(0.9f).wrapContentHeight(),
-      shape = RoundedCornerShape(24.dp),
+      shape = PixelCornerShape(24.dp),
       color = MaterialTheme.colorScheme.surface,
       tonalElevation = 6.dp
     ) {
@@ -114,7 +116,7 @@ fun CreateAiPlaylistDialog(
           Row(
             modifier =
               Modifier.fillMaxWidth()
-                .clip(RoundedCornerShape(16.dp))
+                .clip(PixelCornerShape(16.dp))
                 .background(MaterialTheme.colorScheme.surfaceContainerLow)
                 .clickable {
                   val target = !weatherEnabled
@@ -223,7 +225,7 @@ fun CreateAiPlaylistDialog(
                     CardDefaults.cardColors(
                       containerColor = MaterialTheme.colorScheme.surfaceContainerHigh
                     ),
-                  shape = RoundedCornerShape(12.dp)
+                  shape = PixelCornerShape(12.dp)
                 ) {
                   Row(
                     modifier = Modifier.padding(12.dp),
@@ -250,7 +252,7 @@ fun CreateAiPlaylistDialog(
                     CardDefaults.cardColors(
                       containerColor = MaterialTheme.colorScheme.secondaryContainer
                     ),
-                  shape = RoundedCornerShape(12.dp)
+                  shape = PixelCornerShape(12.dp)
                 ) {
                   Row(
                     modifier = Modifier.padding(12.dp).fillMaxWidth(),
@@ -279,7 +281,7 @@ fun CreateAiPlaylistDialog(
                     CardDefaults.cardColors(
                       containerColor = MaterialTheme.colorScheme.errorContainer
                     ),
-                  shape = RoundedCornerShape(12.dp)
+                  shape = PixelCornerShape(12.dp)
                 ) {
                   Column(
                     modifier = Modifier.padding(12.dp),
@@ -343,7 +345,7 @@ fun CreateAiPlaylistDialog(
             modifier = Modifier.fillMaxWidth(),
             singleLine = false,
             maxLines = 3,
-            shape = RoundedCornerShape(12.dp)
+            shape = PixelCornerShape(12.dp)
           )
 
           // Song Count Slider

@@ -1,5 +1,7 @@
 package echo.music.iad1tya.ui.component
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.AnimationSpec
@@ -96,7 +98,7 @@ fun BottomSheet(
         }
         .graphicsLayer {
           val cornerRadius = if (!state.isExpanded) 16.dp.toPx() else 0f
-          shape = RoundedCornerShape(topStart = cornerRadius, topEnd = cornerRadius)
+          shape = PixelCornerShape(topStart = cornerRadius, topEnd = cornerRadius)
           clip = true
         }
   ) {

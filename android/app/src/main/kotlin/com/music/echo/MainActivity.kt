@@ -1,5 +1,8 @@
 package echo.music.iad1tya
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+import echo.music.iad1tya.ui.theme.PixelCircleShape
+
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.ComponentName
@@ -652,9 +655,23 @@ class MainActivity : ComponentActivity() {
 
     val darkTheme by rememberEnumPreference(DarkModeKey, defaultValue = DarkMode.AUTO)
     val isSystemInDarkTheme = isSystemInDarkTheme()
+    val pixelPaletteName by
+      rememberPreference(
+        echo.music.iad1tya.ui.theme.PixelPaletteKey,
+        echo.music.iad1tya.ui.theme.PixelPalette.CLASSIC.name
+      )
+    val pixelPalette =
+      echo.music.iad1tya.ui.theme.PixelPalette.entries.find { it.name == pixelPaletteName }
+        ?: echo.music.iad1tya.ui.theme.PixelPalette.CLASSIC
+    val usesEchoColors = pixelPalette == echo.music.iad1tya.ui.theme.PixelPalette.ECHO_DYNAMIC
+    val followCoverArt =
+      enableDynamicTheme || pixelPalette == echo.music.iad1tya.ui.theme.PixelPalette.CARTRIDGE
+    // 128bit palettes are fixed light or dark; only Echo's own colors follow the mode setting.
     val useDarkTheme =
-      remember(darkTheme, isSystemInDarkTheme) {
-        if (darkTheme == DarkMode.AUTO) isSystemInDarkTheme else darkTheme == DarkMode.ON
+      remember(darkTheme, isSystemInDarkTheme, pixelPalette) {
+        if (!usesEchoColors) pixelPalette.isDark
+        else if (darkTheme == DarkMode.AUTO) isSystemInDarkTheme
+        else darkTheme == DarkMode.ON
       }
 
     LaunchedEffect(useDarkTheme) { setSystemBarAppearance(useDarkTheme) }
@@ -670,14 +687,14 @@ class MainActivity : ComponentActivity() {
       rememberSaveable(stateSaver = ColorSaver) { mutableStateOf(selectedThemeColor) }
 
     LaunchedEffect(selectedThemeColor) {
-      if (!enableDynamicTheme) {
+      if (!followCoverArt) {
         themeColor = selectedThemeColor
       }
     }
 
-    LaunchedEffect(playerConnection, enableDynamicTheme, selectedThemeColor) {
+    LaunchedEffect(playerConnection, followCoverArt, selectedThemeColor) {
       val playerConnection = playerConnection
-      if (!enableDynamicTheme || playerConnection == null) {
+      if (!followCoverArt || playerConnection == null) {
         themeColor = selectedThemeColor
         return@LaunchedEffect
       }
@@ -1280,7 +1297,7 @@ class MainActivity : ComponentActivity() {
                             AsyncImage(
                               model = accountImageUrl,
                               contentDescription = stringResource(R.string.account),
-                              modifier = Modifier.size(24.dp).clip(CircleShape)
+                              modifier = Modifier.size(24.dp).clip(PixelCircleShape)
                             )
                           } else {
                             Icon(
@@ -1673,7 +1690,7 @@ class MainActivity : ComponentActivity() {
               ) {
                 Surface(
                   modifier = Modifier.padding(24.dp),
-                  shape = RoundedCornerShape(16.dp),
+                  shape = PixelCornerShape(16.dp),
                   color = AlertDialogDefaults.containerColor,
                   tonalElevation = AlertDialogDefaults.TonalElevation,
                 ) {

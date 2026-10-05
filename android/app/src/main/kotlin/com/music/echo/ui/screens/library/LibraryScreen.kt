@@ -1,5 +1,8 @@
 package echo.music.iad1tya.ui.screens.library
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+import echo.music.iad1tya.ui.theme.PixelCircleShape
+
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -127,7 +130,7 @@ fun LibraryScreen(navController: NavController) {
         Box(modifier = Modifier.align(Alignment.BottomEnd)) {
           androidx.compose.material3.FloatingActionButton(
             onClick = { showFabMenu = true },
-            shape = CircleShape,
+            shape = PixelCircleShape,
             containerColor = MaterialTheme.colorScheme.onSurface,
             contentColor = MaterialTheme.colorScheme.surface
           ) {
@@ -260,7 +263,7 @@ fun LibraryScreen(navController: NavController) {
         verticalArrangement = Arrangement.spacedBy(12.dp)
       ) {
         androidx.compose.material3.Surface(
-          shape = androidx.compose.foundation.shape.RoundedCornerShape(16.dp),
+          shape = PixelCornerShape(16.dp),
           color = MaterialTheme.colorScheme.surfaceContainerHighest,
           modifier = Modifier.fillMaxWidth()
         ) {
@@ -276,7 +279,7 @@ fun LibraryScreen(navController: NavController) {
         }
 
         androidx.compose.material3.Surface(
-          shape = androidx.compose.foundation.shape.RoundedCornerShape(16.dp),
+          shape = PixelCornerShape(16.dp),
           color = MaterialTheme.colorScheme.surfaceContainerHighest,
           modifier = Modifier.fillMaxWidth()
         ) {

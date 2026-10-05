@@ -1,5 +1,7 @@
 package echo.music.iad1tya.ui.player
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -104,7 +106,7 @@ fun PlaybackError(
 
     Button(
       onClick = retry,
-      shape = RoundedCornerShape(20.dp),
+      shape = PixelCornerShape(20.dp),
       colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
     ) {
       Icon(

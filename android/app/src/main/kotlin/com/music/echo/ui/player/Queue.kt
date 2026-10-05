@@ -1,5 +1,8 @@
 package echo.music.iad1tya.ui.player
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+import echo.music.iad1tya.ui.theme.PixelCircleShape
+
 import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -340,15 +343,15 @@ fun Queue(
           val buttonSize = 42.dp
           val iconSize = 24.dp
           val queueShape =
-            RoundedCornerShape(
+            PixelCornerShape(
               topStart = 50.dp,
               bottomStart = 50.dp,
               topEnd = 3.dp,
               bottomEnd = 3.dp
             )
-          val middleShape = RoundedCornerShape(3.dp)
+          val middleShape = PixelCornerShape(3.dp)
           val repeatShape =
-            RoundedCornerShape(
+            PixelCornerShape(
               topStart = 3.dp,
               bottomStart = 3.dp,
               topEnd = 50.dp,
@@ -455,7 +458,7 @@ fun Queue(
 
           Box(
             modifier =
-              Modifier.size(buttonSize).clip(CircleShape).background(textButtonColor).clickable {
+              Modifier.size(buttonSize).clip(PixelCircleShape).background(textButtonColor).clickable {
                 menuState.show {
                   PlayerMenu(
                     mediaMetadata = mediaMetadata,
@@ -754,7 +757,7 @@ fun Queue(
           AsyncImage(
             model = mediaMetadata?.thumbnailUrl,
             contentDescription = null,
-            modifier = Modifier.size(48.dp).clip(RoundedCornerShape(8.dp))
+            modifier = Modifier.size(48.dp).clip(PixelCornerShape(8.dp))
           )
 
           Spacer(Modifier.width(12.dp))
@@ -1434,7 +1437,7 @@ private fun PlayerQueueButton(
   onClick: () -> Unit,
   isActive: Boolean,
   enabled: Boolean = true,
-  shape: RoundedCornerShape,
+  shape: PixelCornerShape,
   modifier: Modifier = Modifier,
   text: String? = null,
   textButtonColor: Color,
@@ -1480,6 +1483,7 @@ private fun PlayerQueueButton(
         } else {
           when (playerBackground) {
             PlayerBackgroundStyle.BLUR,
+            PlayerBackgroundStyle.PIXEL,
             PlayerBackgroundStyle.GRADIENT,
             PlayerBackgroundStyle.GLOW_ANIMATED,
             PlayerBackgroundStyle.APPLE_MUSIC,

@@ -60,7 +60,7 @@ fun FontSelectionScreen(
   navController: NavController,
   scrollBehavior: TopAppBarScrollBehavior,
 ) {
-  val selectedFontState = rememberPreference(SelectedFontKey, defaultValue = AppFont.SYSTEM.value)
+  val selectedFontState = rememberPreference(SelectedFontKey, defaultValue = AppFont.PIXEL.value)
   val selectedFont = selectedFontState.value
   val onSelectedFontChange: (String) -> Unit = { selectedFontState.value = it }
   val context = LocalContext.current
@@ -96,6 +96,7 @@ fun FontSelectionScreen(
     remember(selectedFont, customFontPath) {
       when (AppFont.fromValue(selectedFont)) {
         AppFont.SYSTEM -> FontFamily.Default
+        AppFont.PIXEL -> echo.music.iad1tya.ui.theme.PixelifySansFontFamily
         AppFont.GOOGLE_SANS -> GoogleSansFontFamily
         AppFont.SANS_FLEX -> SansFlexFontFamily
         AppFont.OUTFIT -> OutfitFontFamily
@@ -177,6 +178,24 @@ fun FontSelectionScreen(
         title = stringResource(R.string.font_selection),
         items =
           listOf(
+            Material3SettingsItem(
+              customIcon = {
+                AnimatedRadioButton(selected = selectedFont == AppFont.PIXEL.value, onClick = null)
+              },
+              title = {
+                Text(
+                  text = "128bit Pixel",
+                  fontFamily = echo.music.iad1tya.ui.theme.PressStart2PFontFamily
+                )
+              },
+              description = {
+                Text(
+                  text = "Press Start 2P for big titles, Pixelify Sans for everything else.",
+                  fontFamily = echo.music.iad1tya.ui.theme.PixelifySansFontFamily
+                )
+              },
+              onClick = { onSelectedFontChange(AppFont.PIXEL.value) }
+            ),
             Material3SettingsItem(
               customIcon = {
                 AnimatedRadioButton(selected = selectedFont == AppFont.SYSTEM.value, onClick = null)

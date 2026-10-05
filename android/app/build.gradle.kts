@@ -30,7 +30,7 @@ android {
   ndkVersion = "27.0.12077973"
 
   defaultConfig {
-    applicationId = "echo.music.iad1tya"
+    applicationId = "com.bit128.music"
     minSdk = 26
     targetSdk = 36
     versionCode = 162

@@ -1,5 +1,7 @@
 package echo.music.iad1tya.ui.screens.settings
 
+import echo.music.iad1tya.ui.theme.PixelCornerShape
+
 import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.layout.Arrangement
@@ -152,7 +154,7 @@ fun UpdateSettings(
       echo.music.iad1tya.ui.component.PreferenceGroupTitle(title = "What's New")
       androidx.compose.material3.Card(
         modifier = Modifier.fillMaxWidth(),
-        shape = androidx.compose.foundation.shape.RoundedCornerShape(24.dp),
+        shape = PixelCornerShape(24.dp),
         colors =
           androidx.compose.material3.CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceContainerHigh
