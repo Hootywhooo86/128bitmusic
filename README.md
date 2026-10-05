@@ -1,5 +1,7 @@
 # 128bit Music
 
+<img src="assets/logo-discman.png" alt="128bit Music logo: a pixel-art Discman" width="96">
+
 Your listening, gamified. Spotify + Apple Music stats, streaks, playlist
 quests, and discovery — with XP flowing into 128bitlife.
 Part of the 128bit family.
