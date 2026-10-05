@@ -10,6 +10,11 @@ on:
 permissions:
   contents: write # publish the APK as a GitHub Release
 
+# One build at a time, so two pushes can't both claim the same version number.
+concurrency:
+  group: apk-release
+  cancel-in-progress: false
+
 jobs:
   apk:
     runs-on: ubuntu-latest
@@ -26,6 +31,21 @@ jobs:
           java-version: "21"
 
       - uses: gradle/actions/setup-gradle@v4
+
+      # Version numbers: v001, v002, ... one higher than the newest vNNN release. A build that
+      # fails never publishes, so it doesn't use up a number.
+      - name: Pick version number
+        id: ver
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          last=$(gh release list --limit 1000 --json tagName -q '.[].tagName' \
+            | grep -E '^v[0-9]{3,}$' | sed 's/^v//' | sort -n | tail -1)
+          next=$(( 10#${last:-0} + 1 ))
+          name=$(printf 'v%03d' "$next")
+          echo "Building $name"
+          echo "name=$name" >> "$GITHUB_OUTPUT"
+          echo "APP_VERSION_NAME=$name" >> "$GITHUB_ENV"
 
       - name: Install Android SDK 37
         run: yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platforms;android-37.0" "build-tools;37.0.0" > /dev/null
@@ -66,7 +86,7 @@ jobs:
           KEY_PASSWORD: 128bitmusic
         run: |
           ./gradlew --no-daemon :app:assembleUniversalFossRelease -x lint
-          cp app/build/outputs/apk/universalFoss/release/*.apk "$GITHUB_WORKSPACE/128bit-music.apk"
+          cp app/build/outputs/apk/universalFoss/release/*.apk "$GITHUB_WORKSPACE/128bitmusic${{ steps.ver.outputs.name }}.apk"
 
       - name: Build debug APK
         if: steps.key.outputs.signed != 'true'
@@ -74,19 +94,29 @@ jobs:
           ./gradlew --no-daemon :app:assembleUniversalFossDebug -x lint
           cp app/build/outputs/apk/universalFoss/debug/*.apk "$GITHUB_WORKSPACE/128bit-music-debug.apk"
 
-      # Fixed download link that always points at the newest build:
+      # Each build is its own release (tag vNNN) holding 128bitmusicvNNN.apk. The "app-latest"
+      # release is refreshed too, so this fixed link always gets the newest build:
       # https://github.com/<owner>/<repo>/releases/download/app-latest/128bit-music.apk
-      - name: Publish APK to the "app-latest" release
+      - name: Publish release
         if: steps.key.outputs.signed == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
+          VER: ${{ steps.ver.outputs.name }}
         working-directory: ${{ github.workspace }}
         run: |
-          gh release delete app-latest --cleanup-tag --yes || true
-          gh release create app-latest 128bit-music.apk \
+          apk="128bitmusic${VER}.apk"
+          gh release create "$VER" "$apk" \
             --target "$GITHUB_SHA" \
-            --title "128bit Music (latest build)" \
-            --notes "Built from ${GITHUB_SHA::7} on ${GITHUB_REF_NAME}. Download 128bit-music.apk and tap it to install or update."
+            --title "128bit Music $VER" \
+            --notes "128bit Music $VER, built from ${GITHUB_SHA::7}. Download $apk and tap it to install or update." \
+            --latest
+          cp "$apk" 128bit-music.apk
+          gh release delete app-latest --cleanup-tag --yes || true
+          gh release create app-latest "$apk" 128bit-music.apk \
+            --target "$GITHUB_SHA" \
+            --title "128bit Music (latest: $VER)" \
+            --notes "Newest build: $VER. Download $apk (or 128bit-music.apk, same file) and tap it to install or update." \
+            --latest=false
 
       - uses: actions/upload-artifact@v4
         if: steps.key.outputs.signed != 'true'

@@ -529,7 +529,8 @@ class MainActivity : ComponentActivity() {
         // Only mark the version seen once its changelog is actually shown (see
         // onDismiss below) — if the fetch fails here, retry on the next launch
         // instead of losing that version's release notes forever.
-        whatsNewInfo = echo.music.iad1tya.echomusic.updater.fetchChangelogForVersion(currentVersion)
+        // 128bit: Echo's "What's New" comes from Echo's own GitHub releases, not ours, so skip it.
+        echo.music.iad1tya.echomusic.updater.saveLastSeenChangelogVersion(context, currentVersion)
       }
     }
 

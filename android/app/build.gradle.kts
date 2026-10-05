@@ -35,7 +35,8 @@ android {
     targetSdk = 36
     // 128bit: CI builds count up with the Actions run number so each one installs as an update.
     versionCode = System.getenv("GITHUB_RUN_NUMBER")?.toIntOrNull()?.let { 1000 + it } ?: 162
-    versionName = "1.4.1"
+    // 128bit: CI sets APP_VERSION_NAME to v001, v002, ... (one higher per published build).
+    versionName = System.getenv("APP_VERSION_NAME") ?: "dev"
 
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     vectorDrawables.useSupportLibrary = true
