@@ -417,6 +417,46 @@ fun SettingsScreen(
       val dataGroup = itemsList.drop(6).take(4) // Content, Privacy, Storage, Backup
       val systemGroup = itemsList.drop(10) // Update, Links, About
 
+      // 128bit: game + support settings, at the top.
+      val (questsEnabled, onQuestsEnabledChange) =
+        echo.music.iad1tya.utils.rememberPreference(echo.music.iad1tya.game.QuestsEnabledKey, true)
+      Material3SettingsGroup(
+        scrollState = scrollState,
+        items =
+          listOf(
+            Material3SettingsItem(
+              icon = painterResource(R.drawable.stats),
+              title = { Text("Save File") },
+              description = { Text("Level, streak, quests and badges") },
+              onClick = { navController.navigate("save_file") }
+            ),
+            Material3SettingsItem(
+              icon = painterResource(R.drawable.star),
+              title = { Text("Quests") },
+              description = {
+                Text(
+                  if (questsEnabled) "Weekly quests and quest lines that never run out"
+                  else "Off: no quests and no quest XP"
+                )
+              },
+              trailingContent = {
+                androidx.compose.material3.Switch(
+                  checked = questsEnabled,
+                  onCheckedChange = onQuestsEnabledChange
+                )
+              },
+              onClick = { onQuestsEnabledChange(!questsEnabled) }
+            ),
+            Material3SettingsItem(
+              icon = painterResource(R.drawable.coffee),
+              title = { Text("Buy me a Ko-fi") },
+              description = { Text("ko-fi.com/128bit") },
+              onClick = { uriHandler.openUri("https://ko-fi.com/128bit") }
+            ),
+          )
+      )
+      Spacer(modifier = Modifier.height(16.dp))
+
       if (accountGroup.isNotEmpty()) {
         Material3SettingsGroup(scrollState = scrollState, items = accountGroup)
         Spacer(modifier = Modifier.height(16.dp))

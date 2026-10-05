@@ -82,7 +82,12 @@ fun SaveFileScreen(navController: NavController, viewModel: GameViewModel = hilt
     ) {
       item { Hero(s) }
       item { StreakPanel(s) }
-      item { QuestsPanel(s) }
+      val weekly = s.quests.filter { it.weekly }
+      val lines = s.quests.filter { !it.weekly }
+      if (weekly.isNotEmpty()) item { QuestsPanel("WEEKLY QUESTS", weekly, "New weekly quests every Monday.") }
+      if (lines.isNotEmpty()) {
+        item { QuestsPanel("QUEST LINES", lines, "Finish one and the next, bigger one unlocks right away.") }
+      }
       item { BadgesPanel(s) }
       item { StatsPanel(s) }
       if (s.topTracks.isNotEmpty()) item { InventoryPanel(s) }
@@ -172,9 +177,9 @@ private fun StreakPanel(s: GameState) {
 }
 
 @Composable
-private fun QuestsPanel(s: GameState) {
-  Panel("WEEKLY QUESTS") {
-    s.quests.forEach { q ->
+private fun QuestsPanel(title: String, quests: List<Quest>, footer: String) {
+  Panel(title) {
+    quests.forEach { q ->
       Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
         Row(verticalAlignment = Alignment.CenterVertically) {
           if (q.done) {
@@ -193,10 +198,10 @@ private fun QuestsPanel(s: GameState) {
             color = MaterialTheme.colorScheme.secondary
           )
         }
-        PixelBlocks(q.progress.toFloat() / q.goal, MaterialTheme.colorScheme.primary, height = 8.dp, cells = q.goal * 3)
+        PixelBlocks(q.progress.toFloat() / q.goal, MaterialTheme.colorScheme.primary, height = 8.dp)
       }
     }
-    Text("New quests every Monday.", style = MaterialTheme.typography.bodySmall)
+    Text(footer, style = MaterialTheme.typography.bodySmall)
   }
 }
 

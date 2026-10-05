@@ -31,8 +31,11 @@ object GameRules {
   /** Minutes in a day that count it toward your streak. */
   const val STREAK_DAY_MINUTES = 10
 
-  /** XP needed to go from [level] to level + 1. Early levels are quick, later ones take weeks. */
-  fun xpToNext(level: Int): Int = (100 * level.toDouble().pow(1.5)).roundToInt()
+  /**
+   * XP needed to go from [level] to level + 1: 100, 125, 150, ... Each level costs a little more,
+   * but there is no cap and it never stalls, so there is always another level up coming.
+   */
+  fun xpToNext(level: Int): Int = 75 + 25 * level
 }
 
 data class Badge(
@@ -47,6 +50,8 @@ data class Quest(
   val progress: Int,
   val goal: Int,
   val rewardXp: Int,
+  /** Weekly quests reset on Monday; quest-line quests chain forever. */
+  val weekly: Boolean = true,
 ) {
   val done: Boolean
     get() = progress >= goal
@@ -94,7 +99,37 @@ private fun questsFor(weekPlays: List<Play>, newArtistsThisWeek: Int): List<Ques
   )
 }
 
-fun computeGameState(plays: List<Play>, today: LocalDate): GameState {
+/**
+ * Goal for step [i] of a quest line. Uses [base] while it lasts, then keeps growing by 1.5x per
+ * step, so there is always a next quest.
+ */
+internal fun ladderGoal(base: List<Int>, i: Int): Int =
+  if (i < base.size) base[i]
+  else (base.last() * 1.5.pow(i - base.size + 1)).roundToInt()
+
+/** XP reward for finishing step [i] of a quest line. */
+internal fun ladderReward(i: Int): Int = 50 + 25 * i
+
+/**
+ * Walks one quest line: every step [value] already reached pays its reward, and the first step not
+ * yet reached becomes the open quest. Returns (XP earned from finished steps, the open quest).
+ */
+private fun questLine(value: Int, base: List<Int>, title: (Int) -> String): Pair<Int, Quest> {
+  var i = 0
+  var earned = 0
+  while (value >= ladderGoal(base, i)) {
+    earned += ladderReward(i)
+    i++
+  }
+  val goal = ladderGoal(base, i)
+  return earned to Quest(title(goal), value, goal, ladderReward(i), weekly = false)
+}
+
+fun computeGameState(
+  plays: List<Play>,
+  today: LocalDate,
+  questsEnabled: Boolean = true,
+): GameState {
   val sorted = plays.sortedBy { it.at }
 
   // XP from listening time and first-time artists.
@@ -110,24 +145,7 @@ fun computeGameState(plays: List<Play>, today: LocalDate): GameState {
     }
   }
   var xp = (totalMinutes * GameRules.XP_PER_MINUTE).toInt() + seenArtists.size * GameRules.XP_NEW_ARTIST
-
-  // Quest rewards: every week's completed quests pay out, so XP never goes backwards.
-  val byWeek = sorted.groupBy { weekStart(it.at.toLocalDate()) }
-  val thisWeek = weekStart(today)
-  for ((week, weekPlays) in byWeek) {
-    if (week == thisWeek) continue
-    xp += questsFor(weekPlays, newArtistWeek[week] ?: 0).filter { it.done }.sumOf { it.rewardXp }
-  }
-  val currentQuests = questsFor(byWeek[thisWeek].orEmpty(), newArtistWeek[thisWeek] ?: 0)
-  xp += currentQuests.filter { it.done }.sumOf { it.rewardXp }
-
-  // Level from cumulative XP.
-  var level = 1
-  var remaining = xp
-  while (remaining >= GameRules.xpToNext(level)) {
-    remaining -= GameRules.xpToNext(level)
-    level++
-  }
+  val distinctSongs = sorted.map { it.songId }.toSet().size
 
   // Streaks: consecutive days with at least STREAK_DAY_MINUTES of listening.
   val dayMinutes =
@@ -150,6 +168,46 @@ fun computeGameState(plays: List<Play>, today: LocalDate): GameState {
     cursor = cursor.minusDays(1)
   }
 
+  // Quests. Weekly ones reset on Monday; quest lines always have a next step. Every finished
+  // quest pays out, so XP never goes backwards. Turned off in settings: no quests, no quest XP.
+  val currentQuests = mutableListOf<Quest>()
+  if (questsEnabled) {
+    val byWeek = sorted.groupBy { weekStart(it.at.toLocalDate()) }
+    val thisWeek = weekStart(today)
+    for ((week, weekPlays) in byWeek) {
+      if (week == thisWeek) continue
+      xp += questsFor(weekPlays, newArtistWeek[week] ?: 0).filter { it.done }.sumOf { it.rewardXp }
+    }
+    val weekly = questsFor(byWeek[thisWeek].orEmpty(), newArtistWeek[thisWeek] ?: 0)
+    xp += weekly.filter { it.done }.sumOf { it.rewardXp }
+    currentQuests += weekly
+
+    val lines =
+      listOf(
+        questLine(seenArtists.size, listOf(5, 10, 20, 35, 50, 75, 100, 150, 200)) {
+          "Discover $it artists"
+        },
+        questLine((totalMinutes / 60).toInt(), listOf(1, 3, 5, 10, 20, 35, 50, 75, 100)) {
+          "Listen for $it hours total"
+        },
+        questLine(distinctSongs, listOf(10, 25, 50, 100, 200, 350, 500)) { "Play $it different songs" },
+        questLine(best, listOf(3, 7, 14, 21, 30, 45, 60, 90)) { "Reach a $it-day streak" },
+        questLine(activeDays.size, listOf(3, 7, 15, 30, 50, 75, 100)) { "Listen on $it different days" },
+      )
+    for ((earned, quest) in lines) {
+      xp += earned
+      currentQuests += quest
+    }
+  }
+
+  // Level from cumulative XP.
+  var level = 1
+  var remaining = xp
+  while (remaining >= GameRules.xpToNext(level)) {
+    remaining -= GameRules.xpToNext(level)
+    level++
+  }
+
   // Top tracks.
   val topTracks =
     sorted
@@ -164,7 +222,6 @@ fun computeGameState(plays: List<Play>, today: LocalDate): GameState {
     sorted.filter { it.at.hour in fromHour until toHour }.sumOf { it.playTimeMs } / 60_000
   val artistPlays = sorted.flatMap { it.artistIds }.groupingBy { it }.eachCount()
   val maxDayMinutes = dayMinutes.values.maxOrNull() ?: 0
-  val distinctSongs = sorted.map { it.songId }.toSet().size
   val badges =
     listOf(
       Badge("first", "FIRST PRESS", "Play your first song", sorted.isNotEmpty()),
@@ -177,6 +234,9 @@ fun computeGameState(plays: List<Play>, today: LocalDate): GameState {
       Badge("fire", "ON FIRE", "7-day streak", best >= 7),
       Badge("unstoppable", "UNSTOPPABLE", "30-day streak", best >= 30),
       Badge("lv10", "LEVEL 10", "Reach level 10", level >= 10),
+      Badge("lv25", "LEVEL 25", "Reach level 25", level >= 25),
+      Badge("lv50", "LEVEL 50", "Reach level 50", level >= 50),
+      Badge("lv100", "LEVEL 100", "Reach level 100. Levels keep going after this.", level >= 100),
     )
 
   // Class: what kind of listener you are, from your habits.

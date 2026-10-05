@@ -245,9 +245,6 @@ import timber.log.Timber
 val EmphasizedEasing = CubicBezierEasing(0.2f, 0.0f, 0.0f, 1.0f)
 
 @Suppress("DEPRECATION", "ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
-/** Where the "Buy me a Ko-fi" link under the app title goes. */
-private const val SupportCoffeeUrl = "https://ko-fi.com/128bit"
-
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
   companion object {
@@ -1306,12 +1303,12 @@ class MainActivity : ComponentActivity() {
                                 style = MaterialTheme.typography.labelMedium,
                                 color = MaterialTheme.colorScheme.primary
                               )
-                              Box(Modifier.width(64.dp)) {
+                              Box(Modifier.width(96.dp)) {
                                 echo.music.iad1tya.game.PixelBlocks(
                                   fraction = game.levelProgress,
                                   color = MaterialTheme.colorScheme.primary,
-                                  height = 8.dp,
-                                  cells = 10
+                                  height = 10.dp,
+                                  cells = 12
                                 )
                               }
                               if (game.currentStreak > 0) {
@@ -1328,27 +1325,6 @@ class MainActivity : ComponentActivity() {
                                 )
                               }
                             }
-                          }
-                          val uriHandler = androidx.compose.ui.platform.LocalUriHandler.current
-                          Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = androidx.compose.foundation.layout.Arrangement.spacedBy(4.dp),
-                            modifier =
-                              Modifier.clip(PixelCornerShape(4.dp))
-                                .clickable { uriHandler.openUri(SupportCoffeeUrl) }
-                                .padding(vertical = 2.dp, horizontal = 2.dp)
-                          ) {
-                            Icon(
-                              painter = painterResource(R.drawable.coffee),
-                              contentDescription = null,
-                              tint = MaterialTheme.colorScheme.secondary,
-                              modifier = Modifier.size(14.dp)
-                            )
-                            Text(
-                              text = "Buy me a Ko-fi",
-                              style = MaterialTheme.typography.labelSmall,
-                              color = MaterialTheme.colorScheme.secondary
-                            )
                           }
                         }
                       }

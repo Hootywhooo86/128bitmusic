@@ -27,7 +27,7 @@ class GameEngineTest {
   @Test
   fun xpIsMinutesPlusNewArtistBonus() {
     // 30 min, 2 artists -> 30 + 2*10 = 50 XP; no quests done.
-    val s = computeGameState(listOf(play(today, 12, 20), play(today, 13, 10, "s2", "a2")), today)
+    val s = computeGameState(listOf(play(today, 12, 20), play(today, 13, 10, "s2", "a2")), today, questsEnabled = false)
     assertEquals(50, s.totalXp)
     assertEquals(2, s.distinctArtists)
   }
@@ -35,7 +35,7 @@ class GameEngineTest {
   @Test
   fun levelsUpAtThreshold() {
     // Level 1 -> 2 costs 100 XP. 90 min + 1 artist (10) = 100 XP.
-    val s = computeGameState(listOf(play(today, 12, 90)), today)
+    val s = computeGameState(listOf(play(today, 12, 90)), today, questsEnabled = false)
     assertEquals(2, s.level)
     assertEquals(0, s.xpIntoLevel)
     assertEquals(GameRules.xpToNext(2), s.xpToNext)
@@ -73,8 +73,10 @@ class GameEngineTest {
     val s = computeGameState(plays, today)
     val q = s.quests.first { it.title.startsWith("Find 5") }
     assertTrue(q.done)
-    // 5 min + 5 artists*10 + 100 quest = 155
-    assertEquals(155, s.totalXp)
+    // 5 min + 5 artists*10 + 100 weekly quest + 50 for "Discover 5 artists" (first quest-line step)
+    assertEquals(205, s.totalXp)
+    // The artist quest line has already moved on to its next step.
+    assertTrue(s.quests.any { !it.weekly && it.title == "Discover 10 artists" && it.progress == 5 })
   }
 
   @Test
@@ -90,5 +92,37 @@ class GameEngineTest {
     val s = computeGameState(plays, today)
     assertEquals("Song y", s.topTracks.first().title)
     assertEquals(2, s.topTracks.first().plays)
+  }
+
+  @Test
+  fun levelsNeverCap() {
+    // ~5,000 hours of listening: far past any badge, still levelling.
+    val plays = (0 until 2000).map { play(today.minusDays(it.toLong()), 12, 150, "s$it", "a${it % 40}") }
+    val s = computeGameState(plays, today, questsEnabled = false)
+    assertTrue(s.level > 100)
+    assertTrue(s.xpToNext > GameRules.xpToNext(100))
+    assertTrue(s.xpIntoLevel in 0 until s.xpToNext)
+  }
+
+  @Test
+  fun questLinesAlwaysHaveANextStep() {
+    // Beyond the hand-written goals the ladder keeps growing.
+    val base = listOf(1, 3, 5)
+    assertEquals(5, ladderGoal(base, 2))
+    assertTrue(ladderGoal(base, 3) > 5)
+    assertTrue(ladderGoal(base, 10) > ladderGoal(base, 9))
+    // Someone with 1,000 artists still gets an unfinished artist quest.
+    val plays = (0 until 1000).map { play(today, 12, 1, "s$it", "a$it") }
+    val q = computeGameState(plays, today).quests.first { it.title.startsWith("Discover") && !it.weekly }
+    assertTrue(q.goal > 1000)
+    assertFalse(q.done)
+  }
+
+  @Test
+  fun questsOffMeansNoQuestsAndNoQuestXp() {
+    val plays = (1..5).map { play(today, 10 + it, 1, "s$it", "a$it") }
+    val s = computeGameState(plays, today, questsEnabled = false)
+    assertTrue(s.quests.isEmpty())
+    assertEquals(5 + 5 * GameRules.XP_NEW_ARTIST, s.totalXp)
   }
 }
