@@ -1,0 +1,546 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Echo 128bit Skin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  /* Layout: phone mockup on the left, an annotated changelist mapping each pixel feature to Echo's code on the right.
+     Single dark arcade look on purpose (128bit family palette), so no light theme. */
+  :root{
+    --bg:#0b0b16; --panel:#141428; --line:#26264a; --shadow:#08081a;
+    --teal:#2dd4bf; --orange:#ff9f1c; --pink:#ff5d8f; --ink:#f4f1ff; --muted:#9a97b8;
+    --echo:#ed5564; /* Echo's real default seed color, used for "stock" mode */
+    --pixel:'Press Start 2P',ui-monospace,monospace;
+    --body:'Inter',system-ui,-apple-system,sans-serif;
+    color-scheme:dark;
+  }
+  *{box-sizing:border-box}
+  html,body{background:var(--bg);color:var(--ink)}
+  body{font-family:var(--body);font-size:15px;line-height:1.6;padding:28px 16px 48px;overflow-x:hidden}
+  body::before{content:"";position:fixed;inset:0;pointer-events:none;
+    background-image:radial-gradient(rgba(45,212,191,.07) 1px,transparent 1px);background-size:22px 22px}
+  .page{max-width:1080px;margin:0 auto;position:relative}
+  .px{font-family:var(--pixel)}
+  header.top{display:flex;flex-direction:column;gap:14px;margin-bottom:28px}
+  .eyebrow{font-family:var(--pixel);font-size:10px;letter-spacing:2px;color:var(--teal)}
+  h1{font-family:var(--pixel);font-size:clamp(20px,4.4vw,36px);line-height:1.4;margin:0;text-wrap:balance;
+     text-shadow:0 4px 0 #1a1a33,4px 0 0 #1a1a33}
+  h1 .p{color:var(--pink)}
+  .lede{color:var(--muted);max-width:60ch;margin:0}
+  .layout{display:grid;grid-template-columns:minmax(0,380px) minmax(0,1fr);gap:40px;align-items:start}
+  @media (max-width:820px){.layout{grid-template-columns:minmax(0,1fr)}}
+
+  /* ---------- skin switch ---------- */
+  .switch{display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+  .switch button{font-family:var(--pixel);font-size:10px;letter-spacing:1px;padding:12px 14px;cursor:pointer;
+    background:var(--panel);color:var(--muted);border:3px solid var(--line)}
+  .switch button[aria-pressed="true"]{background:var(--orange);color:#201100;border-color:var(--orange);box-shadow:0 4px 0 #a05e00}
+  .switch button:focus-visible,.tabs button:focus-visible,.ctrl:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+  .hint{font-size:12px;color:var(--muted)}
+
+  /* ---------- phone ---------- */
+  .phone{position:relative;width:100%;max-width:380px;height:760px;background:#05050c;border:3px solid var(--line);
+    box-shadow:8px 8px 0 var(--shadow);overflow:hidden;display:flex;flex-direction:column}
+  .phone .bgart{position:absolute;inset:-10%;width:120%;height:120%;opacity:.22;image-rendering:pixelated;pointer-events:none}
+  .phone .scan{position:absolute;inset:0;pointer-events:none;
+    background:repeating-linear-gradient(0deg,rgba(0,0,0,.22) 0 1px,transparent 1px 3px)}
+  .screen{position:relative;flex:1;display:flex;flex-direction:column;padding:18px 18px 10px;gap:14px;min-height:0;overflow-y:auto}
+  .screen[hidden]{display:none!important}
+  .bar{display:flex;justify-content:space-between;align-items:center;font-family:var(--pixel);font-size:8px;color:var(--muted);letter-spacing:1px}
+  .bar b{color:var(--ink);font-weight:400}
+  .streak{display:flex;align-items:center;gap:6px;color:var(--orange)}
+
+  .art{position:relative;align-self:center;width:min(100%,300px);aspect-ratio:1;max-width:100%;
+    border:3px solid var(--ink);box-shadow:6px 6px 0 var(--pink)}
+  .art canvas{width:100%;height:100%;display:block;image-rendering:pixelated}
+  .art .smooth{display:none}
+
+  .meta{display:flex;justify-content:space-between;align-items:flex-end;gap:12px}
+  .meta div{min-width:0}
+  .title{font-family:var(--pixel);font-size:14px;line-height:1.5;margin:0}
+  .artist{color:var(--teal);font-size:13px;margin:4px 0 0}
+  .like{color:var(--pink);background:none;border:0;cursor:pointer;padding:6px}
+
+  .viz{display:flex;gap:4px;height:40px;align-items:flex-end}
+  .viz i{flex:1;background:var(--teal);height:5px}
+  .viz i:nth-child(3n){background:var(--pink)} .viz i:nth-child(4n){background:var(--orange)}
+
+  .seek{display:flex;flex-direction:column;gap:6px}
+  .cells{display:grid;grid-template-columns:repeat(32,1fr);gap:2px;height:12px;cursor:pointer}
+  .cells i{background:var(--line)} .cells i.on{background:var(--teal)} .cells i.head{background:var(--ink)}
+  .slim{display:none;height:4px;background:rgba(255,255,255,.2);border-radius:4px;position:relative}
+  .slim span{position:absolute;left:0;top:0;bottom:0;background:#fff;border-radius:4px}
+  .times{display:flex;justify-content:space-between;font-family:var(--pixel);font-size:8px;color:var(--muted);font-variant-numeric:tabular-nums}
+
+  .controls{display:flex;justify-content:space-between;align-items:center}
+  .ctrl{background:none;border:0;color:var(--ink);cursor:pointer;padding:8px;display:grid;place-items:center}
+  .ctrl.on{color:var(--teal)}
+  .ctrl.play{width:64px;height:64px;background:var(--orange);color:#201100;box-shadow:0 5px 0 #a05e00;transition:transform .06s,box-shadow .06s}
+  .ctrl.play:active{transform:translateY(5px);box-shadow:0 0 0 #a05e00}
+  svg.ico{display:block;shape-rendering:crispEdges}
+
+  .lyrics{font-size:13px;color:var(--muted);min-height:58px;display:flex;flex-direction:column;gap:4px}
+  .lyrics .cur{font-family:var(--pixel);font-size:10px;line-height:1.7;color:var(--muted)}
+  .lyrics .cur .w.lit{color:var(--teal)}
+  .lyrics .next{font-size:12px;opacity:.6}
+  .cursor{display:inline-block;width:7px;height:10px;background:var(--teal);margin-left:4px;vertical-align:-1px;animation:blink 1s steps(1) infinite}
+  @keyframes blink{50%{opacity:0}}
+
+  .xp{position:relative;border-top:3px solid var(--line);padding:10px 18px 8px;background:rgba(20,20,40,.92)}
+  .xp .row{display:flex;justify-content:space-between;font-family:var(--pixel);font-size:8px;color:var(--muted);margin-bottom:6px;font-variant-numeric:tabular-nums}
+  .xp .row b{color:var(--orange);font-weight:400}
+  .xp .track{height:10px;background:var(--line);border:2px solid #000}
+  .xp .fill{height:100%;background:var(--orange);width:0;transition:width .3s steps(4)}
+  .tabs{display:flex;border-top:3px solid var(--line);background:var(--panel);position:relative}
+  .tabs button{flex:1;background:none;border:0;color:var(--muted);font-family:var(--pixel);font-size:9px;padding:14px 6px;cursor:pointer;border-bottom:3px solid transparent}
+  .tabs button[aria-selected="true"]{color:var(--teal);border-bottom-color:var(--teal)}
+
+  .levelup{position:absolute;left:50%;top:38%;transform:translate(-50%,-50%);z-index:5;text-align:center;
+    background:var(--pink);color:#2a0012;border:3px solid var(--ink);box-shadow:6px 6px 0 #000;padding:18px 20px;
+    font-family:var(--pixel);font-size:14px;line-height:1.7;width:max-content;max-width:86%}
+  .levelup small{display:block;font-size:8px}
+  .levelup.show{animation:pop .5s steps(4)}
+  @keyframes pop{0%{transform:translate(-50%,-50%) scale(.4)}100%{transform:translate(-50%,-50%) scale(1)}}
+
+  /* stats screen */
+  .sheet{display:flex;flex-direction:column;gap:14px}
+  .hero{display:flex;gap:14px;align-items:center}
+  .hero canvas{width:72px;height:72px;image-rendering:pixelated;border:3px solid var(--ink);flex:none}
+  .hero .cls{font-family:var(--pixel);font-size:12px;line-height:1.7;margin:0}
+  .hero .sub{font-size:12px;color:var(--muted);margin:0}
+  .panel{background:var(--panel);border:3px solid var(--line);box-shadow:4px 4px 0 var(--shadow);padding:12px}
+  .panel h3{font-family:var(--pixel);font-size:8px;letter-spacing:1px;color:var(--pink);margin:0 0 10px;font-weight:400}
+  .stat{display:grid;grid-template-columns:80px 1fr 44px;gap:8px;align-items:center;font-size:12px;margin-bottom:6px;font-variant-numeric:tabular-nums}
+  .stat .m{height:8px;background:var(--line)} .stat .m span{display:block;height:100%;background:var(--teal)}
+  .stat em{font-style:normal;text-align:right;color:var(--muted)}
+  ol.inv{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px;font-size:12px}
+  ol.inv li{display:grid;grid-template-columns:22px 1fr auto;gap:8px;align-items:baseline}
+  ol.inv li span:first-child{font-family:var(--pixel);font-size:8px;color:var(--orange)}
+  ol.inv li em{font-style:normal;color:var(--muted);font-variant-numeric:tabular-nums}
+  .badges{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+  .badge{display:flex;flex-direction:column;align-items:center;gap:6px;padding:8px 2px;border:2px solid var(--line);text-align:center}
+  .badge span{font-family:var(--pixel);font-size:6px;line-height:1.5;color:var(--muted)}
+  .badge.got{border-color:var(--orange)} .badge.got span{color:var(--ink)}
+  .badge.locked{opacity:.45}
+  .quest{display:flex;flex-direction:column;gap:6px;font-size:12px}
+  .quest .q{display:flex;justify-content:space-between;gap:8px}
+  .quest .q em{font-style:normal;color:var(--orange);font-family:var(--pixel);font-size:8px;white-space:nowrap}
+  .plainstats{display:none}
+
+  /* ---------- STOCK mode: Echo as it ships today ---------- */
+  .phone.stock{background:#1b1416;border-radius:36px;border-color:#2a2224;box-shadow:0 20px 50px rgba(0,0,0,.5)}
+  .phone.stock .bgart{filter:blur(40px) saturate(1.5);opacity:.55;image-rendering:auto}
+  .phone.stock .scan,.phone.stock .game,.phone.stock .viz,.phone.stock .cells,.phone.stock .cursor{display:none}
+  .phone.stock .bar,.phone.stock .times,.phone.stock .title,.phone.stock .lyrics .cur,.phone.stock .tabs button{font-family:var(--body);letter-spacing:0}
+  .phone.stock .bar{font-size:12px} .phone.stock .times{font-size:11px}
+  .phone.stock .title{font-size:20px;font-weight:800}
+  .phone.stock .artist{color:rgba(255,255,255,.7)}
+  .phone.stock .art{border:0;box-shadow:0 18px 40px rgba(0,0,0,.45);border-radius:24px;overflow:hidden}
+  .phone.stock .art .pix{display:none} .phone.stock .art .smooth{display:block}
+  .phone.stock .slim{display:block}
+  .phone.stock .ctrl.play{border-radius:50%;background:#fff;color:#1b1416;box-shadow:none}
+  .phone.stock .ctrl.on{color:var(--echo)}
+  .phone.stock .like{color:var(--echo)}
+  .phone.stock .lyrics .cur{font-size:16px;font-weight:800;color:#fff}
+  .phone.stock .lyrics .cur .w.lit{color:#fff}
+  .phone.stock .tabs{margin:0 16px 14px;border:0;border-radius:28px;background:rgba(255,255,255,.12);backdrop-filter:blur(20px)}
+  .phone.stock .tabs button{font-size:13px;font-weight:600;border:0}
+  .phone.stock .tabs button[aria-selected="true"]{color:#fff}
+  .phone.stock .sheet{display:none} .phone.stock .plainstats{display:flex}
+  .plainstats{flex-direction:column;gap:10px}
+  .plainstats .card{background:rgba(255,255,255,.08);border-radius:24px;padding:16px}
+  .plainstats h3{margin:0 0 6px;font-size:14px}
+  .plainstats p{margin:0;font-size:13px;color:rgba(255,255,255,.7)}
+
+  /* ---------- notes column ---------- */
+  .notes{display:flex;flex-direction:column;gap:28px;min-width:0}
+  .notes h2{font-family:var(--pixel);font-size:13px;line-height:1.6;margin:0 0 14px;color:var(--orange);font-weight:400}
+  ul.changes{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
+  ul.changes li{display:grid;grid-template-columns:28px minmax(0,1fr);gap:12px;align-items:start}
+  ul.changes .dot{width:28px;height:28px;display:grid;place-items:center;background:var(--panel);border:2px solid var(--line);color:var(--teal)}
+  ul.changes strong{display:block;font-weight:600}
+  ul.changes p{margin:2px 0 0;color:var(--muted);font-size:14px}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;background:var(--panel);border:1px solid var(--line);padding:1px 5px;color:var(--teal);overflow-wrap:anywhere}
+  .phases{display:flex;flex-direction:column;gap:8px}
+  .phase{border:3px solid var(--line);padding:10px 12px;background:var(--panel);display:grid;grid-template-columns:72px minmax(0,1fr);column-gap:12px;align-items:baseline}
+  .phase .n{font-family:var(--pixel);font-size:8px;color:var(--pink);grid-row:span 2}
+  .phase b{display:block;font-weight:600}
+  .phase p{margin:0;font-size:13px;color:var(--muted)}
+  .callout{border:3px dashed var(--pink);padding:14px 16px;font-size:14px;color:var(--muted)}
+  .callout b{color:var(--ink)}
+  a{color:var(--teal)}
+  @media (prefers-reduced-motion:reduce){.cursor{animation:none}.levelup.show{animation:none}.xp .fill{transition:none}}
+</style>
+
+<div class="page">
+  <header class="top">
+    <span class="eyebrow">ECHO MUSIC × 128BIT</span>
+    <h1>Echo, <span class="p">pixelfied.</span></h1>
+    <p class="lede">Same Echo underneath: streaming, lyrics, Echo Find, Listen Together. On top, a pixel skin and a game layer that turns your play history into XP, streaks and badges. Press play, then flip the switch to compare with stock Echo.</p>
+  </header>
+
+  <div class="layout">
+    <div>
+      <div class="switch" role="group" aria-label="Skin">
+        <button id="skinPixel" aria-pressed="true">128BIT SKIN</button>
+        <button id="skinStock" aria-pressed="false">STOCK ECHO</button>
+      </div>
+
+      <div class="phone" id="phone">
+        <canvas class="bgart" id="bgArt" width="32" height="32" aria-hidden="true"></canvas>
+        <div class="scan" aria-hidden="true"></div>
+
+        <!-- PLAYER -->
+        <section class="screen" id="scrPlayer" aria-label="Now playing">
+          <div class="bar">
+            <span>PLAYING FROM <b>LATE NIGHT DRIVE</b></span>
+            <span class="streak game"><span data-icon="flame" data-px="2"></span>12 DAYS</span>
+          </div>
+          <div class="art">
+            <canvas class="pix" id="artPix" width="32" height="32" role="img" aria-label="Pixelated album cover: synthwave sunset over a grid"></canvas>
+            <canvas class="smooth" id="artSmooth" width="320" height="320" role="img" aria-label="Album cover: synthwave sunset over a grid"></canvas>
+          </div>
+          <div class="meta">
+            <div>
+              <p class="title">NEON HIGHWAY</p>
+              <p class="artist">The Midnight Cassettes</p>
+            </div>
+            <button class="like" id="like" aria-label="Like" aria-pressed="true"><span data-icon="heart" data-px="3"></span></button>
+          </div>
+          <div class="viz" id="viz" aria-hidden="true"></div>
+          <div class="seek">
+            <div class="cells" id="cells" aria-label="Seek" role="slider" aria-valuemin="0" aria-valuemax="238" aria-valuenow="0" tabindex="0"></div>
+            <div class="slim"><span id="slimFill"></span></div>
+            <div class="times"><span id="tNow">0:00</span><span>3:58</span></div>
+          </div>
+          <div class="controls">
+            <button class="ctrl on" aria-label="Shuffle"><span data-icon="shuffle" data-px="3"></span></button>
+            <button class="ctrl" id="prev" aria-label="Previous"><span data-icon="prev" data-px="3"></span></button>
+            <button class="ctrl play" id="play" aria-label="Play"><span id="playIco" data-icon="play" data-px="4"></span></button>
+            <button class="ctrl" id="next" aria-label="Next"><span data-icon="next" data-px="3"></span></button>
+            <button class="ctrl" aria-label="Repeat"><span data-icon="repeat" data-px="3"></span></button>
+          </div>
+          <div class="lyrics" aria-live="off">
+            <div class="cur" id="lyCur"></div>
+            <div class="next" id="lyNext"></div>
+          </div>
+        </section>
+
+        <!-- STATS -->
+        <section class="screen" id="scrStats" aria-label="Stats" hidden>
+          <div class="sheet">
+            <div class="bar"><span>SAVE FILE 01</span><span class="streak"><span data-icon="flame" data-px="2"></span>12 DAYS</span></div>
+            <div class="hero">
+              <canvas id="avatar" width="16" height="16" aria-hidden="true"></canvas>
+              <div>
+                <p class="cls">LVL <span class="lvlNum">14</span><br>SYNTH MAGE</p>
+                <p class="sub">Class from your top genre this month</p>
+              </div>
+            </div>
+            <div class="panel">
+              <h3>THIS WEEK</h3>
+              <div class="stat"><span>Listening</span><div class="m"><span style="width:72%"></span></div><em>14.2h</em></div>
+              <div class="stat"><span>New artists</span><div class="m"><span style="width:60%"></span></div><em>3/5</em></div>
+              <div class="stat"><span>Echo Finds</span><div class="m"><span style="width:40%"></span></div><em>4</em></div>
+            </div>
+            <div class="panel">
+              <h3>INVENTORY · TOP TRACKS</h3>
+              <ol class="inv">
+                <li><span>01</span><span>Neon Highway</span><em>41 plays</em></li>
+                <li><span>02</span><span>Arcade Heart</span><em>33 plays</em></li>
+                <li><span>03</span><span>Overpass Lights</span><em>27 plays</em></li>
+                <li><span>04</span><span>Save State</span><em>22 plays</em></li>
+                <li><span>05</span><span>Continue? (9…8…7)</span><em>19 plays</em></li>
+              </ol>
+            </div>
+            <div class="panel">
+              <h3>BADGES · 5 OF 8</h3>
+              <div class="badges">
+                <div class="badge got"><span data-icon="moon" data-px="3"></span><span>NIGHT OWL</span></div>
+                <div class="badge got"><span data-icon="disc" data-px="3"></span><span>CRATE DIGGER</span></div>
+                <div class="badge got"><span data-icon="star" data-px="3"></span><span>DEEP CUT</span></div>
+                <div class="badge got"><span data-icon="note" data-px="3"></span><span>SHAZAM SNIPER</span></div>
+                <div class="badge got"><span data-icon="flame" data-px="3"></span><span>WEEK STREAK</span></div>
+                <div class="badge locked"><span data-icon="lock" data-px="3"></span><span>CO-OP</span></div>
+                <div class="badge locked"><span data-icon="lock" data-px="3"></span><span>COMPLETIONIST</span></div>
+                <div class="badge locked"><span data-icon="lock" data-px="3"></span><span>LOYALIST</span></div>
+              </div>
+            </div>
+            <div class="panel">
+              <h3>WEEKLY QUESTS</h3>
+              <div class="quest">
+                <div class="q"><span>Find 5 new artists</span><em>3/5 · +100XP</em></div>
+                <div class="q"><span>Play a full album, no skips</span><em>0/1 · +60XP</em></div>
+                <div class="q"><span>Side quest: Echo Brain says try "Save State"</span><em>+15XP</em></div>
+              </div>
+            </div>
+          </div>
+          <div class="plainstats">
+            <div class="card"><h3>Listening time</h3><p>14.2 hours this week</p></div>
+            <div class="card"><h3>Top song</h3><p>Neon Highway · 41 plays</p></div>
+            <div class="card"><h3>Top artist</h3><p>The Midnight Cassettes</p></div>
+          </div>
+        </section>
+
+        <div class="levelup" id="levelUp" hidden>LEVEL UP!<br><span id="luNum">15</span><small>+1 STREAK FREEZE</small></div>
+
+        <div class="xp game">
+          <div class="row"><span>LVL <b class="lvlNum">14</b></span><span id="xpText">5,790 / 5,810 XP</span></div>
+          <div class="track"><div class="fill" id="xpFill"></div></div>
+        </div>
+        <div class="tabs" role="tablist">
+          <button role="tab" id="tabPlayer" aria-selected="true" aria-controls="scrPlayer">PLAYER</button>
+          <button role="tab" id="tabStats" aria-selected="false" aria-controls="scrStats">STATS</button>
+        </div>
+      </div>
+      <p class="hint">Mockup only. Song, artist and lyrics are made up; the chiptune is generated live in your browser. Demo XP runs at 1 per second (the real rate would be 1 per minute).</p>
+    </div>
+
+    <div class="notes">
+      <section>
+        <h2>WHAT CHANGED</h2>
+        <ul class="changes">
+          <li><span class="dot"><span data-icon="disc" data-px="2"></span></span><div><strong>Pixelated covers</strong><p>Each cover is downsampled to 32×32, dithered, and scaled up with no smoothing. Also used as the player background. New option <code>PlayerBackgroundStyle.PIXEL</code>.</p></div></li>
+          <li><span class="dot"><span data-icon="star" data-px="2"></span></span><div><strong>Square corners, hard shadows, no glass</strong><p>Every shape goes to 0dp, shadows become solid offsets, and Liquid Glass is off in pixel mode. A <code>pixelMode</code> branch in <code>Theme.kt</code>.</p></div></li>
+          <li><span class="dot"><span data-icon="next" data-px="2"></span></span><div><strong>Block seek bar</strong><p>32 cells that fill one at a time. New <code>SliderStyle.BLOCKS</code> next to Wavy and Slim.</p></div></li>
+          <li><span class="dot"><span data-icon="note" data-px="2"></span></span><div><strong>Arcade lyrics</strong><p>The active line is set in a pixel font and words light up in steps, using Echo's existing word timing. New <code>LyricsAnimationStyle.ARCADE</code>.</p></div></li>
+          <li><span class="dot"><span data-icon="flame" data-px="2"></span></span><div><strong>XP, levels, streaks</strong><p>Computed from the plays Echo already logs (<code>Event</code>: song, time, play length). No new tracking and no database migration.</p></div></li>
+          <li><span class="dot"><span data-icon="heart" data-px="2"></span></span><div><strong>Stats as a save file</strong><p>Your level and class, top tracks as an inventory, badges and weekly quests. A pixel layout for <code>StatsScreen.kt</code>.</p></div></li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>BUILD ORDER</h2>
+        <div class="phases">
+          <div class="phase"><span class="n">PHASE 1</span><b>Instant pixel</b><p>Palette, square corners, pixel headings, block seek bar, pixelated cover.</p></div>
+          <div class="phase"><span class="n">PHASE 2</span><b>Full skin</b><p>Pixel background, arcade lyrics, icon set, stepped motion.</p></div>
+          <div class="phase"><span class="n">PHASE 3</span><b>Game core</b><p>XP, levels and streaks from play history, plus level-up banner.</p></div>
+          <div class="phase"><span class="n">PHASE 4</span><b>Save file</b><p>Pixel stats, badges, weekly recap.</p></div>
+          <div class="phase"><span class="n">PHASE 5</span><b>Quests</b><p>Weekly quests, Echo Brain side quests, 128bitlife XP.</p></div>
+        </div>
+      </section>
+
+      <div class="callout"><b>Opt-in, not a fork.</b> Every piece slots into a style option Echo already has, so it can go to your friends as one pull request and sit next to the Material and Apple players. Echo is GPL-3.0, so any fork would also have to stay open source.</div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  // ---------- pixel icons (bitmaps → crisp SVG) ----------
+  var ICONS = {
+    play:["X......","XXX....","XXXXX..","XXXXXXX","XXXXX..","XXX....","X......"],
+    pause:["XX..XX.","XX..XX.","XX..XX.","XX..XX.","XX..XX.","XX..XX.","XX..XX."],
+    next:["X....XX","XX...XX","XXX..XX","XXXX.XX","XXX..XX","XX...XX","X....XX"],
+    prev:["XX....X","XX...XX","XX..XXX","XX.XXXX","XX..XXX","XX...XX","XX....X"],
+    shuffle:["XX...XX","..X.X..","...X...","..X.X..","XX...XX"],
+    repeat:[".XXXXX.","X....X.","X...XXX","X.....X","XXX...X",".X....X",".XXXXX."],
+    heart:[".XX.XX.","XXXXXXX","XXXXXXX",".XXXXX.","..XXX..","...X..."],
+    flame:["...X...","..XX...","..XXX.X",".XXXXXX","XXX.XXX","XX...XX",".XX.XX.","..XXX.."],
+    star:["...X...","...X...","XXXXXXX",".XXXXX.","..XXX..",".XX.XX.","X.....X"],
+    moon:["..XXX..",".XX....","XX.....","XX.....","XX.....",".XX....","..XXX.."],
+    note:["..XXXXX","..X...X","..X...X","..X...X","XXX.XXX","XXX.XXX"],
+    disc:[".XXXXX.","XX...XX","X..X..X","X.XXX.X","X..X..X","XX...XX",".XXXXX."],
+    lock:["..XXX..",".X...X.",".X...X.","XXXXXXX","XXX.XXX","XXX.XXX","XXXXXXX"]
+  };
+  function iconSVG(name, px){
+    var rows = ICONS[name], h = rows.length, w = rows[0].length, r = "";
+    rows.forEach(function(row,y){ for(var x=0;x<w;x++) if(row[x]==="X") r += '<rect x="'+x+'" y="'+y+'" width="1" height="1"/>'; });
+    return '<svg class="ico" viewBox="0 0 '+w+' '+h+'" width="'+(w*px)+'" height="'+(h*px)+'" fill="currentColor" aria-hidden="true">'+r+'</svg>';
+  }
+  function paintIcons(root){
+    (root||document).querySelectorAll("[data-icon]").forEach(function(el){ el.innerHTML = iconSVG(el.dataset.icon, +el.dataset.px||3); });
+  }
+  paintIcons();
+
+  // ---------- album art: one scene, rendered smooth (stock) or pixel + dithered (128bit) ----------
+  function hex(h){ return [parseInt(h.slice(1,3),16),parseInt(h.slice(3,5),16),parseInt(h.slice(5,7),16)]; }
+  function mix(a,b,t){ return [a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t,a[2]+(b[2]-a[2])*t]; }
+  var C = {sky0:hex("#1a0b3d"),sky1:hex("#ff5d8f"),sunA:hex("#ffd23f"),sunB:hex("#ff9f1c"),ground:hex("#120a26"),grid:hex("#2dd4bf")};
+  function scene(u,v){
+    var hz = .64;
+    if (v < hz){
+      var sky = mix(C.sky0, C.sky1, Math.pow(v/hz,1.7));
+      var dx=u-.5, dy=v-.47;
+      if (dx*dx+dy*dy < .07 && !(v>.47 && Math.floor(v*44)%3===0)) return mix(C.sunA,C.sunB,Math.min(1,Math.max(0,(v-.2)/.44)));
+      return sky;
+    }
+    var z = v-hz+.015, depth = .5/z;
+    var hline = (depth % 1) < .16, x = (u-.5)/z, vline = Math.abs(((x*.11)%1+1)%1-.5) > .43;
+    if (hline || vline) return mix(C.ground, C.grid, Math.min(1, z*4+.25));
+    return C.ground;
+  }
+  var PAL = ["#0b0b16","#120a26","#1a0b3d","#3b1257","#6b1f6e","#a11e50","#ff5d8f","#ff9f1c","#ffd23f","#2dd4bf","#1a6f6a"].map(hex);
+  var BAYER = [0,8,2,10,12,4,14,6,3,11,1,9,15,7,13,5];
+  function nearest(c){
+    var best=PAL[0], bd=1e9;
+    PAL.forEach(function(p){ var d=(p[0]-c[0])*(p[0]-c[0])+(p[1]-c[1])*(p[1]-c[1])+(p[2]-c[2])*(p[2]-c[2]); if(d<bd){bd=d;best=p;} });
+    return best;
+  }
+  function renderSmooth(cv){
+    var s=cv.width, ctx=cv.getContext("2d"), img=ctx.createImageData(s,s);
+    for (var y=0;y<s;y++) for (var x=0;x<s;x++){ var c=scene((x+.5)/s,(y+.5)/s), i=(y*s+x)*4; img.data[i]=c[0];img.data[i+1]=c[1];img.data[i+2]=c[2];img.data[i+3]=255; }
+    ctx.putImageData(img,0,0);
+  }
+  function renderPixel(cv){
+    var s=cv.width, ctx=cv.getContext("2d"), img=ctx.createImageData(s,s), ss=4;
+    for (var y=0;y<s;y++) for (var x=0;x<s;x++){
+      var acc=[0,0,0];
+      for (var a=0;a<ss;a++) for (var b=0;b<ss;b++){ var c=scene((x+(a+.5)/ss)/s,(y+(b+.5)/ss)/s); acc[0]+=c[0];acc[1]+=c[1];acc[2]+=c[2]; }
+      var t=(BAYER[(y%4)*4+(x%4)]/16-.5)*48;
+      var p=nearest([acc[0]/16+t,acc[1]/16+t,acc[2]/16+t]), i=(y*s+x)*4;
+      img.data[i]=p[0];img.data[i+1]=p[1];img.data[i+2]=p[2];img.data[i+3]=255;
+    }
+    ctx.putImageData(img,0,0);
+  }
+  renderPixel(document.getElementById("artPix"));
+  renderPixel(document.getElementById("bgArt"));
+  renderSmooth(document.getElementById("artSmooth"));
+
+  // stats avatar: a tiny wizard with headphones
+  (function(){
+    var A=["......XXXX......",".....XPPPPX.....","....XPPPPPPX....","...XPPPPPPPPX...","..XXXXXXXXXXXX..",".TT.XSSSSSSX.TT.",".TT.XSKSSKSX.TT.",".TT.XSSSSSSX.TT.","....XSSWWSSX....","....XXXXXXXX....","...XOOOOOOOOX...","..XOOOOOOOOOOX..","..XOOOOOOOOOOX..","...XOOOOOOOOX...","....XXX..XXX....","....XXX..XXX...."];
+    var col={X:"#0b0b16",P:"#ff5d8f",T:"#2dd4bf",S:"#f2c9a0",K:"#0b0b16",W:"#a11e50",O:"#ff9f1c"};
+    var ctx=document.getElementById("avatar").getContext("2d");
+    ctx.fillStyle="#141428";ctx.fillRect(0,0,16,16);
+    A.forEach(function(r,y){ for(var x=0;x<16;x++){ var k=r[x]; if(col[k]){ctx.fillStyle=col[k];ctx.fillRect(x,y,1,1);} } });
+  })();
+
+  // ---------- build seek cells + visualizer ----------
+  var cellsEl=document.getElementById("cells"), vizEl=document.getElementById("viz");
+  for (var i=0;i<32;i++) cellsEl.appendChild(document.createElement("i"));
+  for (var j=0;j<14;j++) vizEl.appendChild(document.createElement("i"));
+  var cells=cellsEl.children, bars=vizEl.children;
+
+  // ---------- lyrics (original, made up for the mockup) ----------
+  var LYR=["Headlights on the overpass","Radio stuck on track sixteen","Every mile a little louder","Every light a little green","Turn it up, the night is ours","Pixel stars on the windscreen"];
+  var LINE=4.2;
+  var lyCur=document.getElementById("lyCur"), lyNext=document.getElementById("lyNext"), lastLine=-1;
+  function drawLyrics(t){
+    var n=Math.floor(t/LINE)%LYR.length, words=LYR[n].split(" "), frac=(t%LINE)/LINE, lit=Math.floor(frac*(words.length+1));
+    if (n!==lastLine){
+      lyCur.innerHTML=words.map(function(w){return '<span class="w">'+w+'</span>';}).join(" ")+'<span class="cursor"></span>';
+      lyNext.textContent=LYR[(n+1)%LYR.length]; lastLine=n;
+    }
+    var ws=lyCur.querySelectorAll(".w"); for (var k=0;k<ws.length;k++) ws[k].classList.toggle("lit",k<lit);
+  }
+
+  // ---------- XP / levels ----------
+  var level=14, xp=5790;
+  function needFor(l){ return Math.round(100*Math.pow(l,1.5)/10)*10; } // XP to reach level l
+  var need=needFor(level+1);
+  var xpFill=document.getElementById("xpFill"), xpText=document.getElementById("xpText"), lu=document.getElementById("levelUp");
+  function drawXP(){
+    xpFill.style.width=Math.min(100,xp/need*100)+"%";
+    xpText.textContent=xp.toLocaleString("en-US")+" / "+need.toLocaleString("en-US")+" XP";
+    document.querySelectorAll(".lvlNum").forEach(function(e){e.textContent=level;});
+  }
+  function gain(n){
+    xp+=n;
+    if (xp>=need){
+      xp-=need; level++; need=needFor(level+1);
+      document.getElementById("luNum").textContent=level;
+      lu.hidden=false; lu.classList.remove("show"); void lu.offsetWidth; lu.classList.add("show");
+      blip();
+      setTimeout(function(){lu.hidden=true;},2600);
+    }
+    drawXP();
+  }
+  drawXP();
+
+  // ---------- chiptune (Web Audio) ----------
+  var ac=null, analyser=null, master=null, timer=null, step=0, nextTime=0, freq=null;
+  var BPM=112, S16=60/BPM/4;
+  var CH=[[57,60,64],[53,57,60],[48,52,55],[55,59,62]]; // Am F C G
+  function mtof(m){ return 440*Math.pow(2,(m-69)/12); }
+  function tone(type,f,t,dur,g){
+    var o=ac.createOscillator(), v=ac.createGain();
+    o.type=type; o.frequency.value=f; v.gain.setValueAtTime(g,t); v.gain.exponentialRampToValueAtTime(.0001,t+dur);
+    o.connect(v); v.connect(master); o.start(t); o.stop(t+dur+.02);
+  }
+  var noiseBuf=null;
+  function hat(t){
+    var s=ac.createBufferSource(), v=ac.createGain(), f=ac.createBiquadFilter();
+    s.buffer=noiseBuf; f.type="highpass"; f.frequency.value=7000;
+    v.gain.setValueAtTime(.05,t); v.gain.exponentialRampToValueAtTime(.0001,t+.05);
+    s.connect(f); f.connect(v); v.connect(master); s.start(t); s.stop(t+.06);
+  }
+  function schedule(){
+    while (nextTime < ac.currentTime+.12){
+      var bar=Math.floor(step/16)%4, s=step%16, ch=CH[bar];
+      var arp=[0,1,2,1,0,1,2,3][s%8], note=arp===3?ch[0]+12:ch[arp];
+      tone("square",mtof(note+12),nextTime,S16*.9,.035);
+      if (s%4===0) tone("triangle",mtof(ch[0]-12),nextTime,S16*3.6,.16);
+      if (s%4===2) hat(nextTime);
+      if (s===0 && bar%2===0) tone("square",mtof(ch[2]+24),nextTime,S16*6,.02);
+      nextTime+=S16; step++;
+    }
+  }
+  function initAudio(){
+    var AC=window.AudioContext||window.webkitAudioContext; if(!AC) return false;
+    ac=new AC(); master=ac.createGain(); master.gain.value=.7;
+    analyser=ac.createAnalyser(); analyser.fftSize=64; freq=new Uint8Array(analyser.frequencyBinCount);
+    master.connect(analyser); analyser.connect(ac.destination);
+    noiseBuf=ac.createBuffer(1,ac.sampleRate*.1,ac.sampleRate);
+    var d=noiseBuf.getChannelData(0); for(var i=0;i<d.length;i++) d[i]=Math.random()*2-1;
+    return true;
+  }
+  function blip(){
+    if(!ac) return; var t=ac.currentTime;
+    [72,76,79,84].forEach(function(m,i){ tone("square",mtof(m),t+i*.07,.09,.05); });
+  }
+
+  // ---------- playback state ----------
+  var playing=false, pos=0, last=0, xpAcc=0, DUR=238;
+  var playBtn=document.getElementById("play"), playIco=document.getElementById("playIco");
+  function setPlaying(p){
+    playing=p; playBtn.setAttribute("aria-label",p?"Pause":"Play");
+    playIco.dataset.icon=p?"pause":"play"; paintIcons(playBtn);
+    if (p){
+      if(!ac && !initAudio()) { }
+      if(ac){ ac.resume(); nextTime=ac.currentTime+.05; clearInterval(timer); timer=setInterval(schedule,25); }
+      last=performance.now();
+    } else if (ac){ clearInterval(timer); ac.suspend(); }
+  }
+  playBtn.addEventListener("click",function(){ setPlaying(!playing); });
+  document.getElementById("next").addEventListener("click",function(){ pos=0; step=0; });
+  document.getElementById("prev").addEventListener("click",function(){ pos=0; step=0; });
+  document.getElementById("like").addEventListener("click",function(){
+    var on=this.getAttribute("aria-pressed")!=="true"; this.setAttribute("aria-pressed",on); this.style.opacity=on?1:.35; if(on) blip();
+  });
+  cellsEl.addEventListener("click",function(e){ var r=cellsEl.getBoundingClientRect(); pos=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width))*DUR; });
+  cellsEl.addEventListener("keydown",function(e){ if(e.key==="ArrowRight") pos=Math.min(DUR,pos+10); if(e.key==="ArrowLeft") pos=Math.max(0,pos-10); });
+
+  function fmt(s){ s=Math.floor(s); return Math.floor(s/60)+":"+("0"+s%60).slice(-2); }
+  var slimFill=document.getElementById("slimFill"), tNow=document.getElementById("tNow");
+  function frame(now){
+    if (playing){
+      var dt=Math.max(0,(now-last)/1000); last=now; pos+=dt; if(pos>=DUR) pos=0;
+      xpAcc+=dt; if (xpAcc>=1){ var n=Math.floor(xpAcc); xpAcc-=n; gain(n); }
+    }
+    var f=pos/DUR, on=Math.floor(f*32);
+    for (var i=0;i<32;i++){ cells[i].className = i<on ? "on" : (i===on ? "head" : ""); }
+    slimFill.style.width=(f*100)+"%"; tNow.textContent=fmt(pos); cellsEl.setAttribute("aria-valuenow",Math.floor(pos));
+    if (analyser && playing){
+      analyser.getByteFrequencyData(freq);
+      for (var b=0;b<bars.length;b++){ var v=freq[b+1]/255, lvl=Math.max(1,Math.round(v*8)); bars[b].style.height=(lvl*5)+"px"; }
+    } else { for (var c=0;c<bars.length;c++) bars[c].style.height="5px"; }
+    drawLyrics(pos);
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+
+  // ---------- skin switch + tabs ----------
+  var phone=document.getElementById("phone"), bp=document.getElementById("skinPixel"), bs=document.getElementById("skinStock");
+  function skin(stock){ phone.classList.toggle("stock",stock); bp.setAttribute("aria-pressed",!stock); bs.setAttribute("aria-pressed",stock); }
+  bp.addEventListener("click",function(){skin(false);}); bs.addEventListener("click",function(){skin(true);});
+  var tp=document.getElementById("tabPlayer"), ts=document.getElementById("tabStats");
+  function tab(stats){
+    document.getElementById("scrPlayer").hidden=stats; document.getElementById("scrStats").hidden=!stats;
+    tp.setAttribute("aria-selected",!stats); ts.setAttribute("aria-selected",stats);
+  }
+  tp.addEventListener("click",function(){tab(false);}); ts.addEventListener("click",function(){tab(true);});
+})();
+</script>

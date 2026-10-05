@@ -8,6 +8,12 @@ Part of the 128bit family.
 > Carlos (Claude Code) has something concrete to react to. The landing page
 > is live; the app itself is unstarted.
 
+## Echo Music × 128bit
+
+Plan for giving our friends' Echo Music app (Android, YouTube Music based) a
+pixel skin and an XP/streak game layer: [`PIXELFY.md`](PIXELFY.md). Clickable
+mockup: [`mockups/echo-128bit.html`](mockups/echo-128bit.html).
+
 ## Provider API status (researched 2026-10-04)
 
 | Provider | API | Auth | Difficulty |
