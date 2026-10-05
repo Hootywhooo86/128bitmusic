@@ -108,6 +108,8 @@ fun NavGraphBuilder.navigationBuilder(
 
   composable("stats") { StatsScreen(navController) }
 
+  composable("save_file") { echo.music.iad1tya.game.SaveFileScreen(navController) }
+
   composable("mood_and_genres") { MoodAndGenresScreen(navController, scrollBehavior) }
 
   composable("account") { AccountScreen(navController, scrollBehavior) }

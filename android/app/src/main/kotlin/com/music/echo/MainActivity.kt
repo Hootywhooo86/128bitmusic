@@ -34,6 +34,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.rounded.LocalFireDepartment
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
@@ -794,6 +796,8 @@ class MainActivity : ComponentActivity() {
           com.music.innertube.YouTube.blockedArtists = blockedArtists
         }
         val homeViewModel: HomeViewModel = hiltViewModel()
+        val gameViewModel: echo.music.iad1tya.game.GameViewModel = hiltViewModel()
+        val gameState by gameViewModel.state.collectAsState()
         val accountImageUrl by homeViewModel.accountImageUrl.collectAsState()
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val onRailSearchLongClick: () -> Unit =
@@ -1077,6 +1081,19 @@ class MainActivity : ComponentActivity() {
 
         var showWelcomeDialog by remember { mutableStateOf(false) }
 
+        // 128bit: tell the player once each time they reach a new level.
+        LaunchedEffect(gameState?.level) {
+          val level = gameState?.level ?: return@LaunchedEffect
+          val key = echo.music.iad1tya.game.GameLastLevelKey
+          val seen = context.dataStore.data.first()[key]
+          if (seen == null || level > seen) {
+            context.dataStore.edit { it[key] = level }
+            if (seen != null) {
+              snackbarHostState.showSnackbar("LEVEL UP! You reached LV $level")
+            }
+          }
+        }
+
         LaunchedEffect(Unit) {
           val prefs = context.dataStore.data.first()
           val lastOpened = prefs[echo.music.iad1tya.constants.LastOpenedVersionCodeKey] ?: -1
@@ -1275,6 +1292,43 @@ class MainActivity : ComponentActivity() {
                             ),
                         )
                         if (navBackStackEntry?.destination?.route == Screens.Home.route) {
+                          gameState?.let { game ->
+                            Row(
+                              verticalAlignment = Alignment.CenterVertically,
+                              horizontalArrangement = androidx.compose.foundation.layout.Arrangement.spacedBy(6.dp),
+                              modifier =
+                                Modifier.clip(PixelCornerShape(4.dp))
+                                  .clickable { navController.navigate("save_file") }
+                                  .padding(vertical = 2.dp, horizontal = 2.dp)
+                            ) {
+                              Text(
+                                text = "LV ${game.level}",
+                                style = MaterialTheme.typography.labelMedium,
+                                color = MaterialTheme.colorScheme.primary
+                              )
+                              Box(Modifier.width(64.dp)) {
+                                echo.music.iad1tya.game.PixelBlocks(
+                                  fraction = game.levelProgress,
+                                  color = MaterialTheme.colorScheme.primary,
+                                  height = 8.dp,
+                                  cells = 10
+                                )
+                              }
+                              if (game.currentStreak > 0) {
+                                Icon(
+                                  imageVector = androidx.compose.material.icons.Icons.Rounded.LocalFireDepartment,
+                                  contentDescription = null,
+                                  tint = MaterialTheme.colorScheme.secondary,
+                                  modifier = Modifier.size(14.dp)
+                                )
+                                Text(
+                                  text = "${game.currentStreak}",
+                                  style = MaterialTheme.typography.labelMedium,
+                                  color = MaterialTheme.colorScheme.secondary
+                                )
+                              }
+                            }
+                          }
                           val uriHandler = androidx.compose.ui.platform.LocalUriHandler.current
                           Row(
                             verticalAlignment = Alignment.CenterVertically,

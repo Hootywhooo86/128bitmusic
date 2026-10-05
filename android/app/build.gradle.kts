@@ -240,6 +240,7 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach 
 }
 
 dependencies {
+  testImplementation(libs.junit)
   implementation("nl.dionsegijn:konfetti-compose:2.0.4")
 
   implementation(project(":core"))
