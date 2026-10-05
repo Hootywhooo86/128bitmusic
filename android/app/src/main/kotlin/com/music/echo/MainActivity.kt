@@ -33,6 +33,7 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
@@ -242,6 +243,9 @@ import timber.log.Timber
 val EmphasizedEasing = CubicBezierEasing(0.2f, 0.0f, 0.0f, 1.0f)
 
 @Suppress("DEPRECATION", "ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
+/** Where the "Buy me a coffee" link under the app title goes. Swap in your own page if you like. */
+private const val SupportCoffeeUrl = "https://buymeacoffee.com/iad1tya"
+
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
   companion object {
@@ -1076,8 +1080,12 @@ class MainActivity : ComponentActivity() {
         LaunchedEffect(Unit) {
           val prefs = context.dataStore.data.first()
           val lastOpened = prefs[echo.music.iad1tya.constants.LastOpenedVersionCodeKey] ?: -1
+          // 128bit: the welcome / support popup no longer opens on its own (every CI build bumps
+          // the version, so it showed after each update). Support lives under the app title.
           if (lastOpened < BuildConfig.VERSION_CODE) {
-            showWelcomeDialog = true
+            context.dataStore.edit {
+              it[echo.music.iad1tya.constants.LastOpenedVersionCodeKey] = BuildConfig.VERSION_CODE
+            }
           }
         }
 
@@ -1127,7 +1135,7 @@ class MainActivity : ComponentActivity() {
 
         val currentTitle =
           when (navBackStackEntry?.destination?.route) {
-            Screens.Home.route -> "Echo Music"
+            Screens.Home.route -> "128bit Music"
             Screens.Search.route -> stringResource(R.string.search)
             Screens.Library.route -> stringResource(R.string.filter_library)
             Screens.ListenTogether.route -> stringResource(R.string.together)
@@ -1257,14 +1265,39 @@ class MainActivity : ComponentActivity() {
                 Row {
                   TopAppBar(
                     title = {
-                      Text(
-                        text = currentTitle,
-                        style =
-                          MaterialTheme.typography.titleLarge.copy(
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 24.sp
-                          ),
-                      )
+                      Column {
+                        Text(
+                          text = currentTitle,
+                          style =
+                            MaterialTheme.typography.titleLarge.copy(
+                              fontWeight = FontWeight.Bold,
+                              fontSize = 24.sp
+                            ),
+                        )
+                        if (navBackStackEntry?.destination?.route == Screens.Home.route) {
+                          val uriHandler = androidx.compose.ui.platform.LocalUriHandler.current
+                          Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = androidx.compose.foundation.layout.Arrangement.spacedBy(4.dp),
+                            modifier =
+                              Modifier.clip(PixelCornerShape(4.dp))
+                                .clickable { uriHandler.openUri(SupportCoffeeUrl) }
+                                .padding(vertical = 2.dp, horizontal = 2.dp)
+                          ) {
+                            Icon(
+                              painter = painterResource(R.drawable.coffee),
+                              contentDescription = null,
+                              tint = MaterialTheme.colorScheme.secondary,
+                              modifier = Modifier.size(14.dp)
+                            )
+                            Text(
+                              text = "Buy me a coffee",
+                              style = MaterialTheme.typography.labelSmall,
+                              color = MaterialTheme.colorScheme.secondary
+                            )
+                          }
+                        }
+                      }
                     },
                     actions = {
                       if (showHistoryButton) {

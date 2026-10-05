@@ -495,6 +495,15 @@ fun PlayerMenu(
                   }
                 )
               )
+              mediaMetadata.artists.firstOrNull()?.let { a ->
+                blockArtistMenuItem(context, a.id, a.name) {
+                  // Blocking the artist that is playing right now: move on to the next song.
+                  if (playerConnection.player.currentMediaItem?.mediaId == mediaMetadata.id) {
+                    playerConnection.player.seekToNext()
+                  }
+                  onDismiss()
+                }?.let { add(it) }
+              }
             }
             if (mediaMetadata.album != null) {
               add(

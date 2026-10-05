@@ -892,6 +892,7 @@ fun SongMenu(
                 }
               )
             )
+            song.artists.firstOrNull()?.let { a -> blockArtistMenuItem(context, a.id, a.name) { onDismiss() }?.let { add(it) } }
             if (song.song.albumId != null) {
               add(
                 Material3MenuItemData(

@@ -728,6 +728,7 @@ fun YouTubeSongMenu(
                   }
                 )
               )
+              song.artists.firstOrNull()?.let { a -> blockArtistMenuItem(context, a.id, a.name) { onDismiss() }?.let { add(it) } }
             }
             song.album?.let { album ->
               add(
