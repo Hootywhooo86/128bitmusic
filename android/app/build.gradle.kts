@@ -33,7 +33,8 @@ android {
     applicationId = "com.bit128.music"
     minSdk = 26
     targetSdk = 36
-    versionCode = 162
+    // 128bit: CI builds count up with the Actions run number so each one installs as an update.
+    versionCode = System.getenv("GITHUB_RUN_NUMBER")?.toIntOrNull()?.let { 1000 + it } ?: 162
     versionName = "1.4.1"
 
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"

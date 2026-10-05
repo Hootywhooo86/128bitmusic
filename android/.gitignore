@@ -34,3 +34,7 @@ lastfm-empty/build/
 
 # Logs
 *.log
+
+# 128bit: release signing key is restored from a GitHub secret in CI; never commit it
+keystore.jks
+*.keystore
