@@ -1601,7 +1601,12 @@ fun BottomSheetPlayer(
               overflow = TextOverflow.Ellipsis,
               color = TextBackgroundColor,
               modifier =
-                Modifier.basicMarquee(iterations = 1, initialDelayMillis = 3000, velocity = 30.dp)
+                Modifier.basicMarquee(
+            iterations = Int.MAX_VALUE,
+            initialDelayMillis = 1500,
+            repeatDelayMillis = 2000,
+            velocity = 30.dp
+          )
                   .combinedClickable(
                     enabled = true,
                     indication = null,
@@ -1672,7 +1677,12 @@ fun BottomSheetPlayer(
               Box(
                 modifier =
                   Modifier.fillMaxWidth()
-                    .basicMarquee(iterations = 1, initialDelayMillis = 3000, velocity = 30.dp)
+                    .basicMarquee(
+            iterations = Int.MAX_VALUE,
+            initialDelayMillis = 1500,
+            repeatDelayMillis = 2000,
+            velocity = 30.dp
+          )
                     .padding(end = 12.dp)
               ) {
                 var layoutResult by remember { mutableStateOf<TextLayoutResult?>(null) }

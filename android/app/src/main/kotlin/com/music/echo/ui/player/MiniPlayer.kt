@@ -625,11 +625,19 @@ private fun NewMiniPlayerSongInfo(
         text = metadata.title,
         color = onSurfaceColor,
         fontSize = 14.sp,
+        // 128bit: the pixel font is taller than Echo's; fixed line heights keep both lines
+        // inside the 64dp mini player instead of clipping the artist.
+        lineHeight = 17.sp,
         fontWeight = FontWeight.Medium,
         maxLines = 1,
         overflow = TextOverflow.Ellipsis,
         modifier =
-          Modifier.basicMarquee(iterations = 1, initialDelayMillis = 3000, velocity = 30.dp),
+          Modifier.basicMarquee(
+            iterations = Int.MAX_VALUE,
+            initialDelayMillis = 1500,
+            repeatDelayMillis = 2000,
+            velocity = 30.dp
+          ),
       )
       Row(
         horizontalArrangement = Arrangement.SpaceBetween,
@@ -641,10 +649,16 @@ private fun NewMiniPlayerSongInfo(
             text = metadata.artists.joinToString { it.name },
             color = onSurfaceColor.copy(alpha = 0.7f),
             fontSize = 12.sp,
+            lineHeight = 14.sp,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
             modifier =
-              Modifier.basicMarquee(iterations = 1, initialDelayMillis = 3000, velocity = 30.dp),
+              Modifier.basicMarquee(
+            iterations = Int.MAX_VALUE,
+            initialDelayMillis = 1500,
+            repeatDelayMillis = 2000,
+            velocity = 30.dp
+          ),
           )
         }
       }
@@ -981,6 +995,7 @@ private fun LegacyMiniMediaInfo(
         text = mediaMetadata.title,
         color = MaterialTheme.colorScheme.onSurface,
         fontSize = 16.sp,
+        lineHeight = 19.sp,
         fontWeight = FontWeight.Bold,
         maxLines = 1,
         overflow = TextOverflow.Ellipsis,
@@ -992,6 +1007,7 @@ private fun LegacyMiniMediaInfo(
           text = mediaMetadata.artists.joinToString { it.name },
           color = MaterialTheme.colorScheme.secondary,
           fontSize = 12.sp,
+          lineHeight = 14.sp,
           maxLines = 1,
           overflow = TextOverflow.Ellipsis,
         )
